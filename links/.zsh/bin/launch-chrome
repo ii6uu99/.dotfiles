@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+if [[ $(uname) == "FreeBSD" ]]; then
+	chrome
+elif [[ $(uname -a | grep Ubuntu) ]]; then
+	google-chrome
+fi

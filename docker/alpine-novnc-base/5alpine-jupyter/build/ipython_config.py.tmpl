@@ -1,0 +1,21 @@
+c=get_config()
+
+
+startup = [
+  'from metakernel import register_ipython_magics',
+  'register_ipython_magics()'
+]
+
+
+c.InteractiveShellApp.extensions = [
+  'pandas_td.ipython',
+]
+
+c.InteractiveShellApp.exec_lines = [
+  'startup',
+  '%matplotlib inline',
+  'import os, sys, errno, datetime',
+  'import numpy as np',
+  'import pandas as pd',
+  'import pandas_td as td',
+]

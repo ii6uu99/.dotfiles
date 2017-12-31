@@ -1,0 +1,14 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "yapf",
+    "python.disablePromptForFeatures": [
+        "pylint",
+        "flake8",
+        "yapf",
+    ],
+
+    "editor.fontsize":18,
+    "workbench.iconTheme":"vscode-icons",
+    "python.linting.pylintArgs":["-load-plugins", "pylint_django"],
+    "python.pythonPath": "/usr/bin/python3"
+}

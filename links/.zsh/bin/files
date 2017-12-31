@@ -1,0 +1,4 @@
+#!/bin/sh
+
+grep -ir '$1' $2 | cut -d':' -f1 | sort -u | less
+

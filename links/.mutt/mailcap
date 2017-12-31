@@ -1,0 +1,32 @@
+# Handling MIME Attachements
+#
+# Reminder:yhandling x-server/no-x-server
+#<Content-Type>; <X viewer>; test RunningX
+#<Content-Type>; <text viewer>
+#<Content-Type>; <text converter>; copiousoutput
+#
+# handling attachement without blocking mutt
+#application/pdf; { set -m \; /bin/mv -T %s %s.mv \; ( evince %s.mv >/dev/null 2>&1 \; /bin/rm %s.mv \; ) & } \; disown -a
+#
+
+text/html; ~/.mutt/mutt_bgrun firefox -new-tab %s; test RunningX; needsterminal &;
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+
+image/*;                        ~/.mutt/mutt_bgrun feh -F      %s; test RunningX; needsterminal &;
+audio/*;                        ~/.mutt/mutt_bgrun vlc         %s; test RunningX; needsterminal &;
+video/*;                        ~/.mutt/mutt_bgrun vlc         %s; test RunningX; needsterminal &;
+
+application/pdf;                ~/.mutt/mutt_bgrun evince      %s; test RunningX; needsterminal &;
+
+application/msword;             ~/.mutt/mutt_bgrun libreoffice %s; test RunningX; needsterminal &;
+application/vnd.msword;		    ~/.mutt/mutt_bgrun libreoffice %s; test RunningX; needsterminal &;
+application/vnd.ms-excel;	    ~/.mutt/mutt_bgrun libreoffice %s; test RunningX; needsterminal &;
+application/vnd.ms-powerpoint;	~/.mutt/mutt_bgrun libreoffice %s; test RunningX; needsterminal &;
+#application/msword;		    word2text %s; copiousoutput
+#application/vnd.msword;		word2text %s; copiousoutput
+
+
+application/vnd.oasis.opendocument.text; ~/.mutt/mutt_bgrun libreoffice %s; test RunningX; needsterminal &;
+
+
+

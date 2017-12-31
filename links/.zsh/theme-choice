@@ -1,0 +1,34 @@
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Here are some selected themes !
+#ZSH_THEME="robbyrussell"
+#ZSH_THEME="aussiegeek"
+#ZSH_THEME="avit"
+#ZSH_THEME="bira"
+#ZSH_THEME="blinks"
+#ZSH_THEME="candy"
+#ZSH_THEME="clean"
+#ZSH_THEME="dst"
+#ZSH_THEME="dstufft"
+#ZSH_THEME="fino"
+#ZSH_THEME="fox"
+#ZSH_THEME="intheloop"
+#ZSH_THEME="jonathan"
+#ZSH_THEME="juanghurtado"
+#ZSH_THEME="kphoen"
+#ZSH_THEME="mortalscumbag"
+#ZSH_THEME="murilasso"
+#ZSH_THEME="pmcgee"
+#ZSH_THEME="re5et"
+#ZSH_THEME="rkj-repos"
+#ZSH_THEME="smt"
+#ZSH_THEME="tjkirch"
+#ZSH_THEME="xiong-chiamiov-plus"
+#ZSH_THEME="ys"
+#ZSH_THEME="agnoster"
+
+
+# selection
+ZSH_THEME="cyrobin" # mon theme :-)
+#ZSH_THEME="jonathan"
+#ZSH_THEME="blinks"

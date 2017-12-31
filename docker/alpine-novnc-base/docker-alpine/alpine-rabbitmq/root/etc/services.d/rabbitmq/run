@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+
+# switch to the rabbitmq user and run the server
+su rabbitmq -c rabbitmq-server;

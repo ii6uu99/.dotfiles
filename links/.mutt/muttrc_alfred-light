@@ -1,0 +1,7 @@
+# Overwrite some settings
+# Keybindings
+source ~/.mutt/muttrc_qwerty
+
+# Display
+set sidebar_width = 20
+

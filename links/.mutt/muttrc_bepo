@@ -1,0 +1,27 @@
+#######################################
+## Bindings for bepo layout
+#######################################
+
+# source qwerty, and overwrite desired values
+source ~/.mutt/muttrc_qwerty
+
+# General bindings and macro
+bind browser,attach t next-entry
+bind browser,attach s previous-entry
+bind index,pager t next-undeleted
+bind index,pager s previous-undeleted
+bind generic,index t next-entry
+bind generic,index s previous-entry
+bind index k tag-entry
+bind index K tag-pattern
+bind index ,K untag-pattern
+bind index ,k tag-thread
+#bind pager,index é save-message
+macro pager,index é <save-message><kill-line>
+
+bind  index,pager S sidebar-prev
+bind  index,pager T sidebar-next
+
+bind  attach é save-entry
+macro attach É <save-entry><kill-line>~/Downloads/
+

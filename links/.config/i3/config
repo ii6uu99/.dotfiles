@@ -1,0 +1,93 @@
+# vim: ft=i3 expandtab:
+
+set $mod Mod1
+font pango:Source Code Pro for Powerline 10
+exec --no-startup-id ~/.dotfiles/bin/randombg
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec ~/.dotfiles/bin/term
+bindsym $mod+g exec ~/.dotfiles/bin/launch-chrome
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move window around
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# switch workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+
+# move to workspaces
+bindsym $mod+Shift+1 move workspace 1; workspace 1
+bindsym $mod+Shift+2 move workspace 2; workspace 2
+bindsym $mod+Shift+3 move workspace 3; workspace 3
+bindsym $mod+Shift+4 move workspace 4; workspace 4
+bindsym $mod+Shift+5 move workspace 5; workspace 5
+bindsym $mod+Shift+6 move workspace 6; workspace 6
+bindsym $mod+Shift+7 move workspace 7; workspace 7
+bindsym $mod+Shift+8 move workspace 8; workspace 8
+bindsym $mod+Shift+9 move workspace 9; workspace 9
+
+# use a specific split vertical/horizontal
+# | = 51
+# - = 20
+bindcode $mod+51 split h
+bindcode $mod+20 split v
+
+# change current layout
+bindsym $mod+s layout stacking
+bindsym $mod+p layout toggle split
+
+# resize window
+bindsym $mod+Shift+a mode "resize"
+mode "resize" {
+    # let the upper left be the "origin", so movements toward upper left
+    # are shrinking movements, and movements away from upper left are growing
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+
+    # enter and escape to return to normal mode
+    bindsym Escape mode "default"
+    bindsym $mod+Shift+a mode "default"
+}
+
+# special keys
+bindsym XF86MonBrightnessUp exec ~/.dotfiles/bin/brightness.sh +10
+bindsym XF86MonBrightnessDown exec ~/.dotfiles/bin/brightness.sh -10
+bindsym XF86AudioRaiseVolume exec amixer -c0 set Master 2db+
+bindsym XF86AudioLowerVolume exec amixer -c0 set Master 2db-
+bindsym XF86AudioMute exec amixer -c0 set Master toggle
+
+# major actions
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exit
+bindsym $mod+Shift+d exec i3lock -n -c 000000
+
+bar {
+    status_command i3status -c ~/.i3status.conf
+}

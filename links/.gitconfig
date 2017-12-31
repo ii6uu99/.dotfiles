@@ -1,0 +1,69 @@
+[user]
+	name = ii6uu99
+	email = ii6uu99@163.com
+	signingkey = ii6uu99@163.com
+
+[push]
+	default = upstream
+
+[core]
+	pager = less
+	whitespace = trailing-space,space-before-tab,indent-with-tab,cr-at-eol
+	excludesfile = ~/.gitignore-global
+	excludesfile = ~/.gitignore
+
+[mergetool]
+	keepBackup = true
+
+[http]
+	sslVerify = false
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+
+[diff]
+	tool = vimdiff
+
+[merge]
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[apply]
+	whitespace = nowarn
+
+[mergetool]
+	keepBackup = false
+
+[difftool]
+	prompt = false
+
+[alias]
+	lg = log --graph --decorate --oneline --all --pretty=format:'%C(yellow)%h %C(green)[%cd]%C(reset) %s' --abbrev-commit --date=short
+	tree = log --graph --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cd)%C(reset)' --abbrev-commit --date=short
+	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	lg3 = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	st = status -sb
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	dfc = diff --cached
+	l = log --oneline --decorate --name-status
+	lg = log --oneline --decorate --name-status --graph
+	lo = log --oneline
+	lastweek = log --oneline --since=\"1 week ago\"
+	lg = !"git lg1"
+
+[gitreview]
+	username = briancline
+
+[help]
+	autocorrect = 0
+[credential]
+	helper = store

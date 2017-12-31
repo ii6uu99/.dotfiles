@@ -1,0 +1,69 @@
+# .muttrc for use with IMAP
+# LAAS Specific settings
+
+# IMAP Settings
+set imap_user = "crobin"
+set imap_pass = ""
+set folder = "imaps://imap.laas.fr/"
+set spoolfile = "imaps://imap.laas.fr/INBOX"
+
+# SMTP Settings
+set smtp_url="smtps://crobin@smtp.laas.fr:465/"
+set smtp_pass = ""
+
+set from = "cyril.robin@laas.fr"
+set realname = "Cyril Robin"
+set hostname = "laas.fr"
+set postponed = "+Drafts"
+set record = "+Sent"
+set mbox = "+Archives"
+
+my_hdr Organization: LAAS/CNRS (Toulouse, France)
+my_hdr bcc: cyril.robin@laas.fr
+
+# Set alternate (other adresses that are me)
+alternates "cyril.robin@laas.fr"
+alternates "crobin@laas.fr"
+alternates "cyril.robin@insa-toulouse.fr"
+alternates "crobin@insa-toulouse.fr"
+alternates "cyril.robin@etud.insa-toulouse.fr"
+alternates "crobin@etud.insa-toulouse.fr"
+
+# known mailing-list
+lists pea-action@onera.fr
+# subscriped mailing-list
+subscribe robotics-worldwide@usc.edu
+subscribe euron-dist@iais.fraunhofer.de
+subscribe newsletter@gdr-robotique.org
+subscribe ai-robotics@googlegroups.com
+subscribe jet@inria.fr
+subscribe annonce@laas.fr
+subscribe toutlelaas@laas.fr
+subscribe ria@laas.fr
+subscribe ris@laas.fr
+subscribe robots@laas.fr
+subscribe robots-source@laas.fr
+subscribe morse-users@laas.fr
+subscribe morse-dev@laas.fr
+subscribe robotpkg@laas.fr
+subscribe morse@noreply.github.com
+subscribe notifications@github.com
+subscribe gei-dce@insa-toulouse.fr
+subscribe gei-personnels@insa-toulouse.fr
+subscribe gei-enseignants@insa-toulouse.fr
+subscribe these@laas.fr
+subscribe action@laas.fr
+
+# hooks
+
+# Signature
+set signature="~/.mutt/signature_laas"
+
+# Address Book
+set alias_file="~/.mutt/aliases_laas"
+
+# Shared settings
+source ~/.mutt/muttrc_common
+
+# Special color-theme (easily identifies the mail account)
+color   status      brightcyan default     # status lines

@@ -1,0 +1,34 @@
+https://hub.docker.com/u/jbbodart/
+
+
+用于noVNC的Dockerfile
+这个存储库提供了noVNC的基本映像。
+
+运行（简单）
+你可以运行这个图像如下。
+
+$ docker run -it --rm -p 8080:8080 uphy/novnc-alpine
+请扩展此映像并安装所需的GUI应用程序，
+因为此映像中没有安装任何应用程序。
+
+运行（使用您的应用程序）
+例如，您可以在Docker容器上运行“xterm”，并在浏览器中提供该应用程序，如下所示。
+
+像下面一样创建你的Dockerfile。
+
+FROM uphy/novnc-alpine
+RUN \
+    # 安装xterm
+    apk add xterm && \
+    # 将xterm 加入到supervisord.conf
+    cd /etc/supervisor/conf.d && \
+    echo '[program:xterm]' >> supervisord.conf && \
+    echo 'command=xterm' >> supervisord.conf && \
+    echo 'autorestart=true' >> supervisord.conf
+构建并运行图像。
+
+$ docker build -t mynovnc .
+$ docker run -it --rm -p 8080:8080 mynovnc
+打开浏览器http：// localhost：8080。
+点击“连接”。
+然后你可以看到xterm。

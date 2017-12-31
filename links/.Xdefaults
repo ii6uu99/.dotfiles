@@ -1,0 +1,22 @@
+URxvt*background: #0a0f14
+URxvt*foreground: #98d1ce
+URxvt*font: xft:Source Code Pro for Powerline:pixelsize=18:style=medium
+URxvt*boldFont: xft:Source Code Pro for Powerline:pixelsize=18:style=bold
+URxvt*loginShell: true
+URxvt*color0: #0a0f14
+URxvt*color1: #c33027
+URxvt*color2: #26a98b
+URxvt*color3: #edb54b
+URxvt*color4: #195465
+URxvt*color5: #4e5165
+URxvt*color6: #33859d
+URxvt*color7: #98d1ce
+URxvt*color8: #10151b
+URxvt*color9: #d26939
+URxvt*color10: #081f2d
+URxvt*color11: #245361
+URxvt*color12: #093748
+URxvt*color13: #888ba5
+URxvt*color14: #599caa
+URxvt*color15: #d3ebe9
+URxvt*termName: xterm-256color

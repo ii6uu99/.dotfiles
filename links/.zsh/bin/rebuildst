@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /usr/ports/x11/sterm/
+make deinstall clean
+make ST_CONF=/home/ben/.config/st/config.h install clean

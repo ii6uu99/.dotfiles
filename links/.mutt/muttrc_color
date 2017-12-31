@@ -1,0 +1,70 @@
+# Cyril Robin's mutt color scheme
+
+mono    normal      none                        # normal text
+mono    indicator   reverse                     # actual message
+mono    tree        none                        # thread arrows
+mono    status      reverse                     # status line
+mono    error       bold                        # errors
+mono    message     none                        # info messages
+mono    quoted      none                        # quoted text
+mono    signature   none                        # signature
+mono    attachment  underline                   # MIME attachments
+mono    search      reverse                     # search matches
+mono    tilde       none                        # ~ at bottom of msg
+mono    markers     bold                        # + at beginning of wrapped lines
+mono    hdrdefault  none                        # default header lines
+mono    bold        bold                        # highlighting bold patterns in body
+mono    underline   underline                   # highlighting underlined patterns in body
+
+mono    header      bold    "^(from|subject):"
+
+# order matters
+color   normal      default         default        # default colours
+color   index       cyan            default ~p     # messages to me
+color   index       blue            default ~P     # messages from me
+color   index       brightgreen     default ~F     # flagged messages
+color   index       brightyellow    default ~N     # new messages
+color   index       red             default ~D     # deleted messages
+color   index       brightcyan      default ~T     # tagged messages
+color   attachment  brightmagenta   default        # attachments
+color   signature   brightwhite     default        # sigs
+
+color   index       brightgreen     default "~v~(~F)"     # collapsed thread with flagged messages
+color   index       brightyellow    default "~v~(~N)"     # collapsed thread with new messages
+color   index       red             default "~v~(~D)"     # collapsed thread with deleted messages
+color   index       brightcyan      default "~v~(~T)"     # collapsed thread with tagged messages
+
+color   indicator   brightwhite magenta         # currently highlighted message
+color   error       brightred default           # error messages (lower bar)
+color   status      brightgreen brightblack     # status lines
+color   tree        cyan default                 # thread tree
+color   tilde       cyan default                # blank line padding
+
+color   hdrdefault  cyan default                # default headers
+color   header      brightcyan default "^From:"
+color   header      brightwhite default "^Subject:"
+
+# Quoted text
+color   quoted      green default                # quote colours
+color   quoted1     cyan default
+color   quoted2     blue default
+color   quoted3     brightcyan default
+color   quoted4     yellow default
+color   quoted5     red default
+
+# Mail adresses and URLs
+mono    body        underline               "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9+]+"
+mono    body        underline               "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+"
+color   body        yellow default          (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9+]+
+color   body        yellow default          [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+
+# GPG Signature
+color   body        green default           "^gpg: Good signature from"
+color   body        brightred default       "^gpg: Bad signature from"
+color   body        brightred default       "^gpg: BAD signature from"
+color   body        brightred default       "^gpg: Note: This key has expired!"
+color   body        brightyellow default    "^gpg: WARNING: This key is not certified with a trusted signature!"
+color   body        brightyellow default    "^gpg:          There is no indication that the signature belongs to the owner."
+color   body        brightyellow default    "^gpg: can't handle these multiple signatures"
+color   body        brightyellow default    "^gpg: signature verification suppressed"
+color   body        brightyellow default    "^gpg: invalid node with packet of type"

@@ -1,0 +1,5 @@
+[roxterm options]
+only_warn_running=1
+colour_scheme=Gotham
+encoding=UTF-8
+prefer_dark_theme=1

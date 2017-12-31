@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+local bg=$(ls -1 "$HOME/.backgrounds" | sort -R | head -1)
+feh --bg-scale "$HOME/.backgrounds/$bg"

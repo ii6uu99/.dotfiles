@@ -1,0 +1,56 @@
+#######################################
+## Bindings for qwerty/azerty layouts
+#######################################
+
+# Macro and keybindings
+macro index ,v "<collapse-thread>" "collapse/uncollapse thread"
+macro index ,V "<collapse-all>"    "collapse/uncollapse all threads"
+macro index ,d "<delete-thread>"   "delete all messages in the current thread"
+macro index ,u "<undelete-thread>" "undelete all messages in the current thread"
+macro index ,t "<tag-thread>"      "toggle the tag on the current thread"
+macro index ,r "<tag-pattern>all<return><tag-prefix><clear-flag>N<untag-pattern>all<return>" "mark all as read (collapsed)"
+macro index ,R "<collapse-all>,r<collapse-all>" "mark all as read"
+
+macro pager,index s <save-message><kill-line>
+
+bind  attach s save-entry
+macro attach S <save-entry><kill-line>~/Downloads/
+
+bind index,pager   "{"      previous-thread
+bind index,pager   "}"      next-thread
+bind index,pager   <up>     previous-entry
+bind index,pager   <down>   next-entry
+bind index         "G"      last-entry
+bind index         "H"      first-entry
+bind pager         "H"      top
+bind pager         "G"      bottom
+
+bind index "^" imap-fetch-mail
+
+# urlview
+macro pager ,b "|urlview<enter>" "Follow links with urlview"
+# use w3m as an alternative to urlview
+macro pager ,B "|w3m<enter>" "Follow links in w3m"
+
+# Sidebar
+bind  index,pager O sidebar-open
+bind  index,pager K sidebar-prev
+bind  index,pager J sidebar-next
+macro index,pager ,h ":toggle sidebar_visible<enter>" "Hide Sidebar"
+
+# Move
+macro index,pager ,i "<change-folder>$spoolfile<enter>"     "Go to inbox"
+macro index,pager ,s "<change-folder>$record<enter>"        "Go to sent box"
+macro index,pager ,m "<change-folder>$mbox<enter>"          "Go to Archives mail box"
+macro index,pager  A "<save-message>$mbox<enter><enter>"    "Archive Message"
+
+# alias
+# modify and then reload the alias file
+macro   index   ,a     "!vi ~/Mail/.alias\n:source =$alias_file\n"
+macro   index   ,A     "!source =$alias_file\n"
+
+# labels
+#macro index,pager y "<enter-command>set editor=\"~/.mutt/editlabel append\"\n<edit><sync-mailbox><next-undeleted><enter-command>set editor=$my_editor\n" "Append label"
+#macro index,pager Y "<enter-command>set editor=\"~/.mutt/editlabel menu\"\n<edit><sync-mailbox><next-undeleted><enter-command>set editor=$my_editor\n" "Edit labels"
+#macro index \Cy "<limit>~y " "Limit view to label"
+

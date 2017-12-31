@@ -1,0 +1,86 @@
+在项目文件夹下运行，突破100m限制，改为500m
+git config http.postBuffer 52428800
+
+source ~/.bashrc
+
+
+#生成新的ssh key
+ssh-keygen -t rsa -C "ii6uu99@163.com"
+
+#将新生成的key添加到ssh-agent中
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+
+#linux复制到粘贴板
+sudo apt-get install xclip
+xclip -sel clip < ~/.ssh/id_rsa.pub
+
+#打开网站https://github.com/settings/keys
+
+.git---config
+https://username:password@github.com/skykingf/name.git  
+
+永久保存用户名密码运行
+git config --global credential.helper store  
+
+
+apt-get install -y --no-install-recommends \
+
+github文件夹是灰色解决方法
+删除文件夹内的.git文件夹，复制文件夹副本，再删除文件夹
+
+复制当前路径
+pwd | xclip -selection clipboard
+
+把文件 /etc/passwd 的内容复制到粘贴板
+ xclip -i /etc/passwd
+
+
+
+docker login
+Warning: failed to get default registry endpoint from daemon (Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.30/info: dial unix /var/run/docker.sock: connect: permission denied). Using system default: https://index.docker.io/v1/
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: csomethingr
+
+解决方法：
+使用 sudo docker login
+或者将你的用户添加到docker组中
+usermod -aG docker $USER
+
+
+jupyter notebook --allow-root
+
+
+
+git错误：对象文件为空（object-file-is-empty）解决方案
+https://segmentfault.com/a/1190000008734662
+检测那些错误
+git fsck --full
+
+rm .git/文件串
+
+
+
+git status shows fatal: bad object HEAD
+
+https://stackoverflow.com/questions/20264032/git-status-shows-fatal-bad-object-head/30872027#30872027
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

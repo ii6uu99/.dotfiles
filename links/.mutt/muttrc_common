@@ -1,0 +1,118 @@
+# .muttrc for use with IMAP
+# Shared settings
+
+# Editor and utf-8 support
+set allow_8bit=yes
+set locale = fr_FR.utf8
+set charset="utf-8"
+set send_charset="utf-8:iso-8859-15:us-ascii"
+set my_editor='vim -c "setlocal wrapmargin=0 textwidth=0 wrap nocp linebreak " -c +/^$/ +9 '
+set editor=$my_editor
+set tilde
+
+# Basic config
+set imap_check_subscribed
+set mail_check = 240
+set timeout = 240
+set imap_keepalive = 240
+set header_cache = "~/.mutt/cache/"
+set message_cachedir = "~/.mutt/cache/"
+set certificate_file = "~/.mutt/certificates"
+set move = yes          # Do move read mails automatically to $mbox
+set keep_flagged = yes  # but for flagged messages (which stay in spool, don't go to $mbox)
+set include=yes
+set sort = 'threads'
+set sort_aux = 'last-date-received' # or 'reverse-last-date-received'
+set nostrict_threads #group mail with similar subjects
+set auto_tag = yes
+unset markers
+ignore *                               # first, ignore all headers
+unignore From: To: Cc: Date: Subject:  # then, show only these
+hdr_order Date: From: To: Cc: Subject  # in this order
+alternative_order text/enriched text/plain text/html *
+auto_view text/html
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop
+set edit_headers = yes
+set autoedit
+set forward_quote
+set forward_format = "Fwd: %s"
+unset mark_old
+set reply_self
+set sleep_time = 0
+unset collapse_unread
+set uncollapse_jump
+set text_flowed=yes # avoid (weird) line break that are not desirable anymore in the 21st century
+set pipe_decode = yes # avoid cutting lines when piping to other programs (e.g urlview)
+set pipe_split # apply external command to each piped messages (and not all at once)
+set quit = ask-yes
+unset suspend # don't suspend mutt, as it has its own terminal
+
+
+# Hooks
+folder-hook . 'set read_inc=100'
+folder-hook . "exec collapse-all"
+
+# Sidebar
+set sidebar_width = 30
+color sidebar_new yellow default
+
+# Mailcap (autoexecute program declarations)
+set mailcap_path 	= ~/.mutt/mailcap
+
+# Check attachement
+set sendmail = "~/.mutt/CheckAttach.zsh /usr/bin/sendmail -oem -oi"
+
+# Display
+set smart_wrap=yes
+set markers=no
+set pager_context = 8
+set pager_index_lines = 10
+#set index_format="%4C %{%b %d} %-20.20L (%2E) %4c %s"
+set index_format="%4C %{%b %d} %-20.20F (%2E) %4c %s"
+set folder_format="%3C %d %4N %8s %f"
+#set attribution="%n <%a> wrote [%{!%Y-%m-%d %H:%M %Z}]:"
+set status_format="%f-%r-(%?L?%L/?%l)--{%?M?%M/?%m%?n? n:%n?%?o? o:%o?%?d? d:%d?%?t? t:%t?}-%?b?-[Inc: %b]?-%?p?-[Post: %p]?-%>-%?V?/%V/&(%s/%S)?-%P-"
+set xterm_set_titles=yes # allowed on debian
+set xterm_title='mutt @ %h | %f %?n?%n/?%m msgs'
+
+# Contact book (mutt aliases)
+# set alias_file="" # (NB: here, we assume that  the alias file has already been set)
+set sort_alias = alias
+set reverse_alias = yes
+#set alias_format = "" #TODO
+bind editor <Tab> complete      # default Mutt setting
+bind editor ^T complete-query   # default Mutt setting
+unset query_command             # default Mutt setting
+source $alias_file
+
+#  Other contact management system
+# (to be placed in specific mail account muttrc ?)
+#bind editor <Tab> complete-query
+#bind editor ^T complete
+#set query_command = "goobook query '%s'"
+#set query_command = "abook --mutt-query '%s'"
+#set query_command="/home/username/bin/pc_query -m '%s'"
+#set query_command=”mu cfind –format=mutt-ab  ‘%s’”
+
+# Color
+source ~/.mutt/muttrc_color
+
+# Keybindings
+source ~/.mutt/muttrc_qwerty
+#source ~/.mutt/muttrc_bepo
+
+# Host specific settings
+source ~/.mutt/muttrc_`hostname`
+
+# Multi-account
+account-hook "crobin.net" 'set imap_user=me@crobin.net move=yes keep_flagged=yes'
+account-hook "laas.fr" 'set imap_user=crobin move=no'
+macro index,pager <F4> '<sync-mailbox><enter-command>source ~/.mutt/muttrc_me<enter><change-folder>!<enter>'
+macro index,pager <F5> '<sync-mailbox><enter-command>source ~/.mutt/muttrc_laas<enter><change-folder>!<enter>'
+
+#macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
+# Define mailbx that matters (ie receive mails)
+#unmailboxes *
+#mailboxes =INBOX $record $postponed $mbox

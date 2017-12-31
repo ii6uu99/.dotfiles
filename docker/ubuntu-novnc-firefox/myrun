@@ -1,0 +1,5 @@
+#!/bin/sh 
+echo $TZ > /etc/timezone
+cp -f /usr/share/zoneinfo/$TZ /etc/localtime
+x11vnc -storepasswd $VNC_PW ~/.vnc/passwd
+

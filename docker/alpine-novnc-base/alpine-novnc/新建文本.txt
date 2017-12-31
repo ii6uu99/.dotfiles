@@ -1,0 +1,36 @@
+run
+RUN DOCKER: docker run -it -p 8080:8080 toastie/x11-novnc
+TEST DOCKER: docker exec -it -p 8080:8080 toastie/x11-novnc /bin/bash
+
+http://127.0.0.1:8080/
+
+
+
+docker build -t ii6uu99/alpine-novnc-base .
+
+RUN PACKAGE="wget ca-certificates git bash python xvfb x11vnc ttf-noto fluxbox net-tools supervisor xterm " \
+&& apk update upgrade --no-cache && apk add --no-cache ${PACKAGE}
+
+
+
+
+RUN apk update upgrade --no-cache && apk add --no-cache \
+      bash \  
+      fluxbox \
+      git \
+      supervisor \
+      xvfb \
+      xterm \
+      x11vnc \
+      wget \
+      ca-certificates \
+      git \
+      python \
+      ttf-noto \
+      net-tools
+      #socat
+
+
+
+RUN apk update upgrade --no-cache && apk add --no-cache bash fluxbox git supervisor xvfb xterm x11vnc wget ca-certificates git python ttf-noto net-tools
+      #socat

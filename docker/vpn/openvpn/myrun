@@ -1,0 +1,3 @@
+#!/bin/sh
+iptables -t nat -I POSTROUTING -s 172.17.0.0/24 -o tun+ -j MASQUERADE
+iptables --append FORWARD --protocol tcp --tcp-flags SYN,RST SYN --jump TCPMSS --clamp-mss-to-pmtu

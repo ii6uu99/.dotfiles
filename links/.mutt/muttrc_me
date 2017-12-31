@@ -1,0 +1,51 @@
+# .muttrc for use with IMAP
+# me@crobin.net Specific settings
+
+# IMAP Settings
+set imap_user = "me@crobin.net"
+#set imap_pass = ""
+set folder = "imaps://crobin.net:993/"
+#set folder = "imaps://milan.o2switch.net:993"
+set spoolfile = "+INBOX"
+
+# SMTP Settings
+set smtp_url="smtps://me@crobin.net@crobin.net:465/"
+#set smtp_url="smtps://me@crobin.net@milan.o2switch.net:465"
+#set smtp_pass = ""
+
+set from = "me@crobin.net"
+set realname = "Cyril Robin"
+set hostname = "crobin.net"
+mailboxes +INBOX
+set postponed = "+INBOX/Drafts"
+set record = "+INBOX/Sent"
+set mbox = "+INBOX/Archives"
+
+my_hdr Organization:
+my_hdr bcc: me@crobin.net
+
+# Set alternate (other adresses that are me)
+alternates "cyril.robin@ensta.org"
+
+# known mailing-list
+# subscriped mailing-list
+#subscribe awesome@naquadah.org
+
+# hooks
+#fcc-save-hook "~C awesome@naquadah.org" +listes/awesome
+
+# Multi-account
+#send-hook '~C ^me@crobin\.net$' 'my_hdr From: Cyril Robin <me@crobin.net>'
+#send-hook '~f ^me@crobin\.net$' 'set signature="~/.mutt/signatures_gandi.txt"'
+
+# Signature
+set signature="~/.mutt/signature_me"
+
+# Address Book
+set alias_file="~/.mutt/aliases_me"
+
+# Shared settings
+source ~/.mutt/muttrc_common
+
+# Special color-theme (easily identifies the mail account)
+color   status      brightgreen default     # status lines

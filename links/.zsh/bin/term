@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+if [[ $(uname -a | grep Ubuntu) ]]; then
+	qterminal
+else
+	roxterm
+fi

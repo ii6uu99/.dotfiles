@@ -1,0 +1,7 @@
+# Overwrite some settings
+# Keybindings
+source ~/.mutt/muttrc_bepo
+
+# Display
+set sidebar_width = 30
+

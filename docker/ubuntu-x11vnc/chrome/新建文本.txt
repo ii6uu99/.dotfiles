@@ -1,0 +1,7 @@
+构建这个镜像，加上linfan/chrome标签，然后启动一个名为chrome01的容器实例，并找到它映射到外部的端口：
+
+$ docker build -t linfan/chrome .
+$ docker run --name chrome01 -P -d linfan/chrome
+$ docker port chrome01
+5900/tcp -> 0.0.0.0:32775
+然后通过本地的VNC软件连接到这个外部端口，就可以看到一个运行这的Chrome浏览器啦！

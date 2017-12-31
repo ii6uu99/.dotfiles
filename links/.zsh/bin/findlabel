@@ -1,0 +1,3 @@
+#!/bin/sh
+
+grep -i -B 6 -A 1 "$@" src/labels/CustomLabels.labels

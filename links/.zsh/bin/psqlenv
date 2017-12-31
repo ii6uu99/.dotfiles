@@ -1,0 +1,7 @@
+#!/bin/sh
+
+dbname="DATABASE_URL"
+if [ $# -ne 0 ]; then
+	dbname=$1
+fi
+psql `grep "^$dbname=" -m 1 < .env | cut -d'=' -f2 | sed 's/"//g'`

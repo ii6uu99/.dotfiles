@@ -1,0 +1,32 @@
+#!/bin/sh
+
+REMOTE_PORT=30003
+LOCAL_PORT=20002
+SOCKET_FILE="/tmp/ssh_tunnel1090.sock"
+
+if [[ $1 == "start" ]]; then
+	ssh -f -N -M -S $SOCKET_FILE -o ExitOnForwardFailure=yes \
+		-p $P1090_PORT -L $LOCAL_PORT:$P1090_REMOTE_HOST:$REMOTE_PORT \
+		$P1090_USER@$P1090_HOST && \
+		echo "Opened SSH tunnel on port 20002" || \
+		echo "Error opening SSH tunnel"
+elif [[ $1 == "status" ]]; then
+	if [ -S $SOCKET_FILE ]; then
+		echo "Connected on port $LOCAL_PORT"
+	else
+		echo "Not connected"
+		exit 1
+	fi
+elif [[ $1 == "stop" ]]; then
+	ssh -S $SOCKET_FILE -O exit $P1090_USER@$P1090_HOST
+	echo "Closed SSH tunnel"
+else
+	echo "usage: `basename $0` (start | stop | status)"
+	echo "environment:"
+	echo "  P1090_HOST        the hostname to tunnel through"
+	echo "  P1090_REMOTE_HOST the hostname to tunnel to"
+	echo "  P1090_PORT        the port to tunnel to"
+	echo "  P1090_USER        the user to connect as"
+	exit 1
+fi
+
