@@ -66,7 +66,13 @@ git status shows fatal: bad object HEAD
 https://stackoverflow.com/questions/20264032/git-status-shows-fatal-bad-object-head/30872027#30872027
 
 
+git push error: 无法推送一些引用到XXX
+http://blog.csdn.net/harry_helei/article/details/72419761
+git push origin HEAD:refs/for/master  
 
+error: 无法推送一些引用到 提示：一个版本库已向该引用进行了推送,强行更新
+http://blog.sina.com.cn/s/blog_677966330102vlfk.html
+git push -u origin +master​
 
 
 
