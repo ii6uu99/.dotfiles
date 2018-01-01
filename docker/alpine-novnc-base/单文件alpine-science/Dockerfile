@@ -1,4 +1,6 @@
-FROM alpine:latest
+
+#FROM ii6uu99/alpine-glibc
+ROM alpine:latest
 
 RUN apk update \
 && apk add \
