@@ -1,3 +1,8 @@
-FROM jupyter/notebook
+FROM nbgallery/jupyter-alpine
 
-
+CMD jupyter notebook \
+    --ip='*' \
+    --no-browser \
+    --pylab='inline' \
+    --NotebookApp.password=u'' \
+    --NotebookApp.token=u''
