@@ -5,7 +5,8 @@ MAINTAINER team@nb.gallery
 # Set up OS
 ########################################################################
 
-EXPOSE 80 443
+#EXPOSE 80 443
+
 WORKDIR /root
 
 ENV CPPFLAGS=-s \
