@@ -1,0 +1,8 @@
+FROM python:3.6-alpine
+
+MAINTAINER isuzuki <ikkuntech@gmail.com>
+
+RUN apk add --no-cache --virtual .scrapy-builddeps gcc musl-dev libxml2-dev libxslt-dev libffi-dev openssl-dev \
+    && apk add libxml2 libxslt libffi \
+    && pip install --no-cache-dir scrapy scrapy-splash \
+    && apk del .scrapy-builddeps
