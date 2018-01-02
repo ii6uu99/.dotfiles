@@ -1,0 +1,17 @@
+{
+  "language": "python",
+  "display_name": "Spark - PySpark",
+  "env": {
+    "__TOREE_SPARK_OPTS__": "",
+    "SPARK_HOME": "/usr/spark",
+    "__TOREE_OPTS__": "",
+    "DEFAULT_INTERPRETER": "PySpark",
+    "PYTHONPATH": "/usr/spark/python",
+    "PYTHON_EXEC": "python"
+  },
+  "argv": [
+    "spark_kernel",
+    "--profile",
+    "{connection_file}"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "language": "r",
+  "display_name": "Spark - SparkR",
+  "env": {
+    "__TOREE_SPARK_OPTS__": "",
+    "SPARK_HOME": "/usr/spark",
+    "__TOREE_OPTS__": "",
+    "DEFAULT_INTERPRETER": "SparkR",
+    "PYTHONPATH": "/usr/spark/python",
+    "PYTHON_EXEC": "python"
+  },
+  "argv": [
+    "spark_kernel",
+    "--profile",
+    "{connection_file}"
+  ]
+}

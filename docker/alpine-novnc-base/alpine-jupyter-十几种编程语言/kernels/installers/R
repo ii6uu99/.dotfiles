@@ -1,0 +1,17 @@
+#!/bin/bash -e
+
+if [ "$(which `basename $0`)" = "$0" ]; then
+  echo "Installing IRkernel ..."
+  # IRKernel + dependencies for popular R packages
+  min-apk gallery-R-kernel openjdk8 tzdata jpeg-dev libxml2-dev
+fi
+
+hash -r
+if [ "$(which `basename $0`)" = "$0" ]; then
+  echo "Installation failed!"
+  exit
+fi
+
+R CMD javareconf
+
+$(basename $0) $@
