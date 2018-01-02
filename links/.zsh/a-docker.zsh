@@ -91,5 +91,53 @@ dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/[
 ＃进入正在运行的容器的bash
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
+# Docker aliases
+#
 
+d-help() { declare -F | grep d- | cut -d " " -f 3; }
+
+# ＃删除退出的容器
+d-rm-ec() {
+    EXITED_CONTAINERS=$(docker ps -a | grep Exited | cut -d " " -f 1;);
+    if [ -z $EXITED_CONTAINERS ];
+    then
+        echo "No exited containers";
+    else
+        docker rm $EXITED_CONTAINERS;
+    fi
+}
+
+#删除没有图像
+d-rm-ni() {
+    NONE_IMAGES=$(docker images | grep "^<none>" | awk '{print $3}' )
+    if [ -z $NONE_IMAGES ];
+    then
+        echo "No none images";
+    else
+        docker rmi $NONE_IMAGES;
+    fi
+}
+
+# 删除退出的容器和没有图像
+d-rm-ci() { d-rm-ec && d-rm-ni; }
+
+# 删除镜像
+d-rm-i() { docker rmi $@; }
+
+# 获取容器的IP地址
+d-ip() { docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1; }
+
+# 获取容器镜像
+d-im() { docker images; }
+
+d-im-s() { docker images | grep -v REPOSITORY | awk -F " " '{print $1":"$2}' | sort;}
+
+# 获取所有的容器进程
+d-ps-a() { docker ps -a; }
+
+#运行交互容器
+d-run-i() { docker run -ti --rm $@; }
+
+#执行交互容器
+d-ex-i() { docker exec -ti $@; }
 
