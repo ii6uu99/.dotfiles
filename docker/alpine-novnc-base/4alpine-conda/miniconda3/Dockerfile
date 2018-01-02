@@ -24,6 +24,15 @@ RUN CONDA_VERSION="4.2.12" && \
     # 设置搜索时显示通道地址  
     conda config --set show_channel_urls yes &&\
 
+   #更换pip为阿里云源
+   mkdir ~/.pip &&\
+   cat > ~/.pip/pip.conf << EOF
+[global]
+trusted-host=mirrors.aliyun.com
+index-url=https://mirrors.aliyun.com/pypi/simple/
+
+EOF &&\
+
     #安装jupyter notebook
     conda install jupyter notebook -y
 
