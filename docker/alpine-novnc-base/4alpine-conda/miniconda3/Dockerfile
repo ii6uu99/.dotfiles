@@ -1,4 +1,5 @@
 #https://github.com/youske/alpine-conda
+#https://github.com/ownport/docker-alpine-miniconda
 
 FROM youske/alpine-stdmachine-glibc:latest
 MAINTAINER youske miyakoshi <youske@gmail.com>
@@ -16,6 +17,7 @@ RUN CONDA_VERSION="4.2.12" && \
     bash installer.sh -f -b -p "$CONDA_DIR" && \
     echo "export PATH=$CONDA_DIR/bin:\$PATH" > /etc/profile.d/conda.sh && \
     conda update --all --yes && conda clean --all --yes && \
+    conda config --set auto_update_conda False && \
     rm -rf $(find "$CONDA_DIR/pkgs/" -maxdepth 1 -name "python-3*" | sort | head -n -1) && \
     rm -rf /tmp/* /root/.wget-hists && \
     # 添加Anaconda的TUNA镜像
