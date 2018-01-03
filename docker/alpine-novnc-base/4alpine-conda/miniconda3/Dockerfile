@@ -29,9 +29,9 @@ RUN CONDA_VERSION="4.2.12" && \
    #更换pip为阿里云源
    mkdir ~/.pip &&\
    cat > ~/.pip/pip.conf << EOF
-[global]
-trusted-host=mirrors.aliyun.com
-index-url=https://mirrors.aliyun.com/pypi/simple/
+   [global]
+   trusted-host=mirrors.aliyun.com
+   index-url=https://mirrors.aliyun.com/pypi/simple/
 
 EOF &&\
     
@@ -43,3 +43,6 @@ EOF &&\
     conda install jupyter notebook -y
 
 WORKDIR /
+EXPOSE 8888
+
+CMD ["jupyter", "notebook", "--no-browser", "--ip=0.0.0.0", "--pylab='inline'", "--NotebookApp.password=u''", "--NotebookApp.token=u''", "--log-level=DEBUG"]
