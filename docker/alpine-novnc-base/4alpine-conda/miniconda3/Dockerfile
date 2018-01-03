@@ -34,8 +34,10 @@ trusted-host=mirrors.aliyun.com
 index-url=https://mirrors.aliyun.com/pypi/simple/
 
 EOF &&\
+    
+    python3 -m ensurepip &&\
     #不缓存目录升级pip
-    pip install --no-cache-dir --upgrade pip &&\
+    pip install --no-cache-dir --upgrade pip setuptools &&\
 
     #安装jupyter notebook
     conda install jupyter notebook -y
