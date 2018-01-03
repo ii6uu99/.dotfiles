@@ -1,7 +1,10 @@
 docker build -t ii6uu99/alpine-miniconda3 .
 
 
+docker run -it -p 8888:8888 ii6uu99/alpine-miniconda3
 
+
+http://localhost:8888
 
 
 CMD ["jupyter", "notebook", "--no-browser", "--ip=0.0.0.0", "--pylab='inline'", "--NotebookApp.password=u''", "--NotebookApp.token=u''", "--log-level=DEBUG"]
