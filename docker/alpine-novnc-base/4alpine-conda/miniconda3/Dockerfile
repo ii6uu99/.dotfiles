@@ -12,7 +12,8 @@ ENV PATH="$CONDA_DIR/bin:$PATH"
 
 WORKDIR /tmp
 
-ADD /.pip /root/
+ADD .pip/ /root/.pip
+
 RUN CONDA_VERSION="4.2.12" && \
     mkdir -p "$CONDA_DIR" && \
     wget -q "https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh" -O installer.sh && \
