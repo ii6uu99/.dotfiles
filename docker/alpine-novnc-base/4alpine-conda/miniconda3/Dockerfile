@@ -11,6 +11,8 @@ ENV CONDA_DIR="/conda"
 ENV PATH="$CONDA_DIR/bin:$PATH"
 
 WORKDIR /tmp
+
+ADD /.pip /root/
 RUN CONDA_VERSION="4.2.12" && \
     mkdir -p "$CONDA_DIR" && \
     wget -q "https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh" -O installer.sh && \
@@ -27,9 +29,8 @@ RUN CONDA_VERSION="4.2.12" && \
     conda config --set show_channel_urls yes &&\
     
     #复制阿里云pip源到容器的根目录下
-    cp -r .pip /root/ &&\
+    #cp -r .pip /root/ &&\
     
-    python3 -m ensurepip &&\
     #不缓存目录升级pip
     pip install --no-cache-dir --upgrade pip setuptools &&\
 
