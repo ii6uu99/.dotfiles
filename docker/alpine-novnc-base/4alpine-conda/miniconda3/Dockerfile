@@ -25,15 +25,9 @@ RUN CONDA_VERSION="4.2.12" && \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ && \
     # 设置搜索时显示通道地址  
     conda config --set show_channel_urls yes &&\
-
-   #更换pip为阿里云源
-   mkdir ~/.pip &&\
-   cat > ~/.pip/pip.conf << EOF
-   [global]
-   trusted-host=mirrors.aliyun.com
-   index-url=https://mirrors.aliyun.com/pypi/simple/
-
-EOF &&\
+    
+    #复制阿里云pip源到容器的根目录下
+    cp -r .pip /root/ &&\
     
     python3 -m ensurepip &&\
     #不缓存目录升级pip
