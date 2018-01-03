@@ -14,7 +14,8 @@ WORKDIR /tmp
 
 ADD .pip/ /root/.pip
 
-RUN CONDA_VERSION="4.2.12" && \
+RUN apk add --no-cache libstdc++ &&\
+    CONDA_VERSION="4.2.12" && \
     mkdir -p "$CONDA_DIR" && \
     wget -q "https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh" -O installer.sh && \
     bash installer.sh -f -b -p "$CONDA_DIR" && \
