@@ -45,4 +45,4 @@ RUN CONDA_VERSION="4.2.12" && \
 WORKDIR /
 EXPOSE 8888
 
-CMD ["jupyter", "notebook"]
+CMD ["jupyter", "notebook","--allow-root"]
