@@ -13,6 +13,7 @@ ENV PATH="$CONDA_DIR/bin:$PATH"
 WORKDIR /tmp
 
 ADD .pip/ /root/.pip
+ADD .jupyter/ /root/.jupyter
 
 RUN apk add --no-cache libstdc++
 
@@ -44,4 +45,4 @@ RUN CONDA_VERSION="4.2.12" && \
 WORKDIR /
 EXPOSE 8888
 
-CMD ["jupyter", "notebook", "--no-browser", "--ip=0.0.0.0", "--pylab='inline'", "--NotebookApp.password=u''", "--NotebookApp.token=u''", "--log-level=DEBUG"]
+CMD ["jupyter", "notebook"]
