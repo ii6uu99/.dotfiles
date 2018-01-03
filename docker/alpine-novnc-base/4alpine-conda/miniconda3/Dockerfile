@@ -35,7 +35,7 @@ RUN CONDA_VERSION="4.2.12" && \
     pip install --no-cache-dir --upgrade pip setuptools &&\
 
     #安装jupyter notebook
-    conda install jupyter notebook -y
+    pip install jupyter notebook -y
 
 WORKDIR /
 EXPOSE 8888
