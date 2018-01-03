@@ -1,0 +1,5 @@
+docker run --rm -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY \
+      -v $(pwd):/files mbodenhamer/keepassx foo.kdb
+
+当前目录映射
+
