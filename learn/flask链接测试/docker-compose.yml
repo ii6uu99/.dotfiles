@@ -1,0 +1,10 @@
+---
+web:
+    build: .
+    dockerfile: Dockerfile
+    links:
+        - redis
+    ports:
+        - "5000:5000"
+redis:
+    image: redis
