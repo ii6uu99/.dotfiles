@@ -1,0 +1,12 @@
+
+https://github.com/pottava/docker-webui
+
+作为一个简单的码头集装箱
+
+$ docker run -p 9000:9000 --rm -v /var/run/docker.sock:/var/run/docker.sock pottava/docker-webui
+$ docker run -p 9000:9000 --rm -e DOCKER_HOST -e DOCKER_CERT_PATH=/etc/docker-compose/cert -v $DOCKER_CERT_PATH:/etc/docker-compose/cert pottava/docker-webui
+
+或作为一个去二进制
+
+$ go get github.com/pottava/docker-webui
+$ docker-webui

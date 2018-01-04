@@ -1,0 +1,7 @@
+经常运行
+
+docker run -d --restart=always -p 3000:3000 \
+    -e REGISTRY_URL=http://<registry_host>:<registry_port> \
+    -e REGISTRY_USER=<registry_admin_user> \
+    -e REGISTRY_PASSWORD=<registry_admin_password> \
+    v55448330/docker-registry-face:latest

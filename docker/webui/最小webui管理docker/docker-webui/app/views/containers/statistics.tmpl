@@ -1,0 +1,65 @@
+{{ define "title" }} stats | {{ .AppName }}{{ end }}
+{{ define "css" }}
+<link rel="stylesheet" href="{{ .StaticFileHost }}/assets/css/lib/nv.d3.css">
+<link rel="stylesheet" href="{{ .StaticFileHost }}/assets/css/app/index.css">
+{{ end }}
+{{ define "js" }}
+<script type="text/javascript" src="{{ .StaticFileHost }}/assets/js/lib/d3.min.js"></script>
+<script type="text/javascript" src="{{ .StaticFileHost }}/assets/js/lib/nv.d3.min.js"></script>
+{{ if eq .Mode "production"}}
+<script type="text/javascript" src="{{ .StaticFileHost }}/assets/js/min/containers/statistics.js"></script>
+{{ else }}
+<script type="text/javascript" src="{{ .StaticFileHost }}/assets/js/lib/browser-5.8.23.min.js"></script>
+<script type="text/babel" src="{{ .StaticFileHost }}/assets/js/containers/statistics.jsx"></script>
+{{ end }}
+{{ end }}
+{{ define "content" }}
+  <input id="filter-label-ids" type="hidden" value="{{ .Data.LabelFilters }}">
+  <input id="number-of-clients" type="hidden" value="{{ .Data.Clients }}">
+
+  <div class="navbar-form navbar-left" role="search">
+    <div id="client-filter" class="client-filters btn-group" data-filter-key="client" style="display: none;">
+      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caption">All</span>&nbsp;
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu"></ul>
+    </div>
+    <div id="label-filter" class="label-filters btn-group" data-filter-key="label" style="display: none;">
+      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caption">All</span>&nbsp;
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu"></ul>
+    </div>
+  </div>
+  <div class="navbar-form navbar-right">
+    <div class="btn-group">
+      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caption">refresh / 2 sec</span>&nbsp;
+        <span class="caret"></span>
+      </a>
+      <ul id="refresh-window" class="dropdown-menu">
+        <li><a href="#0">stopped</a></li>
+        <li><a href="#2">2 sec</a></li>
+        <li><a href="#5">5 sec</a></li>
+        <li><a href="#10">10 sec</a></li>
+        <li><a href="#30">30 sec</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="chart-cpu" style="margin-top: 0px;clear: both;">
+    <h4 style="margin: 0;">CPU</h4>
+    <svg class="pie-charts" style="height: 200px;width: 25%;margin: 0;float: left;display: none;"></svg>
+    <svg class="line-charts" style="height: 200px;width: 95%;margin: 0;float: left;"></svg>
+  </div>
+  <div id="chart-mem" style="margin-top: -20px;clear: both;">
+    <h4 style="margin-bottom: 0;">Memory</h4>
+    <svg class="pie-charts" style="height: 200px;width: 25%;margin: 0;float: left;display: none;"></svg>
+    <svg class="line-charts" style="height: 200px;width: 95%;margin: 0;float: left;"></svg>
+  </div>
+
+  <div id="data" style="clear: both;"></div>
+
+{{ end }}

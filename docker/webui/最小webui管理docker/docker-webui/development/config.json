@@ -1,0 +1,10 @@
+{
+  "LabelOverrideNames": "com.github.pottava.application",
+  "LabelFilters": [
+    "com.github.pottava.application",
+    "com.github.pottava.license"
+  ],
+  "HiddenContainers": [
+  ],
+  "StaticFilePath": "/go/src/github.com/pottava/docker-webui/app"
+}
