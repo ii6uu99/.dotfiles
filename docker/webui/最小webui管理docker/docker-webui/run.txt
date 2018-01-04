@@ -10,3 +10,13 @@ $ docker run -p 9000:9000 --rm -e DOCKER_HOST -e DOCKER_CERT_PATH=/etc/docker-co
 
 $ go get github.com/pottava/docker-webui
 $ docker-webui
+
+
+
+
+
+经常运行
+
+docker run -d --restart=always -p 3000:3000 \
+  
+    v55448330/docker-registry-face:latest
