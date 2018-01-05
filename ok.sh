@@ -107,6 +107,7 @@ vim +PluginUpdate +qa
 vim +GoInstallBinaries +qa
 
 ## 安装脚本docker and docker-compose
+sudo apt-get install curl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/reggiezhang/docker-install/master/install.sh)"
 
 #定时备份git，cron启动
