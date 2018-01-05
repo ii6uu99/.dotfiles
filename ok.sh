@@ -109,6 +109,7 @@ vim +GoInstallBinaries +qa
 #定时备份git，cron启动
 bash /home/ming/.dotfiles/script/auto-git.sh
 
-
+## 安装脚本docker and docker-compose
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/reggiezhang/docker-install/master/install.sh)"
 
 
