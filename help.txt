@@ -89,7 +89,10 @@ git push -u origin +master
 
 
 
-
+文件夹右下角有锁，解锁
+sudo chown -R $USER 文件夹路径
+例如：
+sudo chown -R $USER ~/scala
 
 
 
