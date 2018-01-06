@@ -115,6 +115,9 @@ echo "export PATH=/home/cqh:$PATH" >> /etc/profile
 
 #添加自定义的命令到环境变量
 echo "export PATH=$HOME/.dotfiles/links/.bin:$PATH" >> $HOME/.bashrc
+#linux 文件批量赋予权限
+#chmod -R 权限值 目录或文件
+chmod -R 750 $HOME/.dotfiles/links/.bin
 source $HOME/.bashrc
 
 
