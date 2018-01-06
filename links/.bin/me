@@ -19,12 +19,16 @@ b=${d}
 #只添加递增单个文件夹
 #字符串截取http://www.jb51.net/article/56563.htm
 
-echo "$HOME/.dotfiles/links/.bin/${b#*/}:" >> pinit.txt
+#echo "$HOME/.dotfiles/links/.bin/${b#*/}:" >> pinit.txt
+#echo ‘export PATH=$PATH:jdk8路径’ >> ~/.bashrc
+
+echo "export PATH=$PATH:$HOME/.dotfiles/links/.bin/${b#*/}" >> ~/.bashrc
 done
 
-cat pinit.txt | xargs | sed s/[[:space:]]//g > ok.txt
-dir=`cat ok.txt`
-echo -e "export PATH=$dir$PATH" >> $HOME/.bashrc
+#cat pinit.txt | xargs | sed s/[[:space:]]//g > ok.txt
+#dir=`cat ok.txt`
+#echo -e "export PATH=$dir:$PATH" >> $HOME/.bashrc
+
 # 寻找文件，并赋予文件权限
 for f in $(find . -type f); do
 	chmod -R 750 $f
