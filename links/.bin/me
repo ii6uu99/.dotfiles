@@ -20,6 +20,8 @@ b=${d}
 #字符串截取http://www.jb51.net/article/56563.htm
 
 echo "$HOME/.dotfiles/links/.bin/${b#*/}:" >> pinit.txt
+
+
 #echo ‘export PATH=$PATH:jdk8路径’ >> ~/.bashrc
 
 #echo "export PATH=$PATH:$HOME/.dotfiles/links/.bin/${b#*/}" >> ~/.bashrc
