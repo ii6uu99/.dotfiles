@@ -18,4 +18,3 @@ for f in $(find . -type f); do
 	fi
 done
 
-/usr/local/bin
