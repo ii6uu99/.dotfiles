@@ -10,6 +10,7 @@ cd $HOME/.dotfiles/links/.bin
 rm pinit.txt
 touch pinit.txt
 
+echo "$HOME/.dotfiles/links/.bin:" >> pinit.txt
 
 # 寻找文件夹，并添加到环境变量
 for d in $(find . ! -path . -type d); do
@@ -21,13 +22,16 @@ b=${d}
 echo "$HOME/.dotfiles/links/.bin/${b#*/}:" >> pinit.txt
 done
 
+dir=cat pinit.txt | xargs | sed s/[[:space:]]//g
+
+echo "export PATH=$dir:$PATH" >> $HOME/.bashrc
 # 寻找文件，并赋予文件权限
 for f in $(find . -type f); do
 	chmod -R 750 $f
 done
 
 
-cat pinit.txt | xargs | sed s/[[:space:]]//g
+
 
 
 
