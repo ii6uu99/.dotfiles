@@ -114,7 +114,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/reggiezhang/docker-install
 echo "export PATH=/home/cqh:$PATH" >> /etc/profile
 
 #添加自定义的命令到环境变量
-echo "export PATH=$HOME/.dotfiles/links/.bin:$PATH" >> /etc/profile
+echo "export PATH=$HOME/.dotfiles/links/.bin:$PATH" >> $HOME/.bashrc
+source $HOME/.bashrc
 
 
 #定时备份git，cron启动
