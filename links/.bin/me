@@ -24,7 +24,7 @@ done
 
 cat pinit.txt | xargs | sed s/[[:space:]]//g > ok.txt
 dir=`cat ok.txt`
-echo -e "export PATH=$dir:$PATH" >> $HOME/.bashrc
+echo -e "export PATH=$dir$PATH" >> $HOME/.bashrc
 # 寻找文件，并赋予文件权限
 for f in $(find . -type f); do
 	chmod -R 750 $f
