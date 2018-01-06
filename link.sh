@@ -17,3 +17,5 @@ for f in $(find . -type f); do
 		echo "--->$dst已存在,跳过"
 	fi
 done
+
+/usr/local/bin
