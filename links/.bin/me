@@ -22,7 +22,7 @@ b=${d}
 echo "$HOME/.dotfiles/links/.bin/${b#*/}:" >> pinit.txt
 done
 
-cat pinit.txt | xargs | sed s/[[:space:]]//g | tee pinit.txt
+cat pinit.txt | xargs | sed s/[[:space:]]//g | tee ok.txt
 
 echo -e "export PATH=$dir:$PATH" >> $HOME/.bashrc
 # 寻找文件，并赋予文件权限
