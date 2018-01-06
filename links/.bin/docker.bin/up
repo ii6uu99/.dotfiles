@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Build, (re)create, start, and attach to containers.
+docker-compose up -d

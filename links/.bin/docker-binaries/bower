@@ -1,0 +1,4 @@
+#!/bin/bash
+getent passwd > $HOME/.mypasswd && \
+getent group > $HOME/.mygroup && \
+sudo docker run --rm -it -v $PWD:/app -u $USER -v $HOME/.mypasswd:/etc/passwd:ro -v $HOME/.mygroup:/etc/group:ro tsari/node bower "$@"

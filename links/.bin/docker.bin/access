@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Access the Bash shell of $1.
+docker exec -it $1 bash

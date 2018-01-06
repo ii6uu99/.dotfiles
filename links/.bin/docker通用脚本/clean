@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#警告！这将删除：
+        # - 所有停止的容器
+        # - 至少一个容器未使用的所有卷
+        #- 至少一个容器未使用的所有网络
+        # - 没有至少一个与它们关联的容器的所有图像
+#需要码头1.13
+
+#源码通用脚本来设置环境
+. "$(dirname "$0")/common"
+
+"$docker_bin" system df
+
+"$docker_bin" system prune --all --force

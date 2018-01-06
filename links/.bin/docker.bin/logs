@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Logs for container $1.
+docker logs $1

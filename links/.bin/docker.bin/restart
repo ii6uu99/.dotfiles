@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Restart container $1.
+docker restart $1

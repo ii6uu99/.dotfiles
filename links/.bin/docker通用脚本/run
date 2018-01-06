@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# source common script to set environment
+. "$(dirname "$0")/common"
+
+# run container
+"$compose_bin" -f "$project_root/docker-compose.yml" run --rm ${1}

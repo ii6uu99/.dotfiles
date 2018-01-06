@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Get the IP address of machine $1.
+docker-machine ip $1

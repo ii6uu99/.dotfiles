@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Show all containers.
+docker ps -a

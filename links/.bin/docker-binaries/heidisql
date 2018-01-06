@@ -1,0 +1,16 @@
+#!/bin/bash
+user=$USER
+uid=$(id -u)
+gid=$(id -g)
+sudo docker run -it --rm \
+        -e "USER=$user" \
+        -e "UID=$uid" \
+        -e "GID=$gid" \
+        -e "DISPLAY" \
+        --env="WINEPREFIX=/home/$user/.wine32" \
+        --workdir="/home/$user" \
+        --volume="/home/$user:/home/$user" \
+        --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+        --volume="/home/$user/.heidisql/portable_settings.txt:/home/wine/portable_settings.txt" \
+        --net="host" \
+tsari/heidisql

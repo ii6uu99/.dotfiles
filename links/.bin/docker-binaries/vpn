@@ -1,0 +1,10 @@
+#!/bin/bash
+# run with 'vpn my-vpn-config.ovpn'
+docker run \
+        -it \
+        --rm \
+        --cap-add=NET_ADMIN \
+        --device /dev/net/tun \
+        --name openvpn \
+        -v $PWD:/etc/openvpn \
+jess/openvpn "$@"

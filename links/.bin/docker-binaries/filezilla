@@ -1,0 +1,16 @@
+#!/bin/bash
+docker run -it --rm \
+    -e "DISPLAY" \
+    -e "HOME" \
+    -e "USER" \
+    -e "UID=$(id -u)" \
+    -e "GID=$(id -g)" \
+    -v /home/$USER:/home/$USER \
+    -v /etc/machine-id:/etc-machine-id:ro \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    -w $HOME \
+    --hostname docker-filezilla \
+    --net="host" \
+    --name="filezilla" \
+tsari/filezilla

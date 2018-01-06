@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Build services in docker-compose.yml.
+docker-compose build

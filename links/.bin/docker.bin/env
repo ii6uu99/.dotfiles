@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Set environment variables.
+docker-machine env default
+eval "$(docker-machine env default)"

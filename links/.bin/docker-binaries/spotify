@@ -1,0 +1,14 @@
+#!/bin/bash
+xhost +local:docker && \
+
+if [ ! -z $(docker ps -aq -f name=spotify) ]
+then
+    docker start spotify
+else
+    docker run -d \
+        -e DISPLAY=unix$DISPLAY \
+        --device /dev/snd \
+        --net host \
+        --name spotify \
+    jess/spotify &> /dev/null
+fi
