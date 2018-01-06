@@ -9,7 +9,5 @@ echo "export PATH=$HOME/.dotfiles/links/.bin/${d}:$PATH" >> $HOME/.bashrc
 done
 # 创建文件的链接
 for f in $(find . -type f); do
-	src="$HOME/.dotfiles/links/$f"
-	dst="$HOME/$f"
-	chmod -R 750 $dst
+	chmod -R 750 $f
 done
