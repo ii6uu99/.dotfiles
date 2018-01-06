@@ -1,0 +1,15 @@
+#切换到自定义bin文件夹
+cd $HOME/.dotfiles/links/.bin
+# 找到不同的文件夹
+for d in $(find . ! -path . -type d); do
+chmod -R 750 $HOME/.dotfiles/links/.bin/${d}
+#添加自定义的命令到环境变量
+echo "export PATH=$HOME/.dotfiles/links/.bin/${d}:$PATH" >> $HOME/.bashrc
+
+done
+# 创建文件的链接
+for f in $(find . -type f); do
+	src="$HOME/.dotfiles/links/$f"
+	dst="$HOME/$f"
+	chmod -R 750 $dst
+done
