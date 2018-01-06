@@ -7,6 +7,9 @@ echo "export PATH=/bin:/usr/bin:$PATH" >> $HOME/.bashrc
 #切换到自定义bin文件夹
 cd $HOME/.dotfiles/links/.bin
 
+rm pinit.txt
+touch pinit.txt
+
 
 # 寻找文件夹，并添加到环境变量
 for d in $(find . ! -path . -type d); do
@@ -14,7 +17,7 @@ b=${d}
 #echo "export PATH=$HOME/.dotfiles/links/.bin/${b#*/}:$PATH" >> $HOME/.bashrc
 #只添加递增单个文件夹
 #字符串截取http://www.jb51.net/article/56563.htm
-echo "export PATH=$HOME/.dotfiles/links/.bin/${b#*/}:$PATH" >> $HOME/.bashrc
+echo "$HOME/.dotfiles/links/.bin/${b#*/}" >> pinit.txt
 done
 
 # 寻找文件，并赋予文件权限
