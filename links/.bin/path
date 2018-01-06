@@ -1,0 +1,7 @@
+PWD=`pwd`
+#添加自定义的命令到环境变量
+echo -e "export PATH=$PWD:$PATH" >> $HOME/.bashrc
+#linux 文件批量赋予权限
+#chmod -R 权限值 目录或文件
+chmod -R 750 $PWD
+source $HOME/.bashrc
