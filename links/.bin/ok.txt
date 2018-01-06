@@ -1,1 +1,2 @@
+export PATH=:/home/ming/.dotfiles/links/.bin/docker-bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin:/home/ming/.dotfiles/links/.bin/docker-bin:/home/ming/.dotfiles/links/.bin/docker-bin:
 
