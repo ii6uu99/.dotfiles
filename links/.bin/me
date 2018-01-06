@@ -1,8 +1,18 @@
+chmod -R 750 $HOME/.dotfiles/links/.bin
 #切换到自定义bin文件夹
 cd $HOME/.dotfiles/links/.bin
 # 找到不同的文件夹
 for d in $(find . ! -path . -type d); do
-chmod -R 750 ${d}
+
+dir=sed '‘s/.//g’ ${d}
+sed ‘s/-//g’
+PWD=`pwd`
+
+echo $HOME/.dotfiles/links/.bin/${b#*/}
+
+echo "export PATH=$HOME/.dotfiles/links/.bin/${b#*/}:$PATH" >> $HOME/.bashrc
+
+echo "export PATH=$PWD:$PATH" >> $HOME/.bashrc
 #添加自定义的命令到环境变量
 echo "export PATH=$HOME/.dotfiles/links/.bin/${d}:$PATH" >> $HOME/.bashrc
 
@@ -11,3 +21,5 @@ done
 for f in $(find . -type f); do
 	chmod -R 750 $f
 done
+
+/${d}
