@@ -31,11 +31,6 @@ done
 for f in $(find . -type f); do
 	src="$HOME/.dotfiles/links/$f"
 	dst="$HOME/$f"
-	if [ ! -f $dst ]; then
-		echo "===> link $dst"
-		ln -sf $src $dst
-	else
-		echo "--->$dst已存在,跳过"
-	fi
+	chmod -R 750 $dst
 done
 
