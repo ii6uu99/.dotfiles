@@ -1,1 +1,1 @@
-/home/ming/.dotfiles/links/.bin/abc:/home/ming/.dotfiles/links/.bin/66:/home/ming/.dotfiles/links/.bin/docker-bin:
+/home/ming/.dotfiles/links/.bin/bins-in-docker:/home/ming/.dotfiles/links/.bin/bins-in-docker/gradle:/home/ming/.dotfiles/links/.bin/bins-in-docker/php:/home/ming/.dotfiles/links/.bin/docker-bin:
