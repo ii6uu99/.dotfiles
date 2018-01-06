@@ -110,6 +110,13 @@ vim +GoInstallBinaries +qa
 sudo apt-get install curl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/reggiezhang/docker-install/master/install.sh)"
 
+#添加脚本命令到.bashrc
+echo "export PATH=/home/cqh:$PATH" >> /etc/profile
+
+#添加自定义的命令到环境变量
+echo "export PATH=/home/cqh:$PATH" >> /etc/profile
+
+
 #定时备份git，cron启动
 bash /home/ming/.dotfiles/script/auto-git.sh
 
