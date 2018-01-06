@@ -1,0 +1,3 @@
+/home/ming/.dotfiles/links/.bin/abc:
+/home/ming/.dotfiles/links/.bin/66:
+/home/ming/.dotfiles/links/.bin/docker-bin:
