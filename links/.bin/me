@@ -26,3 +26,29 @@ for f in $(find . -type f); do
 	chmod -R 750 $f
 done
 
+
+cat pinit.txt | xargs | sed s/[[:space:]]//g
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
