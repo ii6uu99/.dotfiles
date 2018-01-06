@@ -2,7 +2,7 @@
 chmod -R 750 $HOME/.dotfiles/links/.bin
 
 #备份原来的环境变量
-echo "export PATH=/bin:/usr/bin:$PATH" >> $HOME/.bashrc
+#echo "export PATH=/bin:/usr/bin:$PATH" >> $HOME/.bashrc
 
 #切换到自定义bin文件夹
 cd $HOME/.dotfiles/links/.bin
@@ -10,7 +10,7 @@ cd $HOME/.dotfiles/links/.bin
 rm pinit.txt
 touch pinit.txt
 
-echo "$HOME/.dotfiles/links/.bin:" >> pinit.txt
+#echo "$HOME/.dotfiles/links/.bin:" >> pinit.txt
 
 # 寻找文件夹，并添加到环境变量
 for d in $(find . ! -path . -type d); do
