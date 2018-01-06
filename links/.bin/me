@@ -14,7 +14,7 @@ b=${d}
 #echo "export PATH=$HOME/.dotfiles/links/.bin/${b#*/}:$PATH" >> $HOME/.bashrc
 #只添加递增单个文件夹
 #字符串截取http://www.jb51.net/article/56563.htm
-echo "export PATH=$HOME/.dotfiles/links/.bin/${b#*/}" >> $HOME/.bashrc
+echo "export PATH=$HOME/.dotfiles/links/.bin/${b#*/}:$PATH" >> $HOME/.bashrc
 done
 
 # 寻找文件，并赋予文件权限
