@@ -1,0 +1,1244 @@
+How To:
+
+# save a docker image to .tar file:
+docker save -o fedora-latest.tar fedora:latest
+
+# bash shell to running docker container:
+docker exec -i -t <CONTAINER> /bin/bash
+
+# Remove dangling docker images:
+docker rmi $(docker images -f dangling=true -q)
+
+# install puppet module offline (i.e., without internet) 
+# assumes an officially released tarball.
+puppet module install </path/to/tarball> --ignore-dependencies
+
+# list puppet modules
+puppet module list
+
+# puppet agent-- configure server 
+puppet config set server <server-fqdn>
+# puppet agent -- configure runlevel
+puppet config set runinterval 600
+# puppet agent -- run agent first time to connect to server
+puppet agent -t --server <server-fqdn>
+
+# install packages in R from local repo:
+install.packages("<pkg-name", "repos="file:///</path/to/local/repo>")
+
+# python3 replacement fields:
+>>> for i in range(1, 12):
+...     print("No. {0:2} squared is {1:4} and cubed is {2:4}".format(i, i**2, i ** 3))
+... 
+No.  1 squared is    1 and cubed is    1
+No.  2 squared is    4 and cubed is    8
+No.  3 squared is    9 and cubed is   27
+No.  4 squared is   16 and cubed is   64
+No.  5 squared is   25 and cubed is  125
+No.  6 squared is   36 and cubed is  216
+No.  7 squared is   49 and cubed is  343
+No.  8 squared is   64 and cubed is  512
+No.  9 squared is   81 and cubed is  729
+No. 10 squared is  100 and cubed is 1000
+No. 11 squared is  121 and cubed is 1331
+
+# python3 replacement fields w/ alignment:
+>>> for i in range(1, 12):
+...     print("No. {0:2} squared is {1:<4} and cubed is {2:<4}".format(i, i ** 2, i ** 3))
+... 
+No.  1 squared is 1    and cubed is 1   
+No.  2 squared is 4    and cubed is 8   
+No.  3 squared is 9    and cubed is 27  
+No.  4 squared is 16   and cubed is 64  
+No.  5 squared is 25   and cubed is 125 
+No.  6 squared is 36   and cubed is 216 
+No.  7 squared is 49   and cubed is 343 
+No.  8 squared is 64   and cubed is 512 
+No.  9 squared is 81   and cubed is 729 
+No. 10 squared is 100  and cubed is 1000
+No. 11 squared is 121  and cubed is 1331
+
+# Bash tip:
+# echo text into a root-owned file in a bash script:
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" >> /etc/apt/sources.list'
+
+#check_mk mysql plugin:
+cd /usr/share/check-mk-agent/plugins
+wget "$URL"  # from OMD WATO
+chmod 700 mk_mysql
+# Create /etc/check_mk/mysql.cfg:
+
+[client]
+user=<username>
+password=<password>
+
+# chmod 400 mysql.cfg
+
+# permisions to give cmkuser:
+GRANT SELECT, SHOW DATABASES ON *.* TO 'username'@'servername';
+
+# Configure the host in OMD/WATO.
+
+# Generate sha512 hash from command line:
+python -c 'import crypt,getpass; print crypt.crypt(getpass.getpass())'
+
+# systemd runlevel commands:
+# display default runlevel (or default target; for my purposes, the terms will
+# be interchangeable):
+systemctl get-default
+
+# List all currently loaded runlevel target units.
+systemctl list-units --type target
+
+# List all loaded runlevel units regardless of state:
+systemctl list-units --type target --all
+
+# set default runlevel target
+systemctl set-default name.target
+
+# set default runlevel target to multi-user (i.e., non-graphical):
+systemctl set-default multi-user.target
+
+# Changing current runlevel target:
+systemctl isolate name.target
+
+# Changing current runlevel target to multi-user (i.e., non-graphical):
+systemctl isolate multi-user.target
+
+# Generate self-signed cert:
+openssl req \
+       -newkey rsa:2048 -nodes -keyout domain.key \
+       -x509 -days 365 -out domain.crt
+
+# openssl showcert
+openssl s_client -showcerts -connect www.domain.com:443
+
+ 
+openssl csr
+# new csr
+openssl req \
+       -newkey rsa:2048 -nodes -keyout <fqdn>.key \
+       -out <fqdn>.csr
+
+
+# From existing csr
+openssl x509 \
+       -in /path/to/existing/<fqdn>.crt \
+       -signkey /path/to/existing/<fqdn>.key \
+       -x509toreq -out <fqdn>.csr
+
+# Completely uninstall omnibus Gitlab (RHEL/CentOS 7):
+gitlab-ctl uninstall
+gitlab-ctl cleanse
+gitlab-ctl remove-accounts
+yum remove gitlab-ee
+
+# psql command-line for postgresql:
+# psql may not be in $PATH, but often installed in /opt
+# also, following command often helps:
+ps aux | grep postgres
+
+
+    \q: Quit/Exit
+    \c __database__: Connect to a database
+    \d __table__: Show table definition including triggers
+    \dt *.*: List tables from all schemas (if *.* is omitted will only show SEARCH_PATH ones)
+    \l: List databases
+    \dn: List schemas
+    \df: List functions
+    \dv: List views
+    \df+ __function__ : Show function SQL code.
+    \x: Pretty-format query results instead of the not-so-useful ASCII tables
+   
+    \du: List users
+    \du __username__: List a username if present.
+    create role __test1__: Create a role with an existing username.
+    create role __test2__ noinherit login password __passsword__;: Create a role with username and password.
+    set role __test__;: Change role for current session to __test__.
+    grant __test2__ to __test1__;: Allow __test1__ to set its role as __test2__
+
+# postgressql dump database cluster
+./pg_dumpall --username=postgres --file=<output.filename>
+
+# postgresql find out size of postgres database:
+postgres=# SELECT pg_size_pretty( pg_database_size('dbname') );
+
+# safely change postgres user's password:
+su - postgres
+cd /path/to/PostgreSQL/bin/
+./psql
+postgres=# \password
+Enter new password: 
+Enter it again: 
+postgres=#
+
+# Add user to postgresql:
+# change to user postgres
+[root@some-machine]# su - postgres
+
+-bash-4.2$ createuser --interactive
+Enter name of role to add: <username>
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) y
+Shall the new role be allowed to create more new roles? (y/n) n
+
+# Create postgresql database:
+-bash-4.2$ createdb <dbname>
+
+# Grant privileges to user for postgresql database:
+postgres=# GRANT <PRIVS> ON DATABASE <dbname> TO <username>;
+
+# Change user's password (postgresql):
+postgres=# ALTER USER <username> PASSWORD '<password>';
+
+# Another way to list databases (postgresql):
+[root@<somemachine> /path/to/postgresql/bin]# ./psql -h localhost --username=postgres --list
+
+# Install clamav on Ubuntu 16.04
+sudo apt install clamav
+
+# To update signatures:
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam -v
+
+# rsync, recursively, preserving permissions:
+rsync -avP /path/to/dir/ <username>@system@ip_or_fqdn:/path/to/dir
+
+# Change log (maybe good to know?):
+nfs-utils-lib was rolled into nfs-utils as of RHEL 7.2, CentOS 7 now has made the upstream change as well. `
+
+# which nfs server version?
+# on server:
+rpcinfo -p localhost
+
+# nfs version on client
+nfsstat 
+
+# Change hostname:
+hostnamectl set-hostname "Your New Host Name Here" --pretty
+hostnamectl set-hostname Your-New-Host-Name-Here --static
+hostnamectl set-hostname Your-New-Host-Name-Here --transient
+
+# Check hostname status
+hostnamectl status
+
+# Create LVM
+# lvm pv:
+pvcreate /dev/<name>
+
+# lvm vgcreate
+vgcreate <vgname> /path/to/pv
+
+# lvm lvcreate
+lvcreate -l 100%VG -n <lvname> <vgname>
+
+# lvm extend
+
+#create new pv using fdisk (option t ; 8e to mark partition as lvm)
+vgextend <vgname> /path/to/newpv
+
+# if still mounted:
+lvextend -l 100%FREE /dev/mapper/vgname-lvname
+
+# or, if unmounted:
+lvextend -l 100%FREE /dev/vgname/lvname
+
+# or, may need to use free extents:
+lvextend -l +119295 /dev/vgname/lvname
+
+# Reduce lvm volume:
+umount -v /mnt/tecmint_reduce_test/
+e2fsck -ff /dev/vg_tecmint_extra/tecmint_reduce_test
+resize2fs /dev/vg_tecmint_extra/tecmint_reduce_test 10GB
+lvreduce -L -8G /dev/vg_tecmint_extra/tecmint_reduce_test
+
+# Assign lvm label to parted partition:
+(parted) set <partition #> lvm on
+
+# align partitions using parted
+# e.g.:
+
+Get the alignment parameters for your array (remember to replace sdb with the name of your device as seen by the kernel).
+
+# cat /sys/block/sdb/queue/optimal_io_size
+1048576
+# cat /sys/block/sdb/queue/minimum_io_size
+262144
+# cat /sys/block/sdb/alignment_offset
+0
+# cat /sys/block/sdb/queue/physical_block_size
+512
+
+Add optimal_io_size to alignment_offset and divide the result by physical_block_size. In my case this was (1048576 + 0) / 512 = 2048.
+This number is the sector at which the partition should start. Your new parted command should look like
+
+mkpart primary 2048s 100%
+
+The trailing ‘s’ is important: it tells parted that you’re talking about sectors, not bytes or megabytes.
+If all went well, the partition will have been created with no warnings. You can check the alignment thusly (replacing ‘1’ with the partition number if necessary):
+
+(parted) align-check optimal 1                                            
+1 aligned
+
+# Helpful mysql commands:
+
+# mysql change user's password:
+SET PASSWORD FOR ‘anthony’@’localhost’ = PASSWORD(‘text password’);
+
+# mysql dump database:
+mysqldump -u root -p --opt [database name] > [database name].sql
+
+# mysql import dumped database:
+mysql -u root -p newdatabase < /path/to/newdatabase.sql
+
+# List of mysql users:
+MariaDB [(none)]> select user,host from mysql.user;
+
+# List of mysql users + passwords:
+MariaDB [(none)]> select user,host,password from mysql.user;
+
+# show permissions for a single user:
+MariaDB [(none)]> show grants for 'username'@'%';
+
+# Connect to mysql:
+mysql -u <user> -p
+# will prompt for password.
+
+# mysql display available databases:
+SHOW DATABASES;
+
+# mysql create a database:
+CREATE DATABASE <database name>;
+
+# mysql Remove a database:
+DROP DATABASE <database name>;
+
+# mysql create user:
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+
+# mysql change user password:
+SET PASSWORD FOR 'username'@'localhost' = PASSWORD('<password>');
+
+# mysql Open a database:
+USE <database name>;
+
+# mysql Display database tables of opened database:
+SHOW tables;
+
+# mysql Table creation example:
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+
+# mysql Privilege granting example:
+GRANT ALL PRIVILEGES ON `<database name>`.* TO '<mysql username>'@'%' IDENTIFIED BY '<password>';
+
+# Python virtual environments:
+pip install virtualenv
+virtualenv --version #just to verify installed.
+# create directory for virtual environment.
+# In this case, I created one for testing development version
+# of python-gitlab, a program that interacts with GitLab API.
+mkdir pgvenv
+cd pgvenv
+virtualenv pgvenv
+source pgvenv/bin/activate
+
+# prompt should look something like this:
+(pgvenv) $
+
+# install necessary python packages, etc.
+# when finished, type:
+deactivate
+
+# Check postfix mail queue count:
+mailq | grep -c "^[A-F0-9]"
+
+# Nagios open firewall port:
+firewall-cmd --zone=public --add-port=5666/tcp --permanent
+
+# Nagios check command remotely from nagios server:
+/usr/lib64/nagios/plugins/check_nrpe -H esd-vm1.ornl.gov -c check_esd_vmstorage
+
+# Nagios test config before restarting service:
+/usr/sbin/nagios -v /etc/nagios/nagios.cfg
+
+# Run nagios check_disk command on remote machine:
+ssh <user>@<ip> /usr/lib64/nagios/plugins/check_disk -w 2% -c 1% -p "/path/to/storage" 2>&1
+
+# Virsh cpu commands:
+virsh setvcpus lcatweb 10 --maximum --config
+virsh shutdown lcatweb
+virsh list --all
+virsh start lcatweb
+virsh setvcpus lcatweb 10 --live
+
+virsh destroy lcatweb
+virsh setvcpus lcatweb 1 --maximum --config
+virsh start lcatweb
+
+# Set up a simple git server on local machine
+git config --global alias.serve "daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/"
+
+git serve
+
+git clone <username>@address:/path/to/repo
+
+# To stash untracked files in git
+git stash -u <filename> 
+
+# To add a save message to the stash. 
+git stash save "enter message"
+
+# To remove a stash from the stash list
+git stash drop
+
+# To list currently stashed files
+git stash list
+
+# Show the changes recorded in the stash as a diff between the stashed state
+# and its original parent. 
+git stash show stash@{<stash-revision-index>}
+
+# Apply changes in stashed copy of file to file in working directory.
+git stash apply stash@{1}
+
+#Remove all the stashed states. Note that those states will then be 
+# subject to pruning, and may be impossible to recover  
+git stash clear
+
+# Creates and checks out a new branch named <branchname> starting from the commi# t at which the <stash> was originally created, applies the changes recorded in
+# <stash> to the new working tree and index. If that succeeds, and <stash> is a 
+# reference of the form stash@{<revision>}, it then drops the <stash>. 
+# When no <stash> is given, applies the latest one. 
+git stash branch <branchname> [<stash>]
+
+# Change remote url:
+git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
+#or:
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+
+# Remove a single stashed state from the stash list and apply it on top of the 
+# current working tree state, i.e., do the inverse operation of git stash save. # The working directory must match the index.
+git stash pop
+
+# Send an external "quit" command to a running screen session:
+screen -S foo -X quit
+
+# Re-attach to an already attached screen session:
+screen -rd <existing-session>
+
+# yum update, but exclude package
+yum update --exclude=<packagename>
+
+# rpm command: remove package
+rpm -qa | grep -i <partial package name>
+rpm -ev <full-package-name>
+
+# Extract rpm without installing
+rpm2cpio php-5.1.4-1.esp1.x86_64.rpm | cpio -idmv
+
+# scp to nat'd virtualbox guest:
+scp -P 2222 /home/b1n/Downloads/Dockerized-app-Flask.zip b1n@127.0.0.1:~
+
+#kvm virsh snapshots
+
+virsh snapshot-create-as --domain {VM-NAME} --name "{SNAPSHOT-NAME}"
+virsh snapshot-list --domain {VM-NAME}
+
+#firewalld commands:
+
+firewall-cmd --state
+
+firewall-cmd --get-default-zone
+
+firewall-cmd --get-active-zones
+
+firewall-cmd --list-all
+
+firewall-cmd --get-services
+
+firewall-cmd --zone=home --list-all
+
+firewall-cmd --zone=public --add-port=5666/tcp --permanent
+
+# firewall-cmd rich rule example:
+firewall-cmd --zone=public --permanent --add-rich-rule='rule family="ipv4" source address="160.91.19.12" port port="5666" protocol="tcp" accept'
+
+[root@gitlab1nci ~]# firewall-cmd --zone=public --permanent --add-service=http
+success
+[root@gitlab1nci ~]# firewall-cmd --zone=public --permanent --add-service=https
+success
+[root@gitlab1nci ~]# firewall-cmd --reload
+success
+
+
+# Gitlab version information
+
+gitlab-rake gitlab:env:info
+
+# GitLab check ldap
+gitlab-rake gitlab:ldap:check
+
+# Resolve symlinks in batches (e.g., show me symlinks in /bin):
+
+find /bin/ -type l -printf '%p points to %l\n'
+
+
+# To return motherboard information:
+dmidecode | grep -A4 'Base Board'
+Base Board Information
+	Manufacturer: Supermicro
+	Product Name: X8DT6
+	Version: 1234567890
+	Serial Number: VM1AS47321
+
+# pass a file through perl & find and replace text. g = global 
+# thoughout file & i = case insensitive.
+perl -p -e 's/\b<search-text>\b/<replace-text>/gi' file.txt
+
+# for-each-file-in-this-dir example that avoids using "ls".
+for i in *; do var=$(printf "%s/%s\n" $PWD $i); ln -s "$var" /etc/httpd/modules/"$i"; done
+
+# Open vi and go to function localList:
+vi +/localList tryit.py
+
+# Open vi at line number:
+vi +54 tryit.py
+
+# Turn on/off firewalld in RHEL 7:
+service firewalld stop
+service firewalld start
+
+# Disable firewalld
+systemctl disable firewalld
+
+# Ubuntu: If packages fail to download, if "NO_PUBKEY 40976EAF437D05B5 . . ."
+
+# tomcat commands
+ps -ef | grep tomcat
+
+# ssh logging to text file.
+ssh -vvv -l b1n  jaguar  2>&1  | tee ~/ssh-output.log
+
+# List users in sudo group
+awk -F ":" '{ system("groups " $1 " | grep -P \"[[:space:]]sudo([[:space:]]|$)\"") }' /etc/passwd
+
+# or . . .
+
+grep -Po '^sudo.+:\K.*$' /etc/group
+
+# Save strace execution to a file (e.g., 'ls' command):
+strace -o output.txt ls
+
+# Allow X11 port forwarding on Jaguar:
+#Appended to /etc/bash.bashrc file:
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
+    export DISPLAY=localhost:10.0
+fi
+
+# /etc/ssh/sshd_config
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+AllowTcpForwarding yes
+X11UseLocalHost yes
+AddressFamily inet
+
+
+# Remove all instances of a word in a file w/ sed.
+word='the'
+sed -r "s/\b$word\b//g"
+
+# Replace instances of 'word' with 'apple':
+sed -r "s/word/apple/g"
+
+# Change SELinux permissions with sed.
+sed -i 's/^SELINUX=permissive/' /etc/selinux/config
+
+# sed examples
+# How to add a header line say  "Employee, EmpId"  to this file using sed?
+$ sed  '1i Employee, EmpId'  empFile
+
+# To modify the file:
+sed -i '1i Employee, EmpId' empFile.txt
+
+# Add a record to the empFile.txt
+# used a pattern. /Hilesh/a tells to include the following contents after 
+# finding the pattern 'Hilesh'
+sed -i '/Hilesh/a Bharti, 1002' empFile.txt
+
+# add employee Aparna before the Harshal:
+sed -i '/Harshal/i Aparna, 1003' empFile.txt
+
+# 1. To remove a specific character, say 'a'
+$ sed 's/a//' file
+
+# To remove 1st character in every line:
+
+$ sed 's/^.//' file
+
+# To remove last character of every line :
+
+$ sed 's/.$//' file
+
+
+
+# print disk usage by % but filter out irrelevant information
+df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }'
+
+# Output percentage memory usage per user:
+for USER in $(ps haux | awk '{print $1}' | sort -u)
+do
+    ps haux | awk -v user=$USER '$1 ~ user { sum += $4 } END { print user, sum; }'
+done
+
+# Output every process and its memory usage in human readable (megabytes).
+# Sorted by memory size -- highest to lowest.
+ps -eo size,pid,user,command --sort -size | awk '{ hr=$1/1024 ; printf("%13.2f Mb ",hr) } { for ( x=4 ; x<=NF ; x++ ) { printf("%s ",$x) } print "" }'
+
+# Memory management flag files to /proc:
+sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
+
+# Persistently resize swappinness in sysctl.conf:
+sudo bash -c "echo 'vm.swappiness = 15' >> /etc/sysctl.conf"
+
+#dd
+dd if=/dev/sdb of=/dev/sda1 bs=512 conv=noerror,syn
+
+#To check dd's progress
+pgrep -l '^dd$'		# gives you dd's pid
+
+#Or, send interrupt signal to dd
+kill -USR1 $pid
+
+#Or, view -n secs interval'd reports on dd:
+watch -n 10 kill -USR1 6757
+
+
+#how to switch to netcat-traditional
+sudo update-alternatives --config nc
+
+#Convert vmdk to virtualbox vdi:
+
+qemu-img convert ubuntu-biz1404-disk1.vmdk ubuntubiz14.04.bin
+VBoxManage convertdd ubuntubiz14.04.bin ubuntu-biz14.04.vdi
+
+# create qcow2 disk w/ qemu-img create:
+qemu-img create -f qcow2 <disk-name>.qcow2 50G
+
+# compress and tar a directory
+tar -czvf <name of tar.gz file> <directory to compress and tar>
+
+# tar --force-local
+tar --force-local -xvf rdnotes-backup-2017-10-23-08\:14\:07.tar.gz
+
+#untar and zip to a specified directory:
+
+tar xvzf archive.tar.gz -C /target/directory
+
+#Disable ipv6
+
+ open /etc/sysctl.conf
+append the following lines: 
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1 
+
+sudo sysctl -p
+cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+
+#Add user to sudoers:
+
+sudo adduser <username> sudo
+
+# Wireless without network-manager:
+
+wpa_passphrase "SSID" "password"
+
+#returns:
+network={
+	ssid="Ben's Wi-fi Zone"
+	#psk="password"
+	psk=917a8c65be889d7d9071848c3a5ff825601066f4181a060a3f0fff6c0831b592
+}
+
+edit /etc/wpa_supplicant.conf:
+
+ctrl_interface=DIR=/var/run/wpa_supplicant
+network={
+        ssid="Ben's Wi-fi Zone"
+        scan_ssid=1
+        key_mgmt=WPA-PSK
+        psk=917a8c65be889d7d9071848c3a5ff825601066f4181a060a3f0fff6c0831b592
+}
+
+# edit /etc/network/interfaces
+auto wlan0
+iface wlan0 inet static
+address 192.168.1.100
+netmask 255.255.255.0
+wireless-essid "Ben's Wi-fi Zone"
+gateway 192.168.1.254
+pre-up wpa_supplicant -Bw -Dwext -iwlan0 -c/etc/wpa_supplicant.conf
+post-down killall -q wpa_supplicant
+
+
+wpa_supplicant -B -Diwlwifi,wext -c/etc/wpa_supplicant.conf -iwlan0 -d
+
+#finally, deal with routing tables by deleting and adding routes.
+route del -net 10.0.3.0 gw 0.0.0.0 netmask 255.255.255.0 dev lxcbr0
+route add -net 10.0.3.0 gw 10.0.3.1 netmask 255.255.255.0 dev lxcbr0
+route del -net 169.254.0.0 gw 0.0.0.0 netmask 255.255.0.0 dev eth0
+route add -net 192.168.1.0 gw 0.0.0.0 netmask 255.255.255.0 dev wlan0
+route add default gw 192.168.1.254
+# or to bb (on bbgw01) to testfw
+route add -net 192.168.1.0 netmask 255.255.255.0 gw 10.0.203.149
+
+
+# Turn off "waiting for network configuration" messages at boot:
+/etc/init/failsafe.conf
+comment out 20, 40, and 59 seconds lines.
+
+Create aliases:
+alias <alias name>="<command>"
+#append same to .bash_aliases file in ~
+
+# change hostname w/out restarting machine
+sudo hostname
+
+# repair if ~/Desktop is the same as Home directory:
+vi .config/user-dirs.dirs
+
+# Append Desktop/ to the line: XDG_DESKTOP_DIR="$HOME/"
+# For example, change this . . . 
+
+# This file is written by xdg-user-dirs-update
+# If you want to change or add directories, just edit the line you're
+# interested in. All local changes will be retained on the next run
+# Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
+# homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
+# absolute path. No other format is supported.
+#
+XDG_DESKTOP_DIR="$HOME/"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
+XDG_TEMPLATES_DIR="$HOME/"
+XDG_PUBLICSHARE_DIR="$HOME/"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_MUSIC_DIR="$HOME/"
+XDG_PICTURES_DIR="$HOME/"
+XDG_VIDEOS_DIR="$HOME/"
+
+# to this . . . 
+
+# This file is written by xdg-user-dirs-update
+# If you want to change or add directories, just edit the line you're
+# interested in. All local changes will be retained on the next run
+# Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
+# homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
+# absolute path. No other format is supported.
+#
+XDG_DESKTOP_DIR="$HOME/Desktop/"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
+XDG_TEMPLATES_DIR="$HOME/"
+XDG_PUBLICSHARE_DIR="$HOME/"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_MUSIC_DIR="$HOME/"
+XDG_PICTURES_DIR="$HOME/"
+XDG_VIDEOS_DIR="$HOME/"
+
+#Run:
+nautilus -q
+
+# Mount iso in FreeBSD 9.3:
+
+mdconfig -a -t vnode -f PATH_TO_YOUR_ISO/ISOFILE.iso
+mount -t cd9660 /dev/mdX /media
+[returns mdX -- x = int]
+Once umounted, you can destroy mdX
+
+# Generating a new ssh key:
+ssh-keygen -t rsa -b 4096
+
+# Adding ssh key to the ssh-agent:
+# Start the ssh-agent in the background.
+eval "$(ssh-agent -s)"
+
+# Add ssh private key to agent (and passphrase to keychain):
+ssh-add -K ~/.ssh/id_rsa
+
+# Transfer public key:
+
+ssh-copy-id <username>@<host>
+
+
+# install paramiko
+conda install paramiko
+
+or 
+pip install ecdsa
+
+or 
+sudo apt-get install python-paramiko
+
+install pyro4
+pip install pyro4
+sudo pip install pyro4
+
+# grep recursively through files in a directory in search of a string (ignore case):
+grep -r -i "mysql" /etc/nagios/objects/
+
+# grep above and below a line
+
+<command> | grep -A 1 -B 1 <keyword>
+
+# grep every line that does not contain a particular string patterm
+
+grep -v
+
+# grep show line numbers
+grep -n
+
+# vim: open file and go to particular word:
+vim +/<word> <filename>
+
+# vim: select all lines in file in vim
+ggVG
+
+# vim: select all lines in file and insert comment
+ctrl-v G I # esc esc
+
+# string substitute in vim:
+[replace all instances of foo with bar]
+:%s/foo/bar/g
+
+Install ubuntu desktop:
+sudo apt-get install ubuntu-desktop
+
+Install pyfuzz:
+
+NOTE: ~/anaconda2/lib/python2.7/site-packages/pyfuzz/generator.py
+I modified the generator.py script:
+I changed 'import Image' to 'from PIL import Image'
+
+NOTE: 1-30-16: ran conda install -c https://conda.anaconda.org/auto pyfuzz
+because pip intall pyfuzz didn't exactly work. Upon running above command, I noticed: The following packages will be DOWNGRADED:
+
+    numpy:     1.10.2-py27_0 --> 1.8.2-py27_1
+
+pip install pyfuzz
+
+Upgrade pip:
+
+pip install --upgrade pip
+
+install latest version of java
+sudo apt-get install default-jre
+
+Install telnet:
+sudo apt-get install xinetd telnetd
+
+FTP to Freenas:
+
+ftp 10.1.1.30
+enter username and password
+put (path to local file)
+(enter name of remote file)
+transfer complete
+
+install python pcapy for anaconda:
+
+download tar.gz. Unzipped, and run:
+python setup.py install
+
+install python-pcapy:
+
+sudo apt-get intall python-pcapy
+
+Comment out multiple lines in vim:
+
+To comment out blocks in vim:
+
+    1. press Esc (to leave editing or other mode)
+    2. hit ctrl + v (visual block mode)
+    3. use the up/down arrow keys to select lines you want (it won't highlight everything - it's OK!)
+    4. Shift + i (capital I)
+    5. insert the text you want, i.e. '% '
+    6. press Esc.
+
+Copy the file "foobar.txt" from a remote host to the local host
+
+    $ scp your_username@remotehost.edu:foobar.txt /some/local/directory
+
+scp multiple files from remote host to a local directory
+
+scp console@jaguar:/home/console/\{lxc-cscript2.c.orig,lxc-cscript2.c,lxc-cscript2.7} .
+
+Edit your .bashrc (append to last line) or prepend the Anaconda2 install location:
+
+$ export PATH=/home/pupi/anaconda2/bin:$PATH
+
+Thank you for installing Anaconda2!
+
+
+
+how to ssh into virtualbox guest:
+ssh -p 22 taylor@127.0.0.1
+
+open ssh port on virtualbox guest:
+VBoxManage modifyvm "PyNetPro" --natpf1 "guestssh,tcp,,22,,22"
+
+change virtualbox nat range:
+VBoxManage modifyvm "VM name" --natnet1 192.168.1/24
+
+generate rsa keys on a cisco IOS router:
+Router(config)# crypto key generate rsa
+
+Delete keys:
+crypto key zeroize rsa
+
+debian 7 install mysqldb for python
+
+apt-get install build-essential python-dev libmysqlclient-dev
+pip install MySQL-python
+
+mysql
+
+sudo apt-get install mysql-server
+
+sudo apt-get install python-scapy
+
+python pysnmp
+apt-get install python-pysnmp-common
+
+python-networkx
+pip install networkx
+
+python-matplotlib
+apt-get build-dep python-matplotlib
+apt-get install python-matplotlib
+
+cat output to file with date & timestamps:
+sudo iptables -L > iptables-l.txt-`date +%F`-`date +%T`
+
+iptables: 
+
+# insert iptables rule
+# requires iptables -L --line-numbers
+iptables -I INPUT 6 -p tcp -s 160.91.19.12/32 --dport 6556 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+
+iptables-persistent:
+sudo apt-get install iptables-persistent
+
+test syntax for /etc/iptables/rules.v4
+sudo iptables-restore -t /etc/iptables/rules.v4
+
+save firewall rules:
+sudo invoke-rc.d iptables-persistent save
+
+check rulves.v4 file for syntactical correctness:
+sudo ip4tables-restore -t /etc/iptables/rules.v6
+
+
+reload after altering rules.v4 file:
+sudo service iptables-persistent reload
+
+iptables rules filepath:
+/etc/iptables/rules.v4
+/etc/iptables/rules.v6
+
+
+Targets: When the defined pattern matches, the action that takes place is called a target. A target can be a final policy decision for the packet, such as accept, or drop. It can also be move the packet to a different chain for processing, or simply log the encounter. There are many options.
+
+These rules are organized into groups called chains. A chain is a set of rules that a packet is checked against sequentially. When the packet matches one of the rules, it executes the associated action and is not checked against the remaining rules in the chain.
+
+A user can create chains as needed. There are three chains defined by default. They are:
+
+    INPUT: This chain handles all packets that are addressed to your server.
+    OUTPUT: This chain contains rules for traffic created by your server.
+    FORWARD: This chain is used to deal with traffic destined for other servers that are not created on your server. This chain is basically a way to configure your server to route requests to other machines.
+
+
+get my own IP address and save it to a variable in a shell script
+
+ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+
+giving only the "eth0" IP address and not any sub-interfaces (eth0:0, eth0:1, etc.): 
+
+ip="$(ifconfig | grep -v 'eth0:' | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+
+
+#'du' - Finding the size of a directory
+
+# Top five directories by disk usage (human readable)
+du -hs * | sort -rh | head -5
+
+# Display the largest folders/files including the sub-directories:
+du -Sh | sort -rh | head -5
+
+$ du
+Typing the above at the prompt gives you a list of directories that exist in the current directory along with their sizes. The last line of the output gives you the total size of the current directory including its subdirectories. The size given includes the sizes of the files and the directories that exist in the current directory as well as all of its subdirectories. Note that by default the sizes given are in kilobytes.
+
+
+$ du /home/david
+The above command would give you the directory size of the directory /home/david
+
+
+$ du -h
+This command gives you a better output than the default one. The option '-h' stands for human readable format. So the sizes of the files / directories are this time suffixed with a 'k' if its kilobytes and 'M' if its Megabytes and 'G' if its Gigabytes.
+
+
+$ du -ah
+This command would display in its output, not only the directories but also all the files that are present in the current directory. Note that 'du' always counts all files and directories while giving the final size in the last line. But the '-a' displays the filenames along with the directory names in the output. '-h' is once again human readable format.
+
+
+$ du -c
+This gives you a grand total as the last line of the output. So if your directory occupies 30MB the last 2 lines of the output would be
+
+30M .
+30M total
+
+The first line would be the default last line of the 'du' output indicating the total size of the directory and another line displaying the same size, followed by the string 'total'. This is helpful in case you this command along with the grep command to only display the final total size of a directory as shown below.
+
+
+$ du -ch | grep total
+This would have only one line in its output that displays the total size of the current directory including all the subdirectories.
+
+Note : In case you are not familiar with pipes (which makes the above command possible) refer to Article No. 24 . Also grep is one of the most important commands in Unix. Refer to Article No. 25 to know more about grep.
+
+
+$ du -s
+This displays a summary of the directory size. It is the simplest way to know the total size of the current directory.
+
+
+$ du -S
+This would display the size of the current directory excluding the size of the subdirectories that exist within that directory. So it basically shows you the total size of all the files that exist in the current directory.
+
+
+$ du --exculde=mp3
+The above command would display the size of the current directory along with all its subdirectories, but it would exclude all the files having the given pattern present in their filenames. Thus in the above case if there happens to be any mp3 files within the current directory or any of its subdirectories, their size would not be included while calculating the total directory size.
+
+install pyautogui
+
+
+    sudo pip3 install python3-xlib
+
+    sudo apt-get scrot
+
+    sudo apt-get install python3-tk
+
+    sudo apt-get install python3-dev
+   
+    sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev \
+    libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+
+    sudo pip3 install pyautogui
+
+
+#install module w/ pip3
+sudo pip3 install <module-name>
+
+#install pip for python3:
+sudo apt-get install python3-pip
+
+#install pip for python2.7:
+sudo apt-get install python-pip
+
+#Install selenium under python3:
+sudo pip3 install -U selenium 
+
+#redirect output/errors to textfile:
+
+#Use 2> to redirect stderr output to a textfile: 
+foo > stdout.txt 2> stderr.txt
+
+#For both output and stderr in the same file:
+foo > allout.txt 2>&1
+
+#Note: this works in (ba)sh, check your shell for proper syntax
+
+
+#Open browser developer tools:
+firefox: Ctrl + Shift + C
+chrome: f12
+
+#Remove a user from sudo group (ubuntu):
+
+sudo deluser <username> sudo
+
+#Remove desktop manager from ubuntu:
+
+sudo apt-get remove --purge network-manager-gnome network-manager
+
+To correct the following ntp error: ntpdate[744]: Can't adjust the time of day: Operation not permitted
+dpkg-reconfigure tzdata
+
+To check the version of an installed program, for example:
+
+dpkg -l <program-name>
+
+apt-cache show <program-name>
+
+
+scp from single to multiple hosts:
+for i in `cat dest-scp.txt` ; do scp wsadduser-2.0-4.ORNL.amd64.deb "$i":~; scp wspasswd_3.0.0-6.UBUNTU1404_amd64.deb "$i":~ ; done
+
+apt-get "yes"
+
+apt-get -y upgrade
+
+Check Centos version via cli:
+cat /etc/centos-release
+
+
+How to show which network driver I'm using
+
+Options:
+
+dmesg | grep "Ethernet driver"
+
+sudo lshw | less
+
+# Return to previous working directory
+
+cd -
+
+Check if a package is installed:
+dpkg -l <package_name>
+
+# Copy and Paste in Vim
+
+#Here is how to cut-and-paste or copy-and-paste text using a visual selection 
+#in Vim.
+
+#Cut and paste:
+
+    Position the cursor where you want to begin cutting.
+    Press v to select characters (or uppercase V to select whole lines).
+    Move the cursor to the end of what you want to cut.
+    Press d to cut (or y to copy).
+    Move to where you would like to paste.
+    Press P to paste before the cursor, or p to paste after. 
+
+Copy and paste is performed with the same steps except for step 4 where you would press y instead of d:
+
+    d = delete = cut
+    y = yank = copy 
+http://vim.wikia.com/wiki/Copy,_cut_and_paste
+
+...find IMEI on Tracfone:
+
+*#06#
+IMEI:
+01329400291260203
+
+Open cmos setup in microway: delete key
+Scylla requires an external DVD drive to load a new OS.
+
+#...determine version of Ubuntu:
+
+user@ubuntu:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 14.04.3 LTS
+Release:	14.04
+Codename:	trusty
+
+. . . restore time and date to Unity desktop panel.
+
+http://itsfoss.com/fix-date-time-missing-menu-bar-ubuntu-1310/
+
+Either:
+
+sudo apt-get install indicator-datetime
+sudo dpkg-reconfigure --frontend noninteractive tzdata
+sudo killall unity-panel-service
+
+Or:
+sudo restart lightdm
+
+# find command
+find / -type f -name "*.conf"
+
+# find command partial name, case insensitive example:
+find ../ -name '*[Cc][Ll][Aa][Mm][Aa][Vv]*'  -print
+
+# Use "tee" to redirect to a file and the screen. Depending on the shell you 
+# use, you first have to redirect stderr to stdout using
+
+./a.out 2>&1 | tee output
+
+#awk: return row 2, 7th column 
+awk 'NR==2 {print $7}' free.txt
+
+# single-user mode RHEL 7:
+# Hit 'e' at grub menu.
+# Look for line that begins with 'linux16 vmlinuz.'
+# Go to end of that line, and type the following:
+init=/bin/bash
+
+# Hit Ctrl-x
+# At bash prompt, type:
+mount -o remount,rw /
+
+# Clamav
+# install clamav
+sudo apt-get install clamav clamav-daemon
+
+# stop freshclam
+systemctl stop clamav-freshclam.service
+
+# clamscan (recursive, verbose):
+clamscan -rv /path/to/scan
+
+# cryptsetup luksDump: dump luks slots for encrypted partition
+sudo cryptsetup luksDump /dev/sda5 | grep Slot
+
+# cryptsetup luksAddKey:
+sudo cryptsetup luksAddKey /dev/sda5
+
+# mount luks partition from command line:
+# open the partition and set up a mapping name:
+cryptsetup luksOpen /dev/sd??/ <mapping-name>
+# mount using the mapping name:
+mount /dev/mapper/<mapping-name> /path/to/mount/point
+
+# Close luks
+cryptsetup luksClose <mapping-name>
+
+
+
+# chown a symlink
+chown -h apache:apache clamav-cvd
+
+# Create a symlink:
+ln -s /path/to/file /path/to/symlink
+
+# GNOME version
+gnome-session --version
+
+# Delete bash history item:
+history -d <offset #>
+history -w  # writes current history out to history file.
+
+# cat to EOF:
+cat > /path/to/file << "EOF"
+content
+content
+EOF
+
+# OSX mac: mount device using ext4fuse
+ext4fuse /dev/disk2s1 </path/to/mountpoint>
+
+# sshuttle
+sshuttle --dns -r id@fqdn 0/0
+
+# For logoff user:
+pkill -KILL -u {username}

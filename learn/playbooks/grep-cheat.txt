@@ -1,0 +1,61 @@
+# ubuntu@ubuntu:/usr/share/common-licenses$
+
+grep "GNU" GPL-3
+
+# Return each instance of the word "license" (with upper, lower, or mixed cases.
+grep -i "license" GPL-3
+
+# Return every line that does not contain the word "the" in the BSD license.
+grep -v "the" BSD
+
+# Return every line (with lines numbers) that does not contain the word "the" in the BSD license.
+grep -vn "the" BSD
+
+# Return only those matches of "GNU" if they occur at the very beginning of a line.
+grep "^GNU" GPL-3
+
+# Match every line ending with the word "and"
+grep "and$" GPL-3
+
+# Match anything that has two characters and then the string "cept", we could use the following pattern:
+grep "..cept" GPL-3
+
+# Find the lines that contain "too" or "two":
+grep "t[wo]o" GPL-3
+
+# Match anything except the characters within a bracket
+grep "[^c]ode" GPL-3
+
+# Find every line that begins with a capital letter, we can use the following \
+# pattern:
+grep "^[A-Z]" GPL-3
+grep "^[[:upper:]]" GPL-3
+
+# Return each line that contained an opening and closing parenthesis, with only 
+# letters and single spaces in between.
+grep "([A-Za-z ]*)" GPL-3
+
+# Return a line that begins with a capital letter and ends with a period
+grep "^[A-Z].*\.$" GPL-3
+
+grep "\(grouping\)" file.txt
+
+grep -E "(grouping)" file.txt
+
+egrep "(grouping)" file.txt
+
+# Return either GPL or General Public License
+grep -E "(GPL|General Public License)" GPL-3
+
+# The following matches "copyright" and "right" by putting "copy" in an optional 
+# group:
+grep -E "(copy)?right" GPL-3
+
+# Return the string "free" plus one or more characters that are not whitespace:
+grep -E "free[^[:space:]]+" GPL-3
+
+# Return all of the lines that contain triple-vowels
+grep -E "[AEIOUaeiou]{3}" GPL-3
+
+# Match any words that have between 16 and 20 characters.
+grep -E "[[:alpha:]]{16,20}" GPL-3

@@ -1,0 +1,156 @@
+
+
+for i in `cat active-clist.txt` ; do 
+lxc-attach -n "$i" -e -s 'NETWORK|UTSNAME'
+ifconfig -a >> /home/root/ubtr-ifconfig.txt ; done
+
+
+
+#bash script single command multiple containers
+for i in `cat active-clist.txt` ; do lxc-attach -n "$i" -- apt-get update && apt-get -y upgrade ; done
+
+
+lxc cheat sheet
+
+# Create a "p1" container using the "ubuntu" template and the same version of Ubuntu
+# and architecture as the host. Pass "-- --help" to list all available options.
+
+sudo lxc-create -t ubuntu -n p1
+
+#The download template will show you a list of distributions, versions and
+#architectures to choose from.
+
+lxc-create -t download -n <container-name>
+
+sudo lxc-create -t download -n u1 -- --dist ubuntu --release trusty --arch amd64
+
+
+# Start the container (in the background)
+sudo lxc-start -n p1 -d
+
+# Enter the container in one of those ways## Attach to the container's console (ctrl-a + q to detach)
+sudo lxc-console -n p1
+
+## Spawn bash directly in the container (bypassing the console login)
+
+sudo lxc-attach -n p1
+
+#Attach to container and send command:
+
+lxc-attach -n <container name> -- <command>
+
+## SSH into it
+sudo lxc-info -n p1
+ssh ubuntu@<ip from lxc-info>
+
+# Stop the container from within
+sudo poweroff
+
+## Stop it cleanly from the outside
+sudo lxc-stop -n p1
+
+## Kill it from the outside
+sudo lxc-stop -n p1 -k
+
+# Create an Oracle Linux container (32-bit)
+sudo lxc-create -t oracle -n p2 -- -a i386
+
+#list containers
+lxc-ls
+
+#list active containers
+lxc-ls --active
+
+# start any container marked with lxc.start.auto=1.
+sudo lxc-autostart -a
+
+# cleanly shutdown containers in a group
+sudo lxc-autostart -s -g <GroupName>
+
+#reboot all containers that are in the <GroupName> group
+sudo lxc-autostart -r -g <GroupName>
+
+#You can also pass “-L” with any of those commands, which will simply print which #containers would be affected and what the delays would be, but won’t actually do #anything (useful to integrate with other scripts).
+
+# To freeze a container
+sudo lxc-freeze -n <container name>
+
+# One-off e.g.: passing a host's device to the container
+sudo lxc-device add -n p1 /dev/ttyUSB0 /dev/ttyS0
+
+#path to container config file
+/var/lib/lxc/<container name>/config
+
+#where is LXC storing its files?
+
+    /var/lib/lxc (default location for containers)
+    /var/lib/lxcsnap (default location for snapshots)
+    /var/cache/lxc (default location for the template cache)
+    $HOME/.local/share/lxc (default location for unprivileged containers)
+    $HOME/.local/share/lxcsnap (default location for unprivileged snapshots)
+    $HOME/.cache/lxc (default location for unprivileged template cache)
+
+# For more details on storage, see: https://www.stgraber.org/2013/12/27/lxc-1-0-container-storage/
+
+# Cloning containers (full clone):
+sudo lxc-clone -o <original-container-name> -n <cloned-container-name>
+
+# Cloning containers (fast clone):
+
+sudo lxc-clone -o <original> -n <clone> -B overlayfs -s
+
+#Rename a container
+Ubuntu
+
+    Shutdown container
+
+        lxc-shutdown -n <containername>
+
+    Open Terminal/Shell
+    Rename container root directory
+
+        sudo mv /var/lib/lxc/oldname /var/lib/lxc/newname
+
+    Rename hostname and paths in config
+
+        sudo vim /var/lib/lxc/newname/config
+
+lxc.utsname = newname
+lxc.rootfs = /var/lib/lxc/newname/rootfs
+
+# Directly connect container to physical nic
+Container must be powered off.
+cd /var/lib/lxc/<container-name>
+vi config
+
+# Default network configuration:
+# Network configuration
+lxc.network.type = veth
+lxc.network.flags = up
+lxc.network.link = lxcbr0
+lxc.network.hwaddr = 00:16:3e:83:ee:db
+
+# Change as follows:
+# Network configuration
+lxc.network.type = phys
+lxc.network.flags = up
+lxc.network.link = eth0 #Or whatever host interface you wish to use.
+lxc-network.name = eth0 #Or whatever name you'd like interface in container to have.
+lxc.network.hwaddr = 5c:f9:dd:52:d0:a7 # hwaddr of physical nic.
+
+# Start the container.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

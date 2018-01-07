@@ -1,0 +1,142 @@
+Here is the agenda:
+
+1:00 PM: Start
+Docker for both backend IT work, as well as for our customers / researchers. 
+We won't be able to control, but we can facilitate for management services.
+
+Hope to meet regularly -- we'll discuss details at end.
+
+View this is a kickoff, because none of us have really absorbed Docker in its fullness.
+
+Introductions: 
+
+Who you are? What you do? What is your interest in Docker?
+
+Chris: CADES Team / Chief Architect for Cloud
+Will detail interest later
+
+Jim Rhyne: Backup Linux admin
+Running docker in webgroup. Interest in providing infrastructure to run docker containers.
+
+Dale McSwain:
+Echos Jim Rhyne.
+
+Elton Cranfield:
+He supports CASL -- rapidly adopting Docker.
+
+Bruce:
+
+Where it can be used, can't, what ITSD can do to make work and secure appropriate resources.
+
+Patti:
+
+Echos Bruce Wilson, and is also concerned with security.
+
+Janice Greenwood:
+
+She has installed software on servers for customers so they can have the environments they need to do their jobs. So she's interested in Docker from that perspective. Also concerned with security. 
+
+Matt Bedynek:
+Better understanding ephemeral instances for software development, and in better providing that for customers. 
+
+Travis Burnette
+Cybersecurity -- observing.
+
+Larry Nichols:
+Cybersecurity. Currently working with cyber researchers on several projects running in Docker.
+
+Mike Shell:
+Web Services -- wordpress and drupal; they have development, test, QA, etc. Is also working with Caleb on GitLab pages.
+
+Caleb:
+Will be alerting us to upcoming resources available at ORNL to help us begin learning how to better utilize Docker. He also wishes for us to let him know if there's any other way we, as a working group, can better assist working group members.
+
+Also wishes that we not construe this meeting's purpose as promoting Docker as a panacaea. He wants us to focus on understanding and defining the best use-cases for ORNL.
+
+Current Docker Usage at ORNL
+
+A key aspect of Docker that many people like about it, and in actuality are using here at the Lab, is the ability to pull down pre-made images from Docker Hub. A problem with this is these images are inherently open, so we can't put anything sensitive into them, and we also don't know how well-maintained they are, or how secure it is. 
+
+Bruce: No problem doing that for development and test environments, as well in research projects, but does have concerns for production. 
+
+Docker Registry as part of Gitlab
+
+Caleb: As far as GitLab is concerned, we hope to have our own on-premises container registry/ies with images that we can control, monitor, and maintain.
+
+GitLab CI Runners using Docker
+
+We are also developing shared runner infrastructure for GitLab. A CI runner is a daemon running on a system that is prompted by changes made in git repositories to both test and run code.
+
+We would like to use Docker containers as our shared runners -- much less resource intensive than a VM for each test instance. But there is an issue with security, as this opens us to the possibility of running arbitrary code on an ORNL system. This is where Chris Layton's experience in CADES is relevant to us. 
+
+Docker inside of CADES
+
+Chris Layton: Primarily focused on GIST project. The have been using singularity, which provides a more limited namespace for running containers. At the very least, it works great for software development use-cases, but whether or not it works for other user-cases remains to be seen. 
+
+Bruce: Would that help with Pages?
+
+Caleb: it could.
+
+Chris: Consuming docker containers via singularity for purposes of software development. We're still finishing up tests and training; by next week should be able to run containers in singularity. Able to set up environments with consistent, replicatable environment variables for each user. 
+
+Bruce: It's hard to inadvertently do something harmful outside container. Trying to figure out boundaries.
+
+Matt: have you looked at other sec models (e.g., say Kerberos) for protecting file systems?
+
+Chris: Yes, there are ways to use selinux, though this may prove difficult. Seems to work with NFS, however. 
+
+To summarize, Singularity is an interesting way of implementing containerization that works well for software development, and also has promising implications for multiple use cases.
+
+Caleb: Are there other areas of interest?
+
+Bruce: Understanding Docker from the perspective of Container orchestration; e.g., docker swarm; seems to a trending consensus in favor of Kubernetes, as well. It looks like there may be several right approaches; if we can narrow it down to a couple to apply to our situation here at ORNL, that would be great.
+
+Chris: Open Container Initiative -- Kubernetes is falling within that standard. One advantage of this is that doesn't necessarily lock you into a particular vendor.
+
+Bruce: He recalls that one reason for using Docker Swarm by the security researchers is it gives only "one neck to choke."
+
+Matt: What kind of offering are you planning for on-premises container registry?
+
+Caleb: Would like to discuss this later in general, i.e, the specific characteristics of the images. On a general level, he envisions a basic set of minimal images for our most used Linux OS environments -- CentOS, Ubuntu, Fedora. We'd like users to be able to pull those down to customize, and then push them back up to meet their future needs. He also envisions a more project-specific approach to assist research groups working on specific projects, who may not have a lot of experience with Docker, but want to user containers to meet the goals for their projects. 
+
+Bruce: This could provide us both externally and internally available registries, tied back into Cyber for compliance purposes; which means we won't have to worry about base os layer. The point here is that if you can trust the base image, then you're not worried about scanning the container once running.
+
+Larry: Has concerns about scanning -- how would that work?
+
+Chris: The idea is to create an internal, ORNL specific standard for auditing images at the registry level, pre-instantiation, so that if users are running problematic containers, we can alert them to take them down and re-instantiate based on newly-patched images..
+
+Bruce: In general, such a Lab-wide registry service would be great for two reasons: 1) training users for products and services that we offer; 2) a "public good" for research groups that reduces pressure of on their budgets--we spend less pool resources than we do re-inventing the wheel each time separately.
+
+Janice: So would there be a charge-back to each group?
+
+Caleb: There would be free services, e.g., the registry. However, more extensive design and maintenance for individual projects would require a charges. However, free services serviing as "public goods" would be integral to this project and for future work here at the Lab.
+
+Chris: Along same lines, GitLab can also be used to share Docker files. A good place to learn how to learn about all this is in your birthright allocation. It would also be a great way to provide services for difficult to standup and manage projects, e.g., deep learning.
+
+Matt: How does this work with config management?
+
+Caleb: approach is not to update containers, but require that these containers become reinstantiated. Instead of patching apache in running containers, you take down running containers, patch the images, and then re-run container from patched image. We would check in on the host, not on running containers.
+
+Bruce: Are you running known-immages? The world is changing quickly. We are trying to establish lines that we can colour within. These are the lines we have to color within. If you see something better, let us know?
+
+Settled on monthly schedules. Flexible agenda. Would like to get folks to talk about use-cases and how they're using -- like Chris or Mike. Perhaps folks outside ITSD, e.g., developers in the wild, to discuss. I initially made this ITSD / CADES because I don't want us to feel restricted because we fear something might get out before its ready. 
+
+Bruce: Would like to see more interaction w/ community of practice.
+
+Caleb:
+Topics for consideration for next meeting:
+
+Current state of upcoming Docker Resources
+New/Updated Docker Uses at ORNL
+Review of Industry Best Practices
+Community Involvement
+
+Bruce: Ways that you want to use existing docker channel within slack, and what we might want to put in a closed channel.
+
+Caleb: Mailing list? New people don't get the old history. (Mattermost as part of GitLab.)
+
+
+
+
+
+
