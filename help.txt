@@ -134,7 +134,7 @@ sudo service docker restart
 
 
 
-systemctl  status docker.service"
+systemctl  status docker.service
 
 
 
