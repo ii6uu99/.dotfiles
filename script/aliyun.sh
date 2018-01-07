@@ -21,6 +21,7 @@ curl -L https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.s
 #docker -v 客户端版本要大于1.10.0
 
 #通过修改daemon配置文件/etc/docker/daemon.json来使用加速器：
+sudo rm var/run/docker.sock
 
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
