@@ -1,3 +1,10 @@
+#卸载Docker包
+
+sudo apt-get purge docker-engine
+sudo apt-get autoremove --purge docker-engine
+rm -rf /var/lib/docker
+
+
 ####安装docker并添加阿里云加速器
 
 #docker安装包来源
