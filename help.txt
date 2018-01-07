@@ -145,6 +145,8 @@ service docker start
 systemctl  status docker.service
 
 
+systemctl daemon-reload
+systemctl  status docker.service
 
 
 
