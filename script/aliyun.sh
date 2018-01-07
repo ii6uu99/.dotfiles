@@ -5,14 +5,28 @@ sudo apt-get autoremove --purge docker-engine -y
 rm -rf /var/lib/docker
 
 
-####安装docker并添加阿里云加速器
+####安装docker
 
 #docker安装包来源
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh)"
 
 #curl -L https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh | sh
 
-#########################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################添加阿里云加速器###################################
 
 #阿里云容器http://dev.aliyun.com/search.html
 
