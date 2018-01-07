@@ -127,24 +127,14 @@ sudo groupadd docker
 sudo gpasswd -a myusername docker
 
 
-
+#查看docker服务状态
 systemctl  status docker.service
-
-
 
 sudo vim /etc/docker/daemon.json
-
-service docker start
-
-systemctl  status docker.service
 
 
 systemctl daemon-reload
 systemctl  status docker.service
-
-
-sudo rm var/run/docker.sock
-
 
 
 dpkg: 处理软件包 docker-engine (--configure)时出错：
