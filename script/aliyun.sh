@@ -8,9 +8,9 @@ rm -rf /var/lib/docker
 ####安装docker并添加阿里云加速器
 
 #docker安装包来源
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh)"
 
-curl -L https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh | sh
+#curl -L https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh | sh
 
 #########################################################
 
