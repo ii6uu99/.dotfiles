@@ -126,12 +126,6 @@ sudo groupadd docker
 
 sudo gpasswd -a myusername docker
 
-#重启docker后台服务
-
-sudo service docker restart
-
-重启系统，直接运行docker命令就行了，不用加上sudo。
-
 
 
 systemctl  status docker.service
