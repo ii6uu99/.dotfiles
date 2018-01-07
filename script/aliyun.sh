@@ -18,15 +18,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/mas
 
 
 
-
-
-
-
-
-
-
-
-
 ######################添加阿里云加速器###################################
 
 #阿里云容器http://dev.aliyun.com/search.html
