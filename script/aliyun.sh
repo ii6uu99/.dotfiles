@@ -1,3 +1,9 @@
+#deepin配置阿里云镜像源
+echo -e "deb [by-hash=force] http://mirrors.aliyun.com/deepin unstable main contrib non-free \ndeb-src http://mirrors.aliyun.com/deepin unstable main contrib non-free" | sudo tee /etc/apt/sources.list
+
+#升级
+sudo apt-get update
+
 #卸载Docker包
 
 sudo apt-get purge docker-engine -y
