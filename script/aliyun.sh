@@ -40,7 +40,6 @@ sudo rm var/run/docker.sock
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-  "storage-driver": "devicemapper"
   "registry-mirrors": ["https://r2t47usc.mirror.aliyuncs.com"]
 }
 EOF
