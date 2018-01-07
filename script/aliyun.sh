@@ -7,6 +7,7 @@ rm -rf /var/lib/docker
 
 ####安装docker
 
+#脚本来源 https://github.com/rancher/install-docker
 #docker安装包来源
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh)"
 
