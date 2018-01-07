@@ -2,7 +2,7 @@
 
 sudo apt-get purge docker-engine -y
 sudo apt-get autoremove --purge docker-engine -y
-rm -rf /var/lib/docker
+sudo rm -rf /var/lib/docker
 
 
 ####安装docker
