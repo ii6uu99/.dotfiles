@@ -1,0 +1,139 @@
+因为我在`cat active-clist.txt`; 做
+lxc-attach -n“$ i”-e -s'NETWORK | UTSNAME'
+ifconfig -a >> /home/root/ubtr-ifconfig.txt; DONE
+
+
+
+#bash脚本单个命令多个容器
+因为我在`cat active-clist.txt`; do lxc-attach -n“$ i” -  apt-get update && apt-get -y upgrade; DONE
+
+
+lxc备忘单
+
+＃使用“ubuntu”模板和相同版本的Ubuntu创建一个“p1”容器
+＃和架构作为主机。通过“--help”列出所有可用的选项。
+
+sudo lxc-create -t​​ ubuntu -n p1
+
+＃下载模板将显示你的发行版，版本和列表
+＃架构可供选择。
+
+lxc-create -t​​下载-n <容器名>
+
+sudo lxc-create -t​​下载-n u1  -  --dist ubuntu --release trusty --arch amd64
+
+
+＃启动容器（在后台）
+sudo lxc-start -n p1 -d
+
+＃以这些方式之一输入容器##附加到容器的控制台（ctrl-a + q分离）
+sudo lxc-console -n p1
+
+##直接在容器中产生bash（绕过控制台登录）
+
+sudo lxc-attach -n p1
+
+＃连接到容器并发送命令：
+
+lxc-attach -n <容器名称>  -  <命令>
+
+## SSH到它
+sudo lxc-info -n p1
+ssh ubuntu @ <来自lxc-info>的ip
+
+＃从内部停止容器
+sudo poweroff
+
+##从外面干净地停下来
+sudo lxc-stop -n p1
+
+##从外面杀死它
+sudo lxc-stop -n p1 -k
+
+＃创建一个Oracle Linux容器（32位）
+sudo lxc-create -t​​ oracle -n p2  -  -a i386
+
+#list容器
+LXC-LS
+
+#list活动容器
+lxc -ls --active
+
+＃启动任何标记为lxc.start.auto = 1的容器。
+sudo lxc-autostart -a
+
+＃干净地关闭组中的容器
+sudo lxc-autostart -s -g <GroupName>
+
+＃重新启动<GroupName>组中的所有容器
+sudo lxc-autostart -r -g <GroupName>
+
+＃你也可以通过任何这些命令传递“-L”，这将简单地打印哪些＃容器会受到影响，延迟会是什么，但实际上不会做任何事情（有用的与其他脚本集成）。
+
+＃冻结一个容器
+sudo lxc-freeze -n <容器名称>
+
+＃一次性，例如：将主机的设备传递给容器
+sudo lxc-device add -n p1 / dev / ttyUSB0 / dev / ttyS0
+
+＃路径到容器配置文件
+/ var / lib / lxc / <容器名称> / config
+
+LXC存储文件在哪里？
+
+    / var / lib / lxc（容器的默认位置）
+    / var / lib / lxcsnap（快照的默认位置）
+    / var / cache / lxc（模板缓存的默认位置）
+    $ HOME / .local / share / lxc（非特权容器的默认位置）
+    $ HOME / .local / share / lxcsnap（非特权快照的默认位置）
+    $ HOME / .cache / lxc（非特权模板缓存的默认位置）
+
+＃有关存储的更多详细信息，请参阅：https：//www.stgraber.org/2013/12/27/lxc-1-0-container-storage/
+
+＃克隆容器（完整克隆）：
+sudo lxc-clone -o <原始容器名称> -n <克隆容器名称>
+
+＃克隆容器（快速克隆）：
+
+sudo lxc -clone -o <原始> -n <clone> -B overlayfs -s
+
+＃重新命名一个容器
+Ubuntu的
+
+    关闭容器
+
+        lxc-shutdown -n <容器名>
+
+    打开终端/外壳
+    重命名容器根目录
+
+        sudo mv / var / lib / lxc / oldname / var / lib / lxc / newname
+
+    在config中重命名主机名和路径
+
+        sudo vim / var / lib / lxc / newname / config
+
+lxc.utsname = newname
+lxc.rootfs = / var / lib / lxc / newname / rootfs
+
+＃直接将容器连接到物理nic
+容器必须关闭。
+cd / var / lib / lxc / <容器名>
+vi config
+
+＃默认网络配置：
+＃网络配置
+lxc.network.type = veth
+lxc.network.flags =向上
+lxc.network.link = lxcbr0
+lxc.network.hwaddr = 00：16：3e：83：ee：db
+
+＃更改如下：
+＃网络配置
+lxc.network.type = phys
+lxc.network.flags =向上
+lxc.network.link = eth0＃或任何你想使用的主机接口。
+lxc-network.name = eth0＃或任何你想在容器中使用的接口名称。
+lxc.network.hwaddr = 5c：f9：dd：52：d0：a7＃hwaddr物理nic。
+
+＃启动容器。
