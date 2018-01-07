@@ -1,0 +1,23 @@
+#!/bin/bash
+
+usage()
+{
+	echo "Usage: docker-bash <CONTAINER_ID> [COMMAND...]"
+	echo "Login to a Baseimage-based Docker container using nsenter." \
+		"If COMMAND is not given, opens an interactive shell." \
+		"Otherwise, runs COMMAND inside the container."
+}
+
+if test $# = 0; then
+	usage
+	exit
+fi
+
+# ＃检查给定的容器ID是否有效并且正在运行
+containerState=`docker inspect -f "{{ .State.Running }}" $1`;
+
+if test containerState; then
+	docker exec -t -i "$1" bash
+else
+	echo "错误：提供容器ID无效或它没有运行";
+fi

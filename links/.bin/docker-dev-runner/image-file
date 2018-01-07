@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# This code is nearly an exact copy of rbenv's rbenv-version-file
+# https://github.com/rbenv/rbenv/blob/29b4da773/libexec/rbenv-version-file
+
+# Summary: Detect the file that sets the image of the Docker container to run.
+set -e
+
+target_dir="$1"
+
+find_local_version_file() {
+  local root="$1"
+  while ! [[ "$root" =~ ^//[^/]*$ ]]; do
+    if [ -e "${root}/.docker-image" ]; then
+      echo "${root}/.docker-image"
+      return 0
+    fi
+    [ -n "$root" ] || break
+    root="${root%/*}"
+  done
+  return 1
+}
+
+if [ -n "$target_dir" ]; then
+  find_local_version_file "$target_dir"
+else
+  find_local_version_file "$PROJECT_DIR" || {
+    [ "$PROJECT_DIR" != "$PWD" ] && find_local_version_file "$PWD"
+  }
+fi

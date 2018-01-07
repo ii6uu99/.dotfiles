@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+scripts=`find /tmp/scripts -name '*.sh'`
+
+for script in $scripts
+do
+    eval $script
+done

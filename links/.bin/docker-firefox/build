@@ -1,0 +1,73 @@
+#!/bin/bash
+
+function show_help {
+  cat <<EOF
+$0 [-d <debian_release>] [-i parent_image] [-t <tag>] [-h]
+EOF
+}
+
+while getopts 'd:hn:p:t:' opt; do
+  case "$opt" in
+    d) debian_release="$OPTARG"
+      ;;
+    h) show_help; exit 3;
+      ;;
+    p) parent_image="$OPTARG"
+      ;;
+    n) firefox_type="$OPTARG"
+      ;;
+    t) image_tag="$OPTARG"
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+: ${firefox_type:=firefox-esr}
+: ${build_time:=$(date --rfc-3339=sec | tr -cd '0-9')}
+: ${debian_release:=$(lsb_release -cs)}
+: ${image_tag:=$(date +%FT%T | tr -cd '[0-9]')}
+: ${author:=$(git config --get user.name)}
+: ${author_email:=$(git config --get user.email)}
+: ${head_commit:=$(git rev-parse --short HEAD)}
+: ${parent_image:=debian:$debian_release}
+
+cat << EOF > Dockerfile
+FROM  $parent_image
+
+LABEL \
+  Name="firefox-$debian_release" \
+  Description="This image provides $firefox_type on debian $debian_release" \
+  Vendor="$author<$author_email>" \
+  Debian-Release="$debian_release" \
+  Head-Commit="$head_commit" \
+  Tag="$image_tag" \
+  User="$USER" \
+  Group="$(id -gn)" \
+  Version="$build_time-$head_commit"
+
+MAINTAINER "$author"<$author_email>
+
+RUN apt-get update
+
+RUN apt-get install -y \
+    -t $debian_release \
+    --no-install-recommends \
+    --no-install-suggests \
+    firefox-esr-dev
+
+RUN apt-get autoremove -y && \
+    apt-get autoclean -y  && \
+    apt-get clean         && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo 'root:root' | chpasswd
+
+CMD  /usr/bin/firefox
+EOF
+
+cat Dockerfile
+docker build \
+    -t $USER/$firefox_type:$debian_release \
+    -t $USER/$firefox_type:$image_tag      \
+    -t $USER/$firefox_type:latest          \
+  .

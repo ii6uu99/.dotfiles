@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# DRUN_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+DRUN_PATH="$(dirname "$(readlink -f "$0")")"
+
+image_file=`$DRUN_PATH/image-file`
+image=`cat $image_file`
+
+echo Image: $image
+
+SRC=$( dirname "$image_file" )
+WORK_DIR="/code${PWD#$SRC}"
+
+DOCKER_OPTS="-e=MIX_HOME=/code/.mix"
+
+CMD="docker run -it --rm --net=host -v=$SRC:/code -w=$WORK_DIR $DOCKER_OPTS $image $@"
+echo $CMD
+exec $CMD

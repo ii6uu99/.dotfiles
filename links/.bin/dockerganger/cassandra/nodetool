@@ -1,0 +1,9 @@
+#!/bin/sh
+
+docker_args="--interactive"
+
+if [ -t 0 ] ; then
+  docker_args="${docker_args} --tty"
+fi
+
+docker exec $docker_args cassandra-1 ./bin/nodetool $@

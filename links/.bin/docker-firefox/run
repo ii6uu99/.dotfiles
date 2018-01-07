@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -eu
+set -xv
+
+GID=$(id -g $USER)
+
+docker run \
+   --attach stderr \
+   --attach stdin  \
+   --attach stdout \
+   --env DISPLAY="$DISPLAY" \
+   --env USER="$USER"  \
+   --env HOME="$HOME"  \
+   --hostname "$HOSTNAME" \
+   --interactive          \
+   --pid=host             \
+   --rm                   \
+   --tty                  \
+   --user $UID:$GID       \
+   --volume /etc/group:/etc/group     \
+   --volume /etc/passwd:/etc/passwd   \
+   --volume ~/:$HOME                  \
+   --volume /tmp/.X11-unix:/tmp/.X11-unix \
+   --volume /usr/share/fonts/:/usr/share/fonts/ \
+   --workdir "$PWD"                   \
+   firefox-dev \
+   /usr/bin/firefox
