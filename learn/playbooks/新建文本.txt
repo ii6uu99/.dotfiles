@@ -1,0 +1,1244 @@
+如何：
+
+＃将一个docker映像保存到.tar文件中：
+码头保存-o fedora-latest.tar Fedora：最新
+
+＃bash shell运行docker容器：
+docker exec -i -t <CONTAINER> / bin / bash
+
+＃删除晃来晃去的泊坞窗图片：
+docker rmi $（docker images -f dangling = true -q）
+
+＃离线安装木偶模块（即没有互联网） 
+＃假定一个官方发布的tarball。
+puppet模块安装</ path / to / tarball> --ignore-dependencies
+
+＃列表傀儡模块
+傀儡模块列表
+
+＃puppet agent--配置服务器 
+puppet config set server <server-fqdn>
+＃puppet agent  - 配置运行级别
+puppet config set runinterval 600
+＃木偶代理 - 运行代理第一次连接到服务器
+puppet agent -t --server <server-fqdn>
+
+＃从本地回购从R安装软件包：
+install.packages（“<pkg-name”，“repos =”file：/// </ path / to / local / repo>“）
+
+＃python3替换字段：
+>>>为我在范围（1，12）：
+... print（“{0：2}平方为{1：4}且立方体为{2：4}”）格式（i，i ** 2，i ** 3））
+... 
+1号平方为1，立方为1
+2号方块是4号，8号方块
+3号平方为9，立方为27
+4号平方为16，立方为64
+5号平方为25，立方为125
+6号方形为36，立方形为216
+7号平方为49，立方为343
+8号平方是64，立方512
+9号平方为81，立方为729
+10号平方为100，立方为1000
+11号平方121，立方1331
+
+＃python3替换字段W /对齐：
+>>>为我在范围（1，12）：
+... print（“{0：2}平方为{1：<4}，cubed为{2：<4}”。
+... 
+1号平方为1，立方为1   
+2号方块是4号，8号方块   
+3号平方为9，立方为27  
+4号平方为16，立方为64  
+5号平方为25，立方为125 
+6号方形为36，立方形为216 
+7号平方为49，立方为343 
+8号平方是64，立方512 
+9号平方为81，立方为729 
+10号平方为100，立方为1000
+11号平方121，立方1331
+
+＃bash提示：
+＃将文本回显到bash脚本的根文件夹中：
+sudo sh -c“echo”deb http://download.virtualbox.org/virtualbox/debian xenial contrib“>> /etc/apt/sources.list'
+
+#check_mk mysql插件：
+cd / usr / share / check-mk-agent / plugins
+wget“$ URL”＃来自OMD WATO
+chmod 700 mk_mysql
+＃创建/etc/check_mk/mysql.cfg：
+
+[客户]
+用户= <用户名>
+密码= <密码>
+
+＃chmod 400 mysql.cfg
+
+＃permisions给予cmkuser：
+授予选择，显示数据库上*。*到'用户名'@'servername';
+
+＃配置OMD / WATO主机。
+
+＃从命令行生成sha512哈希：
+python -c'import crypt，getpass; 打印crypt.crypt（getpass.getpass（））'
+
+＃systemd runlevel命令：
+＃显示默认运行级别（或默认目标;为我的目的，条款将
+＃可互换）：
+systemctl get-default
+
+＃列出所有当前加载的运行级目标单元。
+systemctl list-units --type target
+
+＃列出所有加载的运行级别单元，不管状态如何：
+systemctl list-units --type target --all
+
+＃设置默认的运行级别目标
+systemctl set-default name.target
+
+＃将默认运行级别目标设置为多用户（即非图形）：
+systemctl set-default multi-user.target
+
+＃改变当前的运行级别目标：
+systemctl隔离name.target
+
+＃将当前运行级别目标更改为多用户（即非图形）：
+systemctl隔离multi-user.target
+
+＃生成自签名证书：
+openssl req \
+       -newkey rsa：2048 -nodes -keyout domain.key \
+       -x509-天365 -out domain.crt
+
+＃openssl showcert
+openssl s_client -showcerts -connect www.domain.com:443
+
+ 
+openssl csr
+＃新csr
+openssl req \
+       -newkey rsa：2048 -nodes -keyout <fqdn> .key \
+       -out <fqdn> .csr
+
+
+＃从现有的csr
+openssl x509 \
+       -in /path/to/existing/<fqdn>.crt \
+       -signkey /path/to/existing/<fqdn>.key \
+       -x509toreq -out <fqdn> .csr
+
+＃完全卸载omnibus Gitlab（RHEL / CentOS 7）：
+gitlab-ctl卸载
+gitlab-ctl cleanse
+gitlab-ctl删除帐户
+yum删除gitlab -ee
+
+＃postgresql的psql命令行：
+＃psql可能不在$ PATH中，但经常安装在/ opt中
+＃也是，下面的命令经常帮助：
+ps aux | grep postgres
+
+
+    \ q：退出/退出
+    \ c __database__：连接到数据库
+    \ d __table__：显示包含触发器的表格定义
+    \ dt *。*：列出来自所有模式的表格（如果*。*省略，则只会显示SEARCH_PATH）
+    \ l：列出数据库
+    \ dn：列出模式
+    \ df：列出函数
+    \ dv：列表视图
+    \ df + __function__：显示函数的SQL代码。
+    \ x：相当格式的查询结果，而不是不那么有用的ASCII表格
+   
+    du：列出用户
+    \ du __username__：列出用户名（如果存在）。
+    创建角色__test1__：使用现有的用户名创建一个角色。
+    创建角色__test2__ noinherit登录密码__passsword__;：使用用户名和密码创建一个角色。
+    设置角色__test__;：将当前会话的角色更改为__test__。
+    将__test2__授予__test1__;：允许__test1__将其角色设置为__test2__
+
+＃postgressql转储数据库集群
+./pg_dumpall --username = postgres --file = <output.filename>
+
+＃postgresql找出postgres数据库的大小：
+postgres =＃SELECT pg_size_pretty（pg_database_size（'dbname'））;
+
+＃安全地更改postgres用户的密码：
+su  -  postgres
+cd / path / to / PostgreSQL / bin /
+./psql
+postgres =＃\密码
+输入新密码： 
+再次输入： 
+Postgres的=＃
+
+＃将用户添加到postgresql：
+＃改为用户postgres
+[root @ some-machine]＃su  -  postgres
+
+-bash-4.2 $ createuser --interactive
+输入要添加的角色的名称：<用户名>
+新角色应该成为超级用户吗？（y / n）n
+应该允许新角色创建数据库吗？（y / n）y
+应该允许新的角色创造更多的新角色吗？（y / n）n
+
+＃创建postgresql数据库：
+-bash-4.2 $ createdb <dbname>
+
+＃授予用户postgresql数据库的权限：
+postgres =＃GRANT <PRIVS> ON DATABASE <dbname> TO <username>;
+
+＃更改用户密码（postgresql）：
+postgres =＃更改用户<用户名>密码'<密码>';
+
+＃另一种列出数据库的方法（postgresql）：
+[root @ <somemachine> / path / to / postgresql / bin]＃./psql -h localhost --username = postgres --list
+
+＃在Ubuntu 16.04上安装clamav
+sudo apt安装clamav
+
+＃更新签名：
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam -v
+
+＃rsync，递归，保留权限：
+rsync -avP / path / to / dir / <username> @ system @ ip_or_fqdn：/ path / to / dir
+
+＃更改日志（也许很好知道？）：
+从RHEL 7.2开始，nfs-utils-lib被引入了nfs-utils，现在CentOS 7也做了上游的改变。`
+
+＃哪个nfs服务器版本？
+＃在服务器上：
+rpcinfo -p localhost
+
+在客户端＃nfs版本
+使用nfsstat 
+
+＃更改主机名称：
+hostnamectl set-hostname“您的新主机名称”--pretty
+hostnamectl set-hostname Your-New-Host-Name-Here --static
+hostnamectl set-hostname Your-New-Host-Name-Here --transient
+
+＃检查主机名状态
+hostnamectl状态
+
+＃创建LVM
+＃lvm pv：
+pvcreate / dev / <name>
+
+＃lvm vgcreate
+vgcreate <vgname> / path / to / pv
+
+＃lvm lvcreate
+lvcreate -l 100％VG -n <lvname> <vgname>
+
+＃lvm扩展
+
+＃使用fdisk创建新的光盘（选项t; 8e将分区标记为lvm）
+vgextend <vgname> / path / to / newpv
+
+＃如果仍然挂载：
+lvextend -l 100％FREE / dev / mapper / vgname-lvname
+
+＃或者，如果未安装：
+lvextend -l 100％FREE / dev / vgname / lvname
+
+＃或者，可能需要使用免费的盘区：
+lvextend -l +119295 / dev / vgname / lvname
+
+＃减少lvm卷：
+umount -v / mnt / tecmint_reduce_test /
+e2fsck -ff / dev / vg_tecmint_extra / tecmint_reduce_test
+resize2fs / dev / vg_tecmint_extra / tecmint_reduce_test 10GB
+lvreduce -L -8G / dev / vg_tecmint_extra / tecmint_reduce_test
+
+＃将lvm标签分配给分区分区：
+（parted）设置<partition＃> lvm
+
+＃使用parted对齐分区
+＃例如：
+
+获取数组的对齐参数（请记住用内核所看到的设备名称替换sdb）。
+
+＃cat / sys / block / sdb / queue / optimal_io_size
+1048576
+＃cat / sys / block / sdb / queue / minimum_io_size
+262144
+＃cat / sys / block / sdb / alignment_offset
+0
+＃cat / sys / block / sdb / queue / physical_block_size
+512
+
+将optimal_io_size添加到alignment_offset，并将结果除以physical_block_size。在我的情况下，这是（1048576 + 0）/ 512 = 2048。
+这个数字是分区应该开始的部分。你的新的parted命令应该看起来像
+
+mkpart初级2048s 100％
+
+最后的's'是重要的：它告诉分手你正在讨论的是扇区，而不是字节或兆字节。
+如果一切顺利，分区将被创建而不会有任何警告。您可以这样检查对齐（如果需要，用分区号替换“1”）：
+
+（parted）align-check optimal 1                                            
+1对齐
+
+＃有用的mysql命令：
+
+＃mysql更改用户的密码：
+为'anthony'设置密码@'localhost'=密码（'文本密码'）;
+
+＃mysql dump database：
+mysqldump -u root -p --opt [数据库名称]> [数据库名称] .sql
+
+＃mysql导入转储数据库：
+mysql -u root -p newdatabase </path/to/newdatabase.sql
+
+＃mysql用户列表：
+MariaDB [（none）]>从mysql.user选择用户，主机;
+
+＃mysql用户名+密码：
+MariaDB [（none）]>从mysql.user中选择用户，主机，密码;
+
+＃显示单个用户的权限：
+MariaDB [（none）]>显示'username'的授权@'％';
+
+＃连接到mysql：
+mysql -u <user> -p
+＃会提示输入密码。
+
+＃mysql显示可用的数据库：
+显示数据库;
+
+＃mysql创建一个数据库：
+CREATE DATABASE <数据库名称>;
+
+＃mysql删除数据库：
+DROP DATABASE <数据库名称>;
+
+＃mysql创建用户：
+CREATE USER'newuser'@'localhost'IDENTIFIED BY'password';
+
+＃mysql更改用户密码：
+为“用户名”设置密码@'localhost'=密码（'<密码>'）;
+
+＃mysql打开数据库：
+USE <数据库名称>;
+
+＃mysql显示打开数据库的数据库表：
+SHOW桌子;
+
+＃mysql表创建示例：
+CREATE TABLE人员（
+    PersonID int，
+    LastName varchar（255），
+    FirstName varchar（255），
+    地址varchar（255），
+    城市varchar（255）
+）;
+
+＃mysql权限授予示例：
+授予所有特权在`<数据库名称>`。*到'<mysql username>'@'％'IDENTIFIED BY'<password>';
+
+＃Python虚拟环境：
+pip安装virtualenv
+virtualenv --version＃只是为了验证安装。
+＃为虚拟环境创建目录。
+＃在这种情况下，我创建了一个用于测试开发版本
+python-gitlab，一个与GitLab API交互的程序。
+mkdir pgvenv
+cd pgvenv
+virtualenv pgvenv
+来源pgvenv /斌/激活
+
+＃提示符应该是这样的：
+（pgvenv）$
+
+＃安装必要的python软件包等
+＃完成后键入：
+关闭
+
+＃检查postfix的邮件队列数量：
+mailq | grep -c“^ [A-F0-9]”
+
+＃Nagios打开防火墙端口：
+firewall-cmd --zone = public --add-port = 5666 / tcp --permanent
+
+＃Nagios从nagios服务器远程检查命令：
+/ usr / lib64 / nagios / plugins / check_nrpe -H esd-vm1.ornl.gov -c check_esd_vmstorage
+
+＃重新启动服务之前的Nagios测试配置：
+/ usr / sbin / nagios -v /etc/nagios/nagios.cfg
+
+＃在远程机器上运行nagios check_disk命令：
+ssh <user> @ <ip> / usr / lib64 / nagios / plugins / check_disk -w 2％-c 1％-p“/ path / to / storage”2>＆1
+
+＃Virsh cpu命令：
+virsh setvcpus lcatweb 10 --maximum --config
+virsh关闭lcatweb
+virsh名单 - 所有
+virsh开始lcatweb
+virsh setvcpus lcatweb 10 --live
+
+virsh破坏lcatweb
+virsh setvcpus lcatweb 1 --maximum --config
+virsh开始lcatweb
+
+＃在本地机器上建立一个简单的git服务器
+git config --global alias.serve“daemon --verbose --export-all --base-path = .git --reuseaddr --strict-paths .git /”
+
+git服务
+
+git clone <username> @address：/ path / to / repo
+
+＃在git中存储未跟踪的文件
+git stash -u <文件名> 
+
+＃添加保存消息到藏匿处。 
+git储存“输入消息”
+
+＃从存储列表中删除存储
+混帐藏匿下降
+
+＃列出当前隐藏的文件
+git存储列表
+
+＃将隐藏状态记录的变化显示为隐藏状态之间的差异
+＃和它的原始父母。 
+git stash show stash @ {<stash-revision-index>}
+
+＃将修改后的文件拷贝应用于工作目录中的文件。
+git stash apply stash @ {1}
+
+＃删除所有隐藏的状态。请注意，那些国家将是
+＃修剪，可能无法恢复  
+混帐隐藏清除
+
+＃从最初创建<stash>的commi＃t创建并检出一个名为<branchname>的新分支，应用记录在
+＃<stash>到新的工作树和索引。如果成功，并且<stash>是
+＃stash @ {<revision>}形式的引用，然后删除<stash>。 
+＃当没有<stash>时，应用最新的一个。 
+git存储分支<branchname> [<存储>]
+
+＃更改远程网址：
+git远程设置网址来源https://github.com/USERNAME/REPOSITORY.git
+＃要么：
+git remote set-url origin git@github.com：USERNAME / REPOSITORY.git
+
+＃从存储列表中删除一个隐藏的状态，并将其应用于顶部 
+＃当前正在工作的树状态，即执行git stash save的逆操作。＃工作目录必须与索引匹配。
+混帐隐藏流行
+
+＃发送外部“quit”命令到正在运行的屏幕会话：
+屏幕-S foo -X退出
+
+＃重新附加到已经连接的屏幕会话：
+screen -rd <existing-session>
+
+＃yum更新，但排除软件包
+yum update --exclude = <程序包名称>
+
+＃rpm命令：删除软件包
+rpm -qa | grep -i <部分包名称>
+rpm -ev <full-package-name>
+
+＃提取rpm而不安装
+rpm2cpio php-5.1.4-1.esp1.x86_64.rpm | cpio -idmv
+
+＃scp到nat'd virtualbox guest：
+scp -P 2222 /home/b1n/Downloads/Dockerized-app-Flask.zip b1n@127.0.0.1：〜
+
+#kvm virsh快照
+
+virsh snapshot-create-as --domain {VM-NAME} --name“{SNAPSHOT-NAME}”
+virsh snapshot-list --domain {VM-NAME}
+
+#firewalld命令：
+
+firewall-cmd  - 状态
+
+firewall-cmd --get-default-zone
+
+firewall-cmd --get-active-zones
+
+firewall-cmd --list-all
+
+firewall-cmd --get-services
+
+firewall-cmd --zone = home --list-all
+
+firewall-cmd --zone = public --add-port = 5666 / tcp --permanent
+
+＃firewall-cmd丰富的规则示例：
+firewall-cmd --zone = public --permanent --add-rich-rule ='rule family =“ipv4”source address =“160.91.19.12”port port =“5666”protocol =“tcp”accept'
+
+[root @ gitlab1nci〜]＃firewall-cmd --zone = public --permanent --add-service = http
+成功
+[root @ gitlab1nci〜]＃firewall-cmd --zone = public --permanent --add-service = https
+成功
+[root @ gitlab1nci〜]＃firewall-cmd --reload
+成功
+
+
+＃Gitlab版本信息
+
+gitlab-rake gitlab：env：info
+
+＃GitLab检查ldap
+gitlab-rake gitlab：ldap：check
+
+＃分批解析符号链接（例如，在/ bin中显示符号链接）：
+
+find / bin / -type l -printf'％p指向％l \ n'
+
+
+＃返回主板信息：
+dmidecode | grep -A4“基础板”
+基板信息
+	制造商：Supermicro
+	产品名称：X8DT6
+	版本：1234567890
+	序列号：VM1AS47321
+
+＃通过Perl传递文件并找到并替换文本。g =全球
+＃thoughout文件＆我=不区分大小写。
+perl -p -e's / \ b <search-text> \ b / <replace-text> / gi'file.txt
+
+＃for-each-file-in-this-dir示例避免使用“ls”。
+因为我在*; do var = $（printf“％s /％s \ n”$ PWD $ i）; ln -s“$ var”/ etc / httpd / modules /“$ i”; DONE
+
+＃打开vi并去函数localList：
+vi + / localList tryit.py
+
+＃在行号打开vi：
+vi +54 tryit.py
+
+＃在RHEL 7中打开/关闭firewalld：
+服务firewalld停止
+服务firewalld开始
+
+＃禁用firewalld
+systemctl禁用firewalld
+
+＃Ubuntu：如果包下载失败，如果“NO_PUBKEY 40976EAF437D05B5 ...”
+
+＃tomcat命令
+ps -ef | grep tomcat
+
+＃ssh登录到文本文件。
+ssh -vvv -l b1n jaguar 2>＆1 | tee〜/ ssh-output.log
+
+＃列出sudo组中的用户
+awk -F“：”'{system（“groups”$ 1“| grep -P \”[[：space：]] sudo（[[：space：]] | $）\“”）}'/ etc / passwd
+
+＃ 要么 。。。
+
+grep -Po'^ sudo。+：\ K。* $'/ etc / group
+
+＃将strace执行保存到一个文件（例如'ls'命令）：
+strace -o output.txt ls
+
+＃在Jaguar上允许X11端口转发：
+＃附加到/etc/bash.bashrc文件：
+
+如果[-n“$ SSH_CLIENT”] || [-n“$ SSH_CONNECTION”]; 然后
+    导出DISPLAY = localhost：10.0
+科幻
+
+＃/ etc / ssh / sshd_config
+X11转发是的
+X11DisplayOffset 10
+PrintMotd no
+PrintLastLog是
+TCPKeepAlive是的
+AllowTcpForwarding是的
+X11UseLocalHost是的
+地址家庭inet
+
+
+＃删除文件w / sed中的一个单词的所有实例。
+字=“的”
+sed -r“s / \ b $ word \ b // g”
+
+＃将“word”的实例替换为“apple”：
+sed -r“s / word / apple / g”
+
+＃用sed改变SELinux权限。
+sed -i's / ^ SELINUX = permissive /'/ etc / selinux / config
+
+＃sed例子
+＃如何添加一个标题行说：“雇员，EmpId”使用sed这个文件？
+$ sed'1i Employee，EmpId'empFile
+
+＃修改文件：
+sed -i'1i Employee，EmpId'empFile.txt
+
+＃将一条记录添加到empFile.txt
+＃使用了一个模式。/ Hilesh / a告诉包括以下内容
+＃找到模式'Hilesh'
+sed -i'/ Hilesh / a Bharti，1002'empFile.txt
+
+＃在Harshal之前加入员工Aparna：
+sed -i'/ Harshal / i Aparna，1003'empFile.txt
+
+＃1.要删除特定字符，请说'a'
+$ sed's / a //'文件
+
+＃删除每一行的第一个字符：
+
+$ sed的/^.//文件
+
+＃删除每一行的最后一个字符：
+
+$ sed的/.$//'文件
+
+
+
+＃按％打印磁盘使用情况，但过滤掉不相关的信息
+df -H | grep -vE'^ Filesystem | tmpfs | cdrom'| awk'{print $ 5''$ 1}'
+
+＃输出每个用户的内存使用百分比：
+用于$（ps haux | awk'{print $ 1}'| sort -u）
+做
+    ps haux | awk -v user = $ USER'$ 1〜user {sum + = $ 4} END {print user，sum; }”
+DONE
+
+＃输出每个进程及其内存使用情况（人类可读（兆字节））。
+＃按内存大小排序 - 从最高到最低。
+ps -eo大小，pid，用户，命令--sort -size | awk'{hr = $ 1/1024; printf（“％13.2f Mb”，hr）} {for（x = 4; x <= NF; x ++）{printf（“％s”，$ x）} print“”}
+
+＃内存管理标志文件到/ proc：
+sudo sh -c“sync; echo 3> / proc / sys / vm / drop_caches”
+
+＃在sysctl.conf中不断调整swappinness的大小：
+sudo bash -c“echo”vm.swappiness = 15'>> /etc/sysctl.conf“
+
+#dd
+dd if = / dev / sdb of = / dev / sda1 bs = 512 conv = noerror，syn
+
+＃检查dd的进度
+pgrep -l'^ dd $'＃给你dd的pid
+
+＃或者发送中断信号到dd
+杀死-USR1 $ pid
+
+＃或者查看-n secs interval：dd报告：
+看 -  10杀 - 美元1 6757
+
+
+＃如何切换到netcat-traditional
+sudo update-alternatives --config nc
+
+＃将vmdk转换为virtualbox vdi：
+
+qemu-img转换ubuntu-biz1404-disk1.vmdk ubuntubiz14.04.bin
+VBoxManage convertdd ubuntubiz14.04.bin ubuntu-biz14.04.vdi
+
+＃创建qcow2磁盘w / qemu-img创建：
+qemu-img创建-f qcow2 <磁盘名> .qcow2 50G
+
+＃压缩并tar一个目录
+tar -czvf <tar.gz文件的名称> <压缩和tar>的目录
+
+＃tar --force-local
+tar --force-local -xvf rdnotes-backup-2017-10-23-08 \：14 \：07.tar.gz
+
+#untar并压缩到指定的目录：
+
+tar xvzf archive.tar.gz -C / target / directory
+
+#Disable ipv6
+
+ 打开/etc/sysctl.conf
+附加以下行： 
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1 
+
+sudo sysctl -p
+cat / proc / sys / net / ipv6 / conf / all / disable_ipv6
+
+＃将用户添加到sudoers：
+
+sudo adduser <username> sudo
+
+＃无线网络管理器：
+
+wpa_passphrase“SSID”“密码”
+
+#returns：
+网络= {
+	ssid =“本的无线网络区域”
+	＃PSK = “密码”
+	PSK = 917a8c65be889d7d9071848c3a5ff825601066f4181a060a3f0fff6c0831b592
+}
+
+编辑/etc/wpa_supplicant.conf：
+
+ctrl_interface = DIR =的/ var /运行/的wpa_supplicant
+网络= {
+        ssid =“本的无线网络区域”
+        scan_ssid = 1
+        key_mgmt这= WPA-PSK
+        PSK = 917a8c65be889d7d9071848c3a5ff825601066f4181a060a3f0fff6c0831b592
+}
+
+＃编辑/ etc / network / interfaces
+自动wlan0
+iface wlan0 inet static
+地址192.168.1.100
+网络掩码255.255.255.0
+无线essid“本的无线上网区”
+网关192.168.1.254
+pre-up wpa_supplicant -Bw -Dwext -iwlan0 -c / etc / wpa_supplicant.conf
+后killall -q wpa_supplicant
+
+
+wpa_supplicant -B -Diwlwifi，wext -c / etc / wpa_supplicant.conf -iwlan0 -d
+
+＃最后，通过删除和添加路由来处理路由表。
+route del -net 10.0.3.0 gw 0.0.0.0 netmask 255.255.255.0 dev lxcbr0
+路由add -net 10.0.3.0 gw 1​​0.0.3.1 netmask 255.255.255.0 dev lxcbr0
+route del -net 169.254.0.0 gw 0.0.0.0 netmask 255.255.0.0 dev eth0
+路由add -net 192.168.1.0 gw 0.0.0.0 netmask 255.255.255.0 dev wlan0
+路由添加默认gw 192.168.1.254
+＃或bb（在bbgw01上）到testfw
+路由add -net 192.168.1.0 netmask 255.255.255.0 gw 1​​0.0.203.149
+
+
+# Turn off "waiting for network configuration" messages at boot:
+/etc/init/failsafe.conf
+comment out 20, 40, and 59 seconds lines.
+
+Create aliases:
+alias <alias name>="<command>"
+#append same to .bash_aliases file in ~
+
+# change hostname w/out restarting machine
+sudo hostname
+
+# repair if ~/Desktop is the same as Home directory:
+vi .config/user-dirs.dirs
+
+# Append Desktop/ to the line: XDG_DESKTOP_DIR="$HOME/"
+# For example, change this . . . 
+
+# This file is written by xdg-user-dirs-update
+# If you want to change or add directories, just edit the line you're
+# interested in. All local changes will be retained on the next run
+# Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
+# homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
+# absolute path. No other format is supported.
+#
+XDG_DESKTOP_DIR = “$ HOME /”
+XDG_DOWNLOAD_DIR = “$ HOME /下载”
+XDG_TEMPLATES_DIR = “$ HOME /”
+XDG_PUBLICSHARE_DIR = “$ HOME /”
+XDG_DOCUMENTS_DIR = “$ HOME /文档”
+XDG_MUSIC_DIR = “$ HOME /”
+XDG_PICTURES_DIR = “$ HOME /”
+XDG_VIDEOS_DIR = “$ HOME /”
+
+＃这个。。。
+
+＃这个文件是由xdg-user-dirs-update写的
+＃如果你想改变或添加目录，只需编辑你所在的行
+＃感兴趣。所有本地更改将保留在下一次运行
+＃格式是XDG_xxx_DIR =“$ HOME / yyy”，其中yyy是一个shell转义
+＃homedir相对路径，或XDG_xxx_DIR =“/ yyy”，其中/ yyy是
+＃绝对路径。没有其他格式支持。
+＃
+XDG_DESKTOP_DIR = “$ HOME /桌面/”
+XDG_DOWNLOAD_DIR = “$ HOME /下载”
+XDG_TEMPLATES_DIR = “$ HOME /”
+XDG_PUBLICSHARE_DIR = “$ HOME /”
+XDG_DOCUMENTS_DIR = “$ HOME /文档”
+XDG_MUSIC_DIR = “$ HOME /”
+XDG_PICTURES_DIR = “$ HOME /”
+XDG_VIDEOS_DIR = “$ HOME /”
+
+＃跑：
+鹦鹉螺-q
+
+＃在FreeBSD 9.3中挂载iso：
+
+mdconfig -a -t vnode -f PATH_TO_YOUR_ISO / ISOFILE.iso
+mount -t cd9660 / dev / mdX / media
+[返回mdX  -  x = int]
+一旦卸载，你可以销毁mdX
+
+＃生成一个新的SSH密钥
+ssh-keygen -t rsa -b 4096
+
+＃将ssh密钥添加到ssh-agent中：
+＃在后台启动ssh-agent。
+eval“$（ssh-agent -s）”
+
+＃将ssh私钥添加到代理（并将密码短语添加到钥匙串）：
+ssh-add -K〜/ .ssh / id_rsa
+
+＃转移公钥：
+
+ssh-copy-id <用户名> @ <主机>
+
+
+＃安装paramiko
+conda安装paramiko
+
+要么 
+点安装ecdsa
+
+要么 
+sudo apt-get install python-paramiko
+
+安装pyro4
+点安装pyro4
+sudo pip安装pyro4
+
+＃grep递归地通过目录中的文件搜索一个字符串（忽略大小写）：
+grep -r -i“mysql”/ etc / nagios / objects /
+
+＃grep上面和下面一行
+
+<command> | grep -A 1 -B 1 <关键字>
+
+＃grep每行不包含特定的字符串patterm
+
+grep -v
+
+＃grep显示行号
+grep -n
+
+＃vim：打开文件并转到特定的单词：
+vim + / <word> <filename>
+
+＃vim：在vim中选择文件中的所有行
+ggVG
+
+＃vim：选择文件中的所有行并插入注释
+ctrl-v GI＃esc esc
+
+vim中的字符串替换：
+[用条替换foo的所有实例]
+：％S /富/酒吧/克
+
+安装Ubuntu桌面：
+sudo apt-get install ubuntu-desktop
+
+安装pyfuzz：
+
+注意：〜/ anaconda2 / lib / python2.7 / site-packages / pyfuzz / generator.py
+我修改了generator.py脚本：
+我将“导入图像”更改为“从PIL导入图像”
+
+注意：1-30-16：运行conda install -c https://conda.anaconda.org/auto pyfuzz
+因为pip intall pyfuzz没有正确的工作。运行上面的命令，我注意到：下列软件包将被降级：
+
+    numpy：1.10.2-py27_0  - > 1.8.2-py27_1
+
+pip安装pyfuzz
+
+升级点子：
+
+点子安装 - 升级点子
+
+安装最新版本的java
+sudo apt-get install default-jre
+
+安装telnet：
+sudo apt-get install xinetd telnetd
+
+FTP到Freenas：
+
+ftp 10.1.1.30
+输入用户名和密码
+把（路径到本地文件）
+（输入远程文件的名称）
+转让完成
+
+为anaconda安装python pcapy：
+
+下载tar.gz. 解压缩，然后运行：
+python setup.py安装
+
+安装python-pcapy：
+
+sudo apt-get intall python-pcapy
+
+在vim中注释掉多行：
+
+在vim中注释块：
+
+    1.按Esc（离开编辑或其他模式）
+    2.按ctrl + v（可视块模式）
+    3.使用向上/向下箭头键选择你想要的行（它不会突出显示所有事情 - 没关系！）
+    4. Shift +我（大写I）
+    5.插入你想要的文字，即'％'
+    6.按Esc。
+
+将文件“foobar.txt”从远程主机复制到本地主机
+
+    $ scp your_username@remotehost.edu：foobar.txt / some / local /目录
+
+从远程主机scp多个文件到本地目录
+
+scp console @ jaguar：/ home / console / \ {lxc-cscript2.c.orig，lxc-cscript2.c，lxc-cscript2.7}。
+
+编辑你的.bashrc（追加到最后一行）或预先安装Anaconda2安装位置：
+
+$ export PATH = / home / pupi / anaconda2 / bin：$ PATH
+
+感谢您安装Anaconda2！
+
+
+
+如何ssh进入virtualbox guest：
+ssh -p 22 taylor@127.0.0.1
+
+在virtualbox guest上打开ssh端口：
+VBoxManage modifyvm“PyNetPro”--natpf1“guestssh，tcp ,, 22，，22”
+
+更改virtualbox nat范围：
+VBoxManage modifyvm“虚拟机名称”--natnet1 192.168.1 / 24
+
+在Cisco IOS路由器上生成rsa密钥：
+Router（config）＃crypto key生成rsa
+
+删除键：
+加密密钥归零rsa
+
+debian 7为python安装mysqldb
+
+apt-get install build-essential python-dev libmysqlclient-dev
+pip安装MySQL-python
+
+MySQL的
+
+sudo apt-get安装mysql-server
+
+sudo apt-get install python-scapy
+
+python pysnmp
+apt-get install python-pysnmp-common
+
+蟒蛇，networkx
+pip安装networkx
+
+蟒蛇-matplotlib
+apt-get build-dep python-matplotlib
+apt-get install python-matplotlib
+
+猫输出文件与日期和时间戳：
+sudo iptables -L> iptables-l.txt -'date +％F`-`date +％T`
+
+iptables的： 
+
+＃插入iptables规则
+＃需要iptables -L  - 行号
+iptables -I INPUT 6 -p tcp -s 160.91.19.12/32 --dport 6556 -m conntrack --ctstate NEW，ESTABLISHED -j ACCEPT
+
+iptables的持久性：
+sudo apt-get安装iptables-persistent
+
+测试/etc/iptables/rules.v4的语法
+sudo iptables-restore -t /etc/iptables/rules.v4
+
+保存防火墙规则：
+sudo invoke-rc.d iptables-persistent save
+
+检查rulves.v4文件的语法正确性：
+sudo ip4tables-restore -t /etc/iptables/rules.v6
+
+
+修改rules.v4文件后重新加载：
+sudo服务iptables-persistent reload
+
+iptables规则文件路径：
+/etc/iptables/rules.v4
+/etc/iptables/rules.v6
+
+
+目标：当定义的模式匹配时，发生的动作称为目标。目标可以是数据包的最终决策，例如accept或drop。它也可以将数据包移动到不同的链中进行处理，或者简单地记录相遇。有很多选择。
+
+这些规则被组织成称为链的组。链是一个规则，一个数据包被依次检查。当数据包匹配其中一个规则时，它执行关联的动作，而不会根据链中的其余规则进行检查。
+
+用户可以根据需要创建链。有三个链默认定义。他们是：
+
+    INPUT：这个链处理发往你服务器的所有数据包。
+    输出：这个链包含您的服务器创建的流量的规则。
+    FORWARD：这个链被用来处理目的地为其他服务器的流量，这些服务器不是在你的服务器上创建的。这个链基本上是一种配置你的服务器将请求路由到其他机器的方法。
+
+
+获取我自己的IP地址并将其保存到shell脚本中的变量中
+
+ip =“$（ifconfig | grep -A 1'eth0'| tail -1 | cut -d'：'-f 2 | cut -d''-f 1）”
+
+只给出“eth0”IP地址，不给出任何子接口（eth0：0，eth0：1等）： 
+
+ip =“$（ifconfig | grep -v'eth0：'| grep -A 1'eth0'| tail -1 | cut -d'：'-f 2 | cut -d''-f 1）”
+
+
+＃'du' - 查找目录的大小
+
+＃五大磁盘使用目录（人类可读）
+du -hs * | sort -rh | 头-5
+
+＃显示包含子目录的最大文件夹/文件：
+du -Sh | sort -rh | 头-5
+
+$ du
+在提示符处键入上述内容可以给出当前目录中存在的目录及其大小的列表。输出的最后一行为您提供当前目录（包括其子目录）的总大小。给出的大小包括当前目录中存在的文件和目录以及其所有子目录的大小。请注意，默认情况下，给出的大小是千字节。
+
+
+$ du / home / david
+上面的命令会给你目录/ home / david的目录大小
+
+
+$ du -h
+这个命令给你一个比默认输出更好的输出。选项“-h”代表人类可读的格式。所以这个文件/目录的大小是这个后缀，如果它的千字节是'k'，如果它的兆字节是'M'，如果它的千兆字节是'G'。
+
+
+$ du -ah
+这个命令会在其输出中显示当前目录中不仅包含目录而且包含所有文件。请注意，“du”总是统计所有文件和目录，同时在最后一行中给出最终大小。但'-a'显示文件名以及输出中的目录名称。'-h'是人类可读的格式。
+
+
+$ du -c
+这给你一个总数作为输出的最后一行。所以，如果你的目录占用30MB，那么输出的最后2行应该是
+
+30M。
+总共30M
+
+第一行是'du'输出的默认最后一行，表示目录的总大小，另一行显示相同大小，后面跟着字符串'total'。这是有帮助的，如果你把这个命令和grep命令一起只显示一个目录的最终总大小，如下所示。
+
+
+$ du -ch | 总共grep
+这将在其输出中只有一行显示当前目录（包括所有子目录）的总大小。
+
+注意：如果您不熟悉管道（使上述命令成为可能），请参阅第24条。而且grep是Unix中最重要的命令之一。有关grep的更多信息，请参阅第25号文章。
+
+
+$ du -s
+这将显示目录大小的摘要。这是知道当前目录总大小的最简单的方法。
+
+
+$ du -S
+这将显示当前目录的大小，不包括目录中存在的子目录的大小。所以它基本上显示了当前目录中存在的所有文件的总大小。
+
+
+$ du --exculde = mp3
+上面的命令会显示当前目录及其所有子目录的大小，但会排除所有文件中存在给定模式的文件。因此，在上述情况下，如果在当前目录或其任何子目录中碰巧存在任何mp3文件，则在计算总目录大小时将不包括它们的大小。
+
+安装pyautogui
+
+
+    sudo pip3安装python3-xlib
+
+    sudo apt-get scrot
+
+    sudo apt-get install python3-tk
+
+    sudo apt-get install python3-dev
+   
+    sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev \
+    libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+
+    sudo pip3安装pyautogui
+
+
+＃安装模块w / pip3
+sudo pip3 install <module-name>
+
+#install pip for python3：
+sudo apt-get install python3-pip
+
+#install pip for python2.7：
+sudo apt-get install python-pip
+
+＃在python3下安装selenium：
+sudo pip3安装-U硒 
+
+重定向输出/错误到文本文件：
+
+＃使用2>将stderr输出重定向到文本文件： 
+foo> stdout.txt 2> stderr.txt
+
+＃对于同一文件中的输出和标准错误：
+foo> allout.txt 2>＆1
+
+＃注意：这个工作在（ba）sh中，检查你的shell的正确语法
+
+
+＃打开浏览器开发者工具：
+firefox：Ctrl + Shift + C
+铬：F12
+
+＃从sudo组（ubuntu）中删除一个用户：
+
+sudo deluser <username> sudo
+
+＃从ubuntu删除桌面管理器：
+
+sudo apt-get remove  - 清除网络管理员 - 侏儒网络管理员
+
+要更正以下ntp错误：ntpdate [744]：无法调整一天的时间：操作不允许
+dpkg-reconfigure tzdata
+
+要检查已安装程序的版本，例如：
+
+dpkg -l <​​程序名>
+
+apt-cache show <程序名>
+
+
+scp从单个到多个主机：
+我在`猫dest-scp.txt`; 做scp wsadduser-2.0-4.ORNL.amd64.deb“$ i”：〜; scp wspasswd_3.0.0-6.UBUNTU1404_amd64.deb“$ i”：〜; DONE
+
+apt-get“yes”
+
+apt-get -y升级
+
+通过cli检查Centos版本：
+猫/ etc / centos-release
+
+
+如何显示我正在使用哪个网络驱动程序
+
+选项：
+
+dmesg | grep“以太网驱动程序”
+
+sudo lshw | 减
+
+＃返回上一个工作目录
+
+cd  - 
+
+检查是否安装了软件包：
+dpkg -l <​​软件包名称>
+
+＃复制并粘贴到Vim中
+
+＃这里是如何使用视觉选择来剪切和粘贴或复制和粘贴文本 
+#in Vim。
+
+＃剪切和粘贴：
+
+    将光标定位在要开始切割的位置。
+    按v选择字符（或大写V选择整行）。
+    将光标移动到您要剪切的位置。
+    按d剪切（或y复制）。
+    移至您要粘贴的位置。
+    按P在光标前面粘贴，或者在后面粘贴。 
+
+复制和粘贴执行与步骤4相同的步骤，您将按Y而不是D：
+
+    d =删除=剪切
+    y = yank =复制 
+http://vim.wikia.com/wiki/Copy,_cut_and_paste
+
+在Tracfone上找到IMEI：
+
+*＃06＃
+IMEI：
+01329400291260203
+
+在microway中打开cmos安装：删除密钥
+Scylla需要外置DVD驱动器来加载新的操作系统。
+
+＃...确定Ubuntu的版本：
+
+user @ ubuntu：〜$ lsb_release -a
+没有LSB模块可用。
+经销商ID：Ubuntu
+说明：Ubuntu 14.04.3 LTS
+发布：14.04
+代号：可靠
+
+。。。将时间和日期恢复到Unity桌面面板。
+
+http://itsfoss.com/fix-date-time-missing-menu-bar-ubuntu-1310/
+
+或者：
+
+sudo apt-get install indicator-datetime
+sudo dpkg-reconfigure --frontend noninteractive tzdata
+sudo killall统一面板服务
+
+要么：
+sudo重启lightdm
+
+＃找到命令
+find / -type f -name“* .conf”
+
+＃查找命令部分名称，不区分大小写的示例：
+找到../ -name'* [Cc] [Ll] [Aa] [Mm] [Aa] [Vv] *'-print
+
+＃使用“tee”重定向到文件和屏幕。取决于你的shell
+＃使用，你首先必须使用stderr重定向stdout
+
+./a.out 2>＆1 | 三通输出
+
+#awk：返回第2，第7列 
+awk'NR == 2 {print $ 7}'free.txt
+
+＃单用户模式RHEL 7：
+＃在grub菜单中点击'e'。
+＃寻找以“linux16 vmlinuz”开头的行。
+＃转到该行的末尾，然后输入以下内容：
+INIT = /斌/庆典
+
+＃按Ctrl-x
+＃在bash提示符下键入：
+mount -o remount，rw /
+
+＃克拉马夫
+＃安装clamav
+sudo apt-get install clamav clamav-daemon
+
+＃停止freshclam
+systemctl停止clamav-freshclam.service
+
+＃clamscan（递归，详细）：
+clamscan -rv / path / to / scan
+
+＃cryptsetup luksDump：为加密分区转储luks插槽
+sudo cryptsetup luksDump / dev / sda5 | grep插槽
+
+＃cryptsetup luksAddKey：
+sudo cryptsetup luksAddKey / dev / sda5
+
+＃从命令行挂载luks分区：
+＃打开分区并设置映射名称：
+cryptsetup luksOpen / dev / sd ?? / <mapping-name>
+＃使用映射名称mount：
+mount / dev / mapper / <mapping-name> / path / to / mount / point
+
+＃关闭luks
+cryptsetup luksClose <mapping-name>
+
+
+
+＃chown一个符号链接
+chown -h apache：apache clamav-cvd
+
+＃创建一个符号链接：
+ln -s / path / to / file / path / to /符号链接
+
+＃GNOME版本
+gnome-session --version
+
+＃删除bash历史记录项目：
+history -d <offset＃>
+历史-w＃将历史记录写入历史记录文件。
+
+＃猫到EOF：
+cat> / path / to / file <<“EOF”
+内容
+内容
+EOF
+
+＃OSX mac：使用ext4fuse装载设备
+ext4fuse / dev / disk2s1 </ path / to / mountpoint>
+
+＃sshuttle
+sshuttle --dns -r id @ fqdn 0/0
+
+＃对于注销用户：
+pkill -KILL -u {用户名}
