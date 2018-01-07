@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#deepin更新阿里云源
+echo -e "deb [by-hash=force] http://mirrors.aliyun.com/deepin unstable main contrib non-free \ndeb-src http://mirrors.aliyun.com/deepin unstable main contrib non-free" | sudo tee /etc/apt/sources.list
+
 #更新系统和升级系统
 sudo apt-get update
 sudo apt-get upgrade
@@ -16,7 +19,7 @@ gparted htop pinta
 
 
 ###### 获取所需的主要包
-#sudo apt-get install \
+sudo apt-get install \
 zsh vim vim-gtk git tig colordiff \
 texlive-full rubber tmux \
 make make-doc cmake-curses-gui \
