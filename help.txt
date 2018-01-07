@@ -136,3 +136,25 @@ sudo service docker restart
 
 systemctl  status docker.service"
 
+
+
+sudo vim /etc/docker/daemon.json
+
+service docker start
+
+systemctl  status docker.service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
