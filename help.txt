@@ -155,6 +155,40 @@ sudo rm var/run/docker.sock
 
 dpkg: 处理软件包 docker-engine (--configure)时出错：
 
+sudo apt-get install docker-engine
+出错
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
