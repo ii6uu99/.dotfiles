@@ -111,7 +111,7 @@ systemctl restart docker # 重启dokcer
 
 
 
-
+"storage-driver": "devicemapper"
 
 
 
