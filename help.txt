@@ -96,6 +96,17 @@ sudo chown -R $USER ~/scala
 
 
 
+systemctl status docker.service 查看状态
+Job for docker.service failed because the control process exited with error code. See "systemctl status docker.service" and "journalctl -xe" for details.
+
+
+
+
+su root # 先切换到root用户, 再执行以下命令
+systemctl enable docker # 开机自动启动docker
+
+systemctl start docker # 启动docker
+systemctl restart docker # 重启dokcer
 
 
 
@@ -103,4 +114,25 @@ sudo chown -R $USER ~/scala
 
 
 
+
+------------------------
+把当前用户加到docker用户组中：
+
+#添加docker用户组
+
+sudo groupadd docker
+
+#把自己加到docker用户组中
+
+sudo gpasswd -a myusername docker
+
+#重启docker后台服务
+
+sudo service docker restart
+
+重启系统，直接运行docker命令就行了，不用加上sudo。
+
+
+
+systemctl  status docker.service"
 
