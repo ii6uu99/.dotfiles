@@ -33,4 +33,4 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 #将你的用户添加到docker组中
-usermod -aG docker $USER
+sudo usermod -aG docker $USER
