@@ -8,7 +8,8 @@ sudo rm -rf /var/lib/docker
 ####安装docker
 
 #脚本来源 https://github.com/rancher/install-docker
-#docker安装包来源
+#docker安装包来源,低版本会遇到dpkg无法安装docker-engine，
+#出现dpkg: 处理软件包 docker-engine (--configure)时出错：
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/1.11.2.sh)"
 
 #curl -L https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh | sh
