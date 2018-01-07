@@ -149,7 +149,7 @@ systemctl daemon-reload
 systemctl  status docker.service
 
 
-
+var/run/docker.sock
 
 
 
