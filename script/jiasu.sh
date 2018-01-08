@@ -4,7 +4,8 @@
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://r2t47usc.mirror.aliyuncs.com"]
+  #"registry-mirrors": ["https://r2t47usc.mirror.aliyuncs.com"]
+  "registry-mirrors":["https://docker.mirrors.ustc.edu.cn"]
 }
 EOF
 sudo systemctl daemon-reload
