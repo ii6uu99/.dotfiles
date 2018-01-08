@@ -1,0 +1,32 @@
+#这个Dockerfile被用来构建一个包含基本东西的图像，作为Jenkins的从属构建节点。
+FROM ubuntu:14.04
+
+
+RUN apt-get update
+
+# 安装一个基本的SSH服务器
+RUN apt-get install -y openssh-server
+RUN mkdir -p /var/run/sshd
+
+# 安装JDK 7（最新版）
+RUN apt-get install -y --no-install-recommends default-jdk
+
+# 安装实用程序
+RUN apt-get install -y git wget curl python-virtualenv python-pip build-essential python-dev
+
+# 添加用户
+RUN adduser --quiet jenkins
+
+#使用NOPASSWD将用户jenkins添加到sudoers
+RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# 为詹金斯用户设置密码（你可能想改变这个）。
+RUN echo "jenkins:jenkins" | chpasswd
+
+# 设置为sshd
+RUN sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd  
+
+# 标准的SSH端口
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]

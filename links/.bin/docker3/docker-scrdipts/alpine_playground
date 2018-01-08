@@ -1,0 +1,9 @@
+FROM alpine:latest
+MAINTAINER waliworld
+
+# installs packages  and rm's the package cache
+RUN apk upgrade --update --available && \
+    apk add bash \
+            nano \
+            git \
+    && rm -rf /var/cache/apk/*

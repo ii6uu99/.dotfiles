@@ -1,0 +1,59 @@
+#!/bin/bash
+set -e
+
+# webdawg@gmail.com
+# requirements:  jq awk docker ls rm tar
+# IF YOU EDIT THIS SCRIPT
+# MAKE SURE TO KEEP SLASHES, ETC
+
+#Pull in container name argument
+CONTAINER_ID=$1
+
+#Date
+NOW=$(date +%Y-%m-%d-%H-%M-%S)
+
+#Docker Backup Root
+DOCKERBACKUPRT="/root/docker_backups"
+
+#Target Directory
+DOCKERTARGETDIR="/bla/bla/bla/"
+
+echo "Warning this script is dangerous, it does not check anything at all, it just does"
+
+if [[ -z $1 ]]; then
+    echo "Please pass a container name"
+    exit
+fi
+
+
+if [ ! -d "${DOCKERBACKUPRT}" ]; then
+    mkdir ${DOCKERBACKUPRT}
+fi
+
+if [ ! -d "${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup" ]; then
+    mkdir ${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup
+fi
+
+if [ ! -d "${DOCKERTARGETDIR}/${CONTAINER_ID}" ]; then
+    mkdir ${DOCKERTARGETDIR}/${CONTAINER_ID}
+fi
+
+
+docker commit -p ${CONTAINER_ID} ${CONTAINER_ID}_backup
+docker save -o ${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup/${CONTAINER_ID}-backup.tar ${CONTAINER_ID}_backup
+docker rmi ${CONTAINER_ID}_backup
+tar cvpzf ${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup.tar.gz ${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup/
+mv ${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup.tar.gz ${DOCKERTARGETDIR}${CONTAINER_ID}/docker_${CONTAINER_ID}_${NOW}_backup.tar.gz
+echo "Removing ${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup"
+rm -r ${DOCKERBACKUPRT}/docker_${CONTAINER_ID}_backup
+cd ${DOCKERTARGETDIR}${CONTAINER_ID}
+
+echo "Trying to trim"
+
+if [[ $(ls -t ${DOCKERTARGETDIR}${CONTAINER_ID} | awk 'NR>7') ]]; then
+    echo "Trimming Old Files"
+    cd ${DOCKERTARGETDIR}${CONTAINER_ID}
+    rm $(ls -t | awk 'NR>7')
+else
+    echo "No Files To Trim"
+fi

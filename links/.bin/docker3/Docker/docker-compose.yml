@@ -1,0 +1,18 @@
+version: "2"
+networks:
+  mynet:
+services:
+  nginx:
+    image: ankitkl/intellimeet:nginxv1
+    environment:
+    - "constraint:node.environment==QA"
+    networks:
+      - mynet
+    ports:
+      - "82:80"
+  redis:
+    image: redis
+    networks:
+      - mynet
+    ports:
+      - "84:6379"

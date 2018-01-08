@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# mongodump within mongo container to /tmp
+docker exec $(docker ps -f name=mongo -q) bash -c \
+  "rm -rf /tmp/mongobackup/* && \
+  mongodump -v --out=/tmp/mongobackup/mongodump/ --gzip"
+
+# docker cp dump from container to host
+rm -rf /tmp/mongobackup/*
+mkdir /tmp/mongobackup/
+docker cp mongo:/tmp/mongobackup/mongodump/ "/home/ubuntu/jenkins/workspace/slave-test"
+
+# tar and date
+tar --remove-files -czvf \
+  "/home/ubuntu/jenkins/workspace/slave-test/mongo-backup-$(date +"%F.%R").tgz" \
+  "/home/ubuntu/jenkins/workspace/slave-test/mongodump"
+
