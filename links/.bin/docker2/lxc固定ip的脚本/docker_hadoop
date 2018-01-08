@@ -1,0 +1,2 @@
+#!/bin/bash -
+/usr/local/bin/docker_run 99 "hadoop:2.6.0" hadoop

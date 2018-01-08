@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# Author: Joe Block <jpb@unixorn.net>
+# License: Apache 2 (See LICENSE file)
+
+CONTAINER_LIST=$(docker ps -a -q)
+
+if [ -n "${CONTAINER_LIST}" ]; then
+  exec docker rm ${CONTAINER_LIST}
+else
+  echo "No containers to clean up"
+fi

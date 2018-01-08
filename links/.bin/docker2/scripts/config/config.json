@@ -1,0 +1,7 @@
+{
+  "database": {
+    "driver": "mysql",
+    "host": "mysql-server"
+  }
+}
+

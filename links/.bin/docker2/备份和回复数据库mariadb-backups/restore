@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+show_help() {
+  >&2 cat << EOF
+Usage: ${0##*/} CONTAINER_NAME BACKUP_FILE MARIADB_ROOT_PASSWORD DATABASE
+EOF
+}
+
+if [[ $# != 4 ]]; then
+  show_help
+  exit 1
+fi
+
+container_name="$1"
+backup_file="$2"
+mariadb_root_password="$3"
+database="$4"
+
+echo restoring from $backup_file
+gunzip --stdout "$backup_file" | docker exec --interactive "$container_name" mysql --user=root --password="$mariadb_root_password" --one-database "$database"
+
+exit_code=$?
+if [[ $exit_code != 0 ]]; then
+  >&2 echo Restore failed with exit code $exit_code
+  exit $exit_code
+fi
+
+echo Success

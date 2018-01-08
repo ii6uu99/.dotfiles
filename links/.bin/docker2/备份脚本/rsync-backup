@@ -1,0 +1,30 @@
+#!/bin/bash
+
+SRCDIR=$HOME
+BACKUPSDIR=/mnt/backups/mgreenly
+MAXDAYS=10
+
+# 确保备份目录和当前链接存在。如果他们没有
+# 创建它们。在第一遍“当前”将是一个空目录
+# 而不是符号链接到以前的备份
+if [[ ! -e $BACKUPSDIR/current ]]; then
+  mkdir -p $BACKUPSDIR/current
+fi
+
+# 为文件夹名称创建日期戳
+DATESTAMP=$(date "+%Y%m%dT%H%M")
+
+echo "$(date) - starting backup $DATESTAMP"
+
+# 创建硬链接备份。要排除文件或目录，请创建一个
+# rsync的排除，从SRCDIR文件名为“.backup_excludes”
+rsync -aAXPq --exclude-from="$SRCDIR/.backup_excludes" --link-dest=$BACKUPSDIR/current $HOME/. $BACKUPSDIR/$DATESTAMP
+
+# 更新当前链接以指向最近的备份
+rm -rf $BACKUPSDIR/current
+ln -s $DATESTAMP $BACKUPSDIR/current
+
+# 删除比maxdays早的任何备份
+find $BACKUPSDIR -mindepth 1 -maxdepth 1 -type d -mmin +$(($MAXDAYS*24*60)) -exec rm -rf {} \;
+
+echo "$(date) - completed backup $DATESTAMP"

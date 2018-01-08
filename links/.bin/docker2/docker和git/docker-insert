@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ "$1" != "" ]; then
+	echo "file name"
+else
+	exec tar -cf - "$1"|docker exec -i "$2" /bin/tar -C /root/ -xf - 
+fi
+#test unmodity

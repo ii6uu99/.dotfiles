@@ -1,0 +1,89 @@
+#!/bin/bash
+#
+# A dialog based script to display the progress of the amuled
+# downloads. Depends on dialog and amulecd.
+# Returns nothing and runs without params.
+# Press CTL-C to end script and quit.
+#
+
+DIALOG="$(which dialog)"	#/usr/bin/dialog
+_sleep="$(which sleep)"		#/bin/sleep
+_AMC="$(which amulecmd)"
+_host="192.168.0.160"
+_AMC_command="show dl"
+_backtitle="Amuled download progress"
+SIG_NONE=0		#
+SIG_INT=2		# System signals for trap
+SIG_KILL=9		#
+
+# control loop var
+_signal="$SIG_NONE"
+
+# For debuging
+#trap 'set +x; $_sleep 0.25; set -x' DEBUG
+
+trap '_signal=2' "$SIG_INT" "$SIG_KILL"
+
+# Source functions library for get_term_size()
+. "$HOME"/sbin/script-funcs.sh
+
+# check for amuled
+if ! is_running "amuled_(-f)" "$_backtitle"; then
+	report_msg "$0" "Amuled not running. Aborted."
+	exit 1
+fi
+
+# infinite loop. --mixedgauge doesn't read from stdin so we have to redraw the
+# screen for getting the progress sensation
+while (( _signal == 0 )) ; do
+	get_term_size _H _W
+	IFS=$'\n'
+	# get and format interesting information, store in arrays
+	declare -a _AMC_output=( $("$_AMC" -h "$_host" -c "$_AMC_command" |grep ">") )
+	if (( ${#_AMC_output[@]} == 0 )); then
+		abort_dlg "Error: couldn't get any download.\Are we downloading something?"
+		break
+	fi
+	declare -a _hashes
+	declare -a _names
+	declare -a _progress
+	declare -a _speed
+	i=0
+	j=0
+	while (( j < ${#_AMC_output[@]} )); do
+		_hashes[$i]=${_AMC_output[$j]# > }; _hashes[$i]=${_hashes[$i]%% *}
+		_names[$i]=${_AMC_output[$j]# > ${_hashes[$i]} }
+		_progress[$i]=${_AMC_output[$((j+1))]#*[}; _progress[$i]=${_progress[$i]%%\%]*}
+		_speed[$i]="$(echo "${_AMC_output[$((j+1))]}" |cut -d"-" -f5)"; _speed[$i]=${_speed[$i]:-0}
+		_speed[$i]=${_speed[$i]# }; _speed[$i]=${_speed[$i]% *}
+		(( j += 2 ))
+		(( i++ ))
+	done
+	unset _AMC_output
+
+	# calculate values and format dialog string
+	#
+	IFS=":"
+	i=0
+	_numerator=0
+	_str=
+	while (( i < ${#_progress[@]} )); do
+		_numerator=$(echo "$_numerator+${_progress[$i]}" | bc -l)
+		# trim the file name to 1/3 the screen size and add speed
+		_str="$_str:${_names[$i]:0:$(( _W/3 ))}   ${_speed[$i]}kB/s:-${_progress[$i]}"
+		(( i++ ))
+	done
+	# we need _tot_dwl to be an integer, remove the .nnnn
+	_tot_dwl=$(echo "$_numerator/${#_progress[@]}" | bc -l); _tot_dwl=${_tot_dwl%%\.*}
+	unset _numerator _hashes _names _progress _speed
+	# strip leading ":" from _str
+	_str=${_str#:}
+
+	"$DIALOG" --backtitle "$_backtitle" --mixedgauge "Total progress. Press CTL-C to quit" \
+		$(( (_H*3)/4 )) $(( (_W*3)/4 )) "$_tot_dwl" $_str
+
+	# do not loop too fast
+	"$_sleep" 1.75
+done
+# reset the terminal on exit
+reset

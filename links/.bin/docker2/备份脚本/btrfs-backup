@@ -1,0 +1,37 @@
+#!/bin/bash
+
+TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+UUID="1f3a475a-39ff-47f0-8d24-0de4d58404ea"
+
+if [ ! -e "/dev/disk/by-uuid/$UUID" ]; then
+  #USB驱动器似乎没有添加
+  echo "usb drive doesn't seem to be attached"
+  exit
+fi
+
+if [ ! -e /mnt/backup/home ]; then
+  #USB驱动器似乎没有挂载
+  echo "usb drive doesn't seem to be mounted"
+  echo "sudo mount /dev/disk/by-uuid/$UUID /mnt/backup"
+  exit
+fi
+
+echo "starting backup"  #开始备份
+
+echo "creating snapshot" #创建快照”
+ 
+#
+# 首先将主目录的正常rsync备份到外部驱动器
+#
+rsync -avh --delete /home/ /mnt/backup/home
+
+#
+# 然后采取备份文件夹的快照保存历史
+#
+btrfs sub snap -r /mnt/backup/home /mnt/backup/snapshots/home@"$TIMESTAMP"
+
+#
+# 然后删除旧目录
+#
+#btrfs subvolume delete /mnt/backup/snapshots/today
+

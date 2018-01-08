@@ -1,0 +1,128 @@
+#!/bin/bash
+#
+# First stab to an script to manage local docker images.
+# If you just want to run an image use docker_run instead.
+#
+
+DIALOG=/usr/bin/dialog
+
+DIALOG_OK=0					#
+DIALOG_CANCEL=1					#
+DIALOG_HELP=2					# Possible dialog return values
+DIALOG_EXTRA=3					# for $?
+DIALOG_ITEM_HELP=4				#
+DIALOG_ESC=255					#
+
+SIG_NONE=0					#
+SIG_HUP=1					#
+SIG_INT=2					# System signals for trap
+SIG_QUIT=3					#
+SIG_KILL=9					#
+SIG_TERM=15					#
+
+declare -a IMG_REPO=( $(docker images |awk '{printf "%s ", $1}') )
+declare -a IMG_TAG=( $(docker images |awk '{printf "%s ", $2}') )
+declare -a IMG_ID=( $(docker images |awk '{printf "%s ", $3}') )
+declare -a _dialog_opts
+_CMD_list="rm:Delete images:run:Run images:history:View image history:inspect:View image's low level info"
+_backtitle="dialog based Docker images manager by boret"
+VOLUME=""
+CON_NAME=""
+COMMAND="docker image"
+tempfile=/tmp/test$$
+
+#############################################################################
+#				Trap signals				    #
+#############################################################################
+#trap "set +x; sleep 1; set -x" DEBUG
+
+trap 'rm -f $tempfile $INPUT_F; reset' 0 "$SIG_NONE" "$SIG_HUP" "$SIG_INT" "$SIG_QUIT" "$SIG_TERM"
+exec 4<>$tempfile
+
+#############################################################################
+#				Functions				    #
+#############################################################################
+
+# utility to fill dialog menu options
+#
+fill_repos()
+{
+	let n=1
+	while [ "$n" -ne "${#IMG_ID[*]}" ]; do
+		echo "${IMG_ID[$n]}" "${IMG_REPO[$n]}:${IMG_TAG[$n]}" "off"
+		(( n++ ))
+	done
+}
+
+# check return codes of dialog items. Abort only on ESC pressed
+# so we can get back to the main menu if CANCEL pressed
+# parameters $1 = return code to check (usually $?)
+#
+get_result()
+{
+	case $1 in
+		$DIALOG_CANCEL) return $DIALOG_CANCEL
+				;;
+		$DIALOG_ESC)	clear
+				echo "Abortado"
+				exit 3
+				;;
+	esac
+}
+
+# Source functions library
+. $HOME/sbin/script-funcs.sh
+
+#############################################################################
+#                                Main body                                  #
+#############################################################################
+while : ; do
+
+	get_term_size _H _W
+
+	$DIALOG --clear --backtitle "$_backtitle" --title " Imágenes disponibles " \
+		--checklist "Selecciona las imágenes:" $((_H/2)) $((_W/2)) 8 \
+		$(fill_repos) 2> $tempfile
+	# Cancel in entry menu means abort
+	if ! get_result $? ; then
+		get_result $DIALOG_ESC
+	fi
+
+	declare -a IMAGES=( $(cat "$tempfile") )
+
+	if [ "${#IMAGES[@]}" -eq 0 ]; then
+		abort_dlg "No se ha seleccionado ninguna imagen"
+		continue
+	fi
+
+	menu_dlg "$_CMD_list" SELECTED _dlg_options " Comandos disponibles "
+	if ! get_result $? ; then
+		continue
+	fi
+
+	case $SELECTED in
+		run)	COMMAND="docker_run ${IMAGES[*]}"
+			;;
+		rm)	COMMAND="$COMMAND rm --force ${IMAGES[*]}"
+			;;
+		history)COMMAND="$COMMAND history --no-trunc ${IMAGES[*]}"
+		        $COMMAND >$tempfile
+			$DIALOG --clear --backtitle "$_backtitle" \
+				--title " Historial de la imagen ${IMAGES[*]} " \
+				--textbox "$tempfile" 0 0
+			get_result $?
+			continue
+			;;
+		inspect)COMMAND="$COMMAND inspect ${IMAGES[*]}"
+		        $COMMAND >$tempfile
+			$DIALOG --clear --backtitle "$_backtitle" \
+				--title " Información de la imagen ${IMAGES[*]} " \
+				--textbox "$tempfile" 0 0
+			get_result $?
+			continue
+			;;
+	esac
+
+	clear
+	$COMMAND
+done

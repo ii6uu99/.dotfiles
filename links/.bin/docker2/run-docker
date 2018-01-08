@@ -1,0 +1,12 @@
+#!/bin/bash
+
+NAME="mlton-run-docker"
+
+# ＃删除任何已经有$ NAME的容器。
+docker image rm $NAME
+
+# 构建容器，并为其分配标记$ NAME
+docker build -t $NAME .
+
+# 运行标签$ NAME的容器。
+docker run --rm -it $NAME

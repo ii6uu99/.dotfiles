@@ -1,0 +1,26 @@
+https://github.com/lihebi/arch-desktop.git
+
+
+
+这是一个包含我需要的所有桌面包的容器。
+
+运行容器：
+
+docker run -d -p 5901:5901 -p 5902:5902 lihebi/arch-desktop
+
+
+然后等一下，通过连接
+vncviewer localhost:1
+# lxde session
+vncviewer localhost:1
+#+END_EXAMPLE
+
+
+容器可以停止并重新启动。
+docker stop <name>
+docker start <name>
+#+END_EXAMPLE
+
+你可以进入容器
+docker attach <name>
+

@@ -1,0 +1,2 @@
+#!/bin/bash -
+/usr/local/bin/docker_run 100 "redis:2.8.19" redis

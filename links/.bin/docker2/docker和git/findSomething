@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "what do you want to find ?input the options"
+echo "1. what to start"
+read startstr
+echo "2. what to end"
+read endstr
+echo "3. which file"
+read filedir
+
+temdir=/mnt/thingyoufind
+finaldir=/mnt/thingsfound
+
+echo $startstr
+
+grep -A 1000 ${#startstr} $filedir > $temdir
+
+
+grep -A $(grep -n ${#endstr} $temdir | head -n 1 | cut -d ':' -f 1) ${#startstr} $temdir > $finaldir

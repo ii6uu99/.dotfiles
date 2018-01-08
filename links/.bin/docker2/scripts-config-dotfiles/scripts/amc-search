@@ -1,0 +1,197 @@
+#!/bin/bash
+#
+# Dialog script to search and download files with amuled/amulecmd
+# Call it without parameters or with the string you want to search
+# for. Remember to quote the parameter.
+#
+DIALOG="$(which dialog)"	#/usr/bin/dialog
+_sleep="$(which sleep)"		#/bin/sleep
+_AMC="$(which amulecmd)"
+_host="192.168.0.160"
+_AMC_command="search global"
+_backtitle='Dialog based, amuled search command'
+
+DIALOG_OK=0					#
+DIALOG_CANCEL=1					#
+DIALOG_HELP=2					# Possible dialog return values
+DIALOG_EXTRA=3					# for $?
+DIALOG_ITEM_HELP=4				#
+DIALOG_ESC=255					#
+
+SIG_NONE=0					#
+SIG_HUP=1					#
+SIG_INT=2					# System signals for trap
+SIG_QUIT=3					#
+SIG_KILL=9					#
+SIG_TERM=15					#
+
+_tempfile="/tmp/test_$$"
+_templist="/tmp/test_list_$$"
+
+# For debuging
+#trap 'set +x; $_sleep 0.25; set -x' DEBUG
+
+trap 'rm -f $_tempfile $_templist; reset' "$SIG_NONE" "$SIG_HUP" "$SIG_INT" "$SIG_QUIT" "$SIG_TERM"
+
+# Source functions library
+. "$HOME"/sbin/script-funcs.sh
+
+# Do some stuff if received some return codes.
+# This function has to be changed on every script where it is used, to fit
+# script particular needs.
+# parameters:	1- return code to test
+# output:	depending on readed input code
+# returns:	the same return code received as parameter
+#
+check_rc()
+{
+	case $1 in
+		$DIALOG_CANCEL)	abort_dlg "Cancel pressed. Returning to previous menu or exiting."
+				return $DIALOG_CANCEL
+				;;
+		$DIALOG_ESC)	clear
+				echo "User aborted. Bye bye."
+				exit $SIG_QUIT
+				;;
+		$SIG_TERM)	abort_dlg "$_RC_ERROR"
+				return $SIG_TERM
+				;;
+		*)		return "$1"
+				;;
+	esac
+}
+
+# Run an amuled search, formats the result for next dialog,
+# and sends numérical sequence to stdout for the gauge.
+# Places the formatted list in a global temp file.
+process_search()
+{
+	$_sleep 0.50
+	echo 65	# for gauge
+
+	# get the search result, format it and present in a menu to select
+	# a new download
+	$_sleep 2
+	declare -a _lines
+	IFS=$'\n'
+	_lines=( $("$_AMC" -h "$_host" -c "results" 2>/dev/null |sed -e '/^$/d' -e '/amule/d' -e '/aMule/d' -e '/connect/d' -e '/client/d' -e '/Filename/d' -e '/>/d' -e '/-\{5,\}/d' |sed -E 's/^([[:digit:]]{1,})\.[[:blank:]]{1,}([[:graph:][:blank:]]{1,})[[:blank:]]{3,}([[:digit:]\.]{2,})[[:blank:]]{2,}([[:digit:]\.]{1,})$/\1:\2:\3:\4/') )
+	if (( ${#_lines[@]} == 0)); then
+		abort_dlg "Error: Failed to get search result. Aborting"
+		exit 1
+	fi
+
+	echo 85	# for gauge
+
+	declare -a _order
+	declare -a _name
+	declare -a _size
+	declare -a _sources
+	i=0
+	while (( i < ${#_lines[@]} )); do
+		_order[$i]=${_lines[$i]%%:*}
+		_name[$i]=${_lines[$i]#*:}; _name[$i]=${_name[$i]%%:*}
+		_size[$i]=${_lines[$i]#"${_order[$i]}":"${_name[$i]}":}; _size[$i]=${_size[$i]%:*}
+		_sources[$i]=${_lines[$i]##*:}
+		(( i++ ))
+	done
+	unset _lines
+	echo 95 # for gauge
+
+	# Build a list formated for menu
+	i=0
+	_menu=
+	while (( i < ${#_name[@]} )); do
+		_menu="$_menu:${_order[$i]}:${_name[$i]:0:$((_W/3))}  size = ${_size[$i]}mB  srcs = ${_sources[$i]}:off"
+		(( i++ ))
+	done
+	# remove leading ":"
+	_menu=${_menu#:}
+
+	# place the list in a temp file
+	echo "$_menu" >$_templist
+	echo 100 # for gauge
+}
+
+#
+# Begin
+#
+
+# check for amuled
+if ! is_running "amuled_(-f)" "$_backtitle"; then
+	report_msg "$0" "Amuled not running. Aborted."
+	exit 3
+fi
+
+# infinite loop
+declare -g _str="$1"
+while : ; do
+	get_term_size _H _W
+	# Get the desired search string
+	$DIALOG --clear --backtitle "$_backtitle" \
+		--inputbox 'Enter the string you want to search for' \
+		$(( (_H*3)/4 )) $(( (_W*3)/4 )) "$_str" 2>$_tempfile
+	if ! check_rc $?; then
+		# ESC or CANCEL in this dialog means
+		# we want to quit the script
+		exit 0
+	fi
+
+	_str="$(cat $_tempfile)"
+	if [ -z "$_str" ]; then
+		abort_dlg "Failed to get string,"
+		exit 3
+	fi
+
+	# Launch the search command, all output to /dev/null
+	i=0
+	"$_AMC" -h "$_host" -c "$_AMC_command $_str" >/dev/null 2>&1 &
+
+	process_search | $DIALOG --backtitle "$_backtitle" \
+		--gauge "Search progress" $(( (_H*3)/4 )) $(( (_W*3)/4 )) 15
+
+	# display selection menu
+	get_term_size _H _W
+	IFS=":"
+	declare -a _result=
+	$DIALOG --clear --no-tags --backtitle "$_backtitle" \
+		--checklist " Select the file to download " $(((_H*4)/5)) $(((_W*4)/5)) \
+		$((_H/2)) $(cat $_templist) 2> $_tempfile
+	if ! check_rc $?; then
+		# In this dialog CANCEL gets back to the initial
+		# search question, while ESC quits the script
+		continue
+	fi
+
+	IFS=" "
+	_result=( $(cat $_tempfile) )
+	if (( ${#_result[@]} == 0 )); then
+		abort_dlg "Error, no selected file number"
+		continue
+	fi
+
+	# Init download of selected file.
+	# This is pretty tricky. Download command needs a previous results command
+	# run in the same session, which is impossible via -c flag, as it opens and
+	# closes inmediately. The workaround is pipe a list of commands into an
+	# interactive shell, including a quit command.
+	i=0
+	_dwld_str="results"
+	while (( i < ${#_result[@]} )); do
+		_dwld_str="$_dwld_str\ndownload ${_result[$i]}"
+		(( i++ ))
+	done
+	_dwld_str="$_dwld_str\nquit\n"
+	echo -e "$_dwld_str" |"$_AMC" -h "$_host" >/dev/null 2>&1
+
+	# Display a message and end
+	get_term_size _H _W
+	if ! $DIALOG --clear --backtitle "$_backtitle" \
+		--yesno "File queued.\n\n
+You can follow the download using the script amc-progress.\n
+Do you want to search for another file?" $(( (_H*3)/4 )) $(( (_W*3)/4 )) \
+	2>$_tempfile ; then
+		abort_dlg "Have a nice day."
+		exit 0
+	fi
+	unset _result _dwld_str
+done

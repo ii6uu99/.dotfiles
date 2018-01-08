@@ -1,0 +1,133 @@
+#!/usr/bin/env ruby
+
+#
+# 列出所有快照
+#
+#     > sudo zfs list -t snapshot
+#
+#
+#
+#
+#
+
+require 'date'
+
+DATASET = ARGV[0]
+
+unless ARGV.length == 1
+  puts "usage: backup DATASET\n"
+  exit
+end
+
+MAXAGE = 30
+TODAY = Date.today
+
+today = Date.today
+yesterday = today - 1
+
+def snapshots
+ %x[zfs list -t snapshot | grep "#{DATASET}@" | sort].lines
+end
+
+def label_from (line)
+  line.split(/\s/).first
+end
+
+def date_from(label)
+  date_string = label.split('@').last
+  Date.strptime(date_string, "%Y%m%d")
+end
+
+def days_since(date)
+  (TODAY - date).to_i
+end
+
+def days_since_snapshot
+  if snapshots.empty?
+    Float::INFINITY
+  else
+    days_since(date_from(snapshots.last))
+  end
+end
+
+def destroy_snapshot(label)
+  command = "zfs destroy -r #{label}"
+  if system(command)
+    puts "removing snapshot: #{label}"
+  else
+    puts "ERROR, failed to destroy snapshot: #{label} with command `#{command}`"
+
+  end
+end
+
+
+#
+#
+# SCRIPT
+#
+#
+if days_since_snapshot > 0
+  label = "#{DATASET}@#{TODAY.strftime("%Y%m%d")}"
+  command = "zfs snapshot -r #{label}"
+  if system(command)
+    puts "created snapshot: #{label}"
+  else
+    puts "ERROR, failed to create snapshot: #{label}"
+  end
+else
+    puts "todays snapshot already exists"
+end
+
+count = 0
+snapshots.each do |snapshot|
+  label = label_from(snapshot)
+  date = date_from(label)
+  if days_since(date) > MAXAGE
+    destroy_snapshot label
+    count += 1
+    puts "removing expired snapshot #{label}"
+  end
+end
+puts "removed #{count} expired snapshots"
+
+cursnapshot = label_from(snapshots[-1])
+
+#
+#
+if snapshots.count == 1
+  puts "only 1 snapshot what should I do?"
+  puts cursnapshot
+  exit
+end
+
+cursnapshot = label_from(snapshots[-1])
+presnapshot = label_from(snapshots[-2])
+
+puts cursnapshot
+puts presnapshot
+
+#command = "zfs send -R -nv -i #{presnapshot} #{cursnapshot}"
+#result  = %x[#{command}]
+#
+#puts command
+#result.lines.each do |line|
+#  puts line
+#  puts
+#end
+#
+#sendsizestr = result.lines.last.split(/\s/).last
+#
+#sendsize_mb = if sendsizestr =~ /G$/
+#  (sendsizestr[0..-2].to_f * 1000).to_i
+#else
+#  sendsizestr[0..-2].to_i
+#end
+#
+#sendsize_mb_str = "#{sendsize_mb}M"
+#
+#puts sendsize_mb_str
+#
+#inc_send_cmd = "zfs send -R -i #{presnapshot} #{cursnapshot} | pv -s #{sendsize_mb}M | ssh server zfs receive bucket/machines/mgd01"
+#
+#puts inc_send_cmd
+#exec inc_send_cmd

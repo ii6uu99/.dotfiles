@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+show_help() {
+  >&2 cat << EOF
+Usage: ${0##*/} CONTAINER_NAME BACKUP_DIR MARIADB_ROOT_PASSWORD KEEP_BACKUPS
+EOF
+}
+
+if [[ $# != 4 ]]; then
+  show_help
+  exit 1
+fi
+
+container_name="$1"
+backup_dir="$2"
+backup_file="$backup_dir/$(date '+%Y-%m-%d %H:%M:%S').sql.gz"
+mariadb_root_password="$3"
+keep_backups="$4"
+
+echo Saving backup to $backup_file
+mkdir --parents "$backup_dir"
+docker exec "$container_name" mysqldump --all-databases --user=root --password="$mariadb_root_password" | gzip -9 > "$backup_file"
+
+exit_code=$?
+if [[ $exit_code != 0 ]]; then
+  >&2 echo Backup failed, removing $backup_file
+  rm -f "$backup_file" > /dev/null
+  exit $exit_code
+fi
+
+find "$backup_dir" -maxdepth 1 -type f -printf '%Ts\t%p\n' | sort --numeric-sort --reverse | tail --lines="+$((( $keep_backups + 1 )))" | cut --fields=2- | while IFS= read -r file; do
+  echo Removing old backup $file
+  rm -f "$file"
+done
+
+docker exec "$container_name" mysqloptimize --all-databases --user=root --password="$mariadb_root_password"
+
+exit_code=$?
+if [[ $exit_code != 0 ]]; then
+  >&2 echo Database optimizaion failed with status $exit_code
+  exit $exit_code
+else
+  echo Database optimization succeeded
+fi

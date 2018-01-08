@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Limpia los contenedores que docker deja colgando
+#
+for i in $(docker ps -a -q)
+do
+	docker rm --force "$i"
+done

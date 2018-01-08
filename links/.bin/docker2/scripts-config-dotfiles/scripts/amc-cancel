@@ -1,0 +1,105 @@
+#!/bin/bash
+#
+
+DIALOG="$(which dialog)"	#/usr/bin/dialog
+_AMC="$(which amulecmd)"
+_host="192.168.0.160"
+_AMC_command="show dl"
+_backtitle="Amuled cancel dialog"
+_tempfile="/tmp/test_$$"
+DIALOG_CANCEL=1
+DIALOG_ESC=255
+SIG_NONE=0		#
+SIG_INT=2		# System signals for trap
+
+# For debuging
+#trap 'set +x; $_sleep 0.25; set -x' DEBUG
+
+trap 'rm -f $_tempfile' "$SIG_NONE" "$SIG_INT"
+
+# Source functions library for get_term_size()
+. "$HOME"/sbin/script-funcs.sh
+
+# Do some stuff if received some return codes.
+# This function has to be changed on every script where it is used, to fit
+# script particular needs.
+# parameters:	1- return code to test
+# output:	depending on readed input code
+# returns:	the same return code received as parameter
+#
+check_rc()
+{
+	case $1 in
+		$DIALOG_CANCEL|$DIALOG_ESC)	clear
+				report_msg "$0" "Cancelled. Good bye."
+				exit 0
+				;;
+		$SIG_TERM)	abort_dlg "$_RC_ERROR"
+				return "$SIG_TERM"
+				;;
+		*)		return "$1"
+				;;
+	esac
+}
+
+# check for amuled
+if ! is_running "amuled_(-f)" "$_backtitle"; then
+	report_msg "$0" "Amuled not running. Aborted."
+	exit 1
+fi
+
+get_term_size _H _W
+IFS=$'\n'
+# get and format interesting information, store in arrays
+declare -a _AMC_output=( $("$_AMC" -h "$_host" -c "$_AMC_command" |grep ">") )
+if (( ${#_AMC_output[@]} == 0 )); then
+	abort_dlg "Error: couldn't get any download.\Are we downloading something?"
+	clear
+	exit 1
+fi
+declare -a _hashes
+declare -a _names
+i=0
+j=0
+while (( j < ${#_AMC_output[@]} )); do
+	_hashes[$i]=${_AMC_output[$j]# > }; _hashes[$i]=${_hashes[$i]%% *}
+	_names[$i]=${_AMC_output[$j]# > ${_hashes[$i]} }
+	(( j += 2 ))
+	(( i++ ))
+done
+unset _AMC_output
+
+# calculate values and format dialog string
+#
+IFS=":"
+i=0
+_str=
+while (( i < ${#_hashes[@]} )); do
+	# trim the file name to 1/2 the screen size and add speed
+	_str="$_str:${_hashes[$i]}:${_names[$i]:0:$(( _W/2 ))}:off"
+	(( i++ ))
+done
+# strip leading ":" from _str
+_str=${_str#:}
+unset _hashes _names
+
+$DIALOG --clear --no-tags --backtitle "$_backtitle" \
+	--checklist "Select the download to cancel.\nMore than one can be selected." $(((_H*4)/5)) $(((_W*4)/5)) \
+	$((_H/2)) $_str 2> "$_tempfile"
+check_rc $?
+
+IFS=" "
+_result=( $(cat "$_tempfile") )
+if (( ${#_result[@]} == 0 )); then
+	clear
+	report_msg "$0" "No file selected. Do nothing"
+	exit 0
+fi
+
+clear
+i=0
+while (( i < ${#_result[@]} )); do
+	"$_AMC" -h "$_host" -c "cancel ${_result[$i]}"
+	report_msg "$0" "Canceled HASH: ${_result[$i]}"
+	(( i++ ))
+done

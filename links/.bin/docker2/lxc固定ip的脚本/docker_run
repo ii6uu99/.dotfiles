@@ -1,0 +1,21 @@
+#!/bin/bash -
+if [ $# -ne "3" ]
+then
+    echo
+    echo "Usage:docker_run [IP] [IMAGE] [HOSTNAME]"
+    echo "example: docker_run 100 redis:latest redis"
+    echo "creates a container with ip 172.16.169.100 and hostname redis"
+    echo
+    exit 1
+fi
+
+docker run \
+--net="none" \
+--lxc-conf="lxc.network.type = veth" \
+--lxc-conf="lxc.network.ipv4 = 172.16.169.$1/24" \
+--lxc-conf="lxc.network.ipv4.gateway = 172.16.169.131" \
+--lxc-conf="lxc.network.link = br0" \
+--lxc-conf="lxc.network.name = eth0" \
+--lxc-conf="lxc.network.flags = up" \
+--hostname="$3" \
+-d $2
