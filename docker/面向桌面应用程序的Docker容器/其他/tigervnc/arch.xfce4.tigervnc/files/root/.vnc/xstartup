@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# ~/.vnc/xstartup
+#
+# Executed by vnc
+
+# if [ -d /etc/X11/xinit/xinitrc.d ]; then
+#   for f in /etc/X11/xinit/xinitrc.d/*; do
+#     [ -x "$f" ] && . "$f"
+#   done
+#   unset f
+# fi
+
+# exec gnome-session
+# exec startkde
+# exec startxfce4
+# ...or the Window Manager of your choice
+
+export XKL_XMODMAP_DISABLE=1
+export $(dbus-launch)
+exec startxfce4
+

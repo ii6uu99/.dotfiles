@@ -1,0 +1,20 @@
+[Desktop Entry]
+Hidden=false
+Exec=enlightenment_filemanager %U
+Icon=/usr/share/icons/Humanity/places/64/folder-home.svg
+Type=Application
+NoDisplay=false
+Version=1.0
+MimeType=inode/directory;
+StartupNotify=false
+StartupWMClass=e_fm
+GenericName[en_US]=
+Comment=File Manager provided by Enlightenment
+DBusActivatable=false
+Categories=FileManager;Utility;Core;System;FileTools;
+Terminal=false
+Name=Enlightenment File Manager
+GenericName=
+Icon[en_US]=/usr/share/icons/Humanity/places/64/folder-home.svg
+Name[en_US]=Enlightenment File Manager
+Comment[en_US]=File Manager provided by Enlightenment

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Load profile
+for file in "/etc/profile" "$HOME/.profile" "/etc/xprofile" "$HOME/.xprofile" "/etc/zprofile"; do
+    if [ -r "$file" ]; then
+        if [ "$PS1" ]; then
+            echo "Loading profile from $file";
+            . "$file"
+        else
+            . "$file" >/dev/null 2>&1
+        fi
+    fi
+done
+unset file
+
+# lang
+export LANG="ja_JP.UTF-8"
+
+# fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+
+source /etc/xdg/xfce4/xinitrc
+

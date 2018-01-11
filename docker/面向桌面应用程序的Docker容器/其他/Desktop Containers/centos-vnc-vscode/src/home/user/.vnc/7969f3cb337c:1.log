@@ -1,0 +1,43 @@
+
+Xvnc TigerVNC 1.3.1 - built Nov 16 2016 13:38:44
+Copyright (C) 1999-2011 TigerVNC Team and many others (see README.txt)
+See http://www.tigervnc.org for information on TigerVNC.
+Underlying X server release 11702000, The X.Org Foundation
+
+
+Sat Jan 28 12:12:53 2017
+ vncext:      VNC extension running!
+ vncext:      Listening for VNC connections on all interface(s), port 5901
+ vncext:      created VNC server for screen 0
+/usr/bin/startxfce4: X server already running on display :1
+xfce4-session: No SSH authentication agent found
+gpg-agent[64]: directory `/home/user/.gnupg' created
+gpg-agent[64]: directory `/home/user/.gnupg/private-keys-v1.d' created
+gpg-agent[69]: gpg-agent (GnuPG) 2.0.22 started
+
+(xfce4-session:38): xfce4-session-WARNING **: xfsm_manager_load_session: Something wrong with /home/user/.cache/sessions/xfce4-session-7969f3cb337c:1, Does it exist? Permissions issue?
+
+(xfsettingsd:78): libxfce4ui-WARNING **: Unable to open "/etc/xdg/autostart/xfsettingsd.desktop"
+xfwm4-Message: Another Window Manager (unknown) is already running on screen :1.0
+xfwm4-Message: To replace the current window manager, try "--replace"
+
+(xfwm4:71): xfwm4-WARNING **: Could not find a screen to manage, exiting
+
+(xfce4-session:38): xfce4-session-WARNING **: Unable to launch "/usr/share/code-insiders/code-insiders" (specified by autostart/Visual Studio Code.desktop): Failed to execute child process "/usr/share/code-insiders/code-insiders" (No such file or directory)
+
+** (xfdesktop:90): WARNING **: xfdesktop: already running, quitting.
+
+(xfce4-panel:79): xfconf-WARNING **: Failed to set property "xfce4-panel::/plugins/plugin-2/items": Permission denied while modifying property "/plugins/plugin-2/items" on channel "xfce4-panel"
+
+(xfce4-panel:79): GLib-GObject-WARNING **: gsignal.c:3182: signal id '19' does not support detail (881)
+
+Sat Jan 28 12:13:05 2017
+ Connections: accepted: 104.198.168.67::56733
+ SConnection: Client needs protocol version 3.8
+ SConnection: Client requests security type VncAuth(2)
+
+Sat Jan 28 12:13:07 2017
+ VNCSConnST:  Server default pixel format depth 16 (16bpp) little-endian rgb565
+
+Sat Jan 28 12:13:08 2017
+ VNCSConnST:  Client pixel format depth 24 (32bpp) little-endian rgb888

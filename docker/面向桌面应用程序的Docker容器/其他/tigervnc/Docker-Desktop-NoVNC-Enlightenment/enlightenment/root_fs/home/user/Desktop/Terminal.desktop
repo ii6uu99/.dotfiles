@@ -1,0 +1,23 @@
+[Desktop Entry]
+#Encoding=UTF-8
+Type=Application
+Name=Terminal
+Name[ko]=터미놀로지
+#GenericName=Terminal
+#GenericName[eo]=Terminalo
+#GenericName[it]=Terminale
+#GenericName[ru]=Терминал
+#GenericName[ko]=터미널
+Comment=Terminal emulator
+Comment[eo]=Terminalimitilo
+Comment[es]=Emulador de terminal
+Comment[gl]=Emulador de terminal
+Comment[it]=Emulatore di terminale
+Comment[pt]=Emulador de terminal
+Comment[ru]=Эмулятор терминала
+Comment[ko]=터미널 에뮬레이터
+Keywords=shell;prompt;command;commandline;
+Exec=terminology
+Icon=terminology
+Categories=System;TerminalEmulator;
+StartupWMClass=terminology

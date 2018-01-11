@@ -1,0 +1,10 @@
+#!/bin/sh
+
+xrdb $HOME/.Xresources
+xsetroot -solid grey
+x-terminal-emulator -geometry 80×24+10+10 -ls -title “$VNCDESKTOP Desktop” &
+#三个窗口管理器
+#x-window-manager &   
+#gnome-session &
+xfce4-session &
+scim -d   #打开scim输入法

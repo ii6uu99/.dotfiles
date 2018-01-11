@@ -1,0 +1,96 @@
+server {
+    listen 80 default_server;
+#listen [::]:6080 default_server ipv6only=on;
+
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    location / {
+        try_files $uri @proxy;
+    }
+
+    location = / {
+        try_files $uri @proxy2;
+    }
+
+    location = /redirect.html {
+        try_files $uri @proxy2;
+    }
+
+    location @proxy2 {
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:6079;
+        max_ranges 0;
+    }
+
+    location @proxy {
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:6081;
+        max_ranges 0;
+    }
+
+    location = /websockify {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_pass http://127.0.0.1:6081;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+        proxy_buffering off;
+    }
+}
+
+server {
+	listen 443 ssl default_server;
+#listen [::]:6080 default_server ipv6only=on;
+
+	root /usr/share/nginx/html;
+	index index.html index.htm;
+
+    include snippets/ssl-params.conf;
+    ssl_certificate /ssl/No.VNC.crt.pem;
+    ssl_certificate_key /ssl/No.VNC.key.pem;
+    ssl_session_timeout 5m;
+
+    location / {
+        try_files $uri @proxy;
+    }
+
+    location = / {
+        try_files $uri @proxy2;
+    }
+
+    location = /redirect.html {
+        try_files $uri @proxy2;
+    }
+
+    location @proxy2 {
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:6079;
+        max_ranges 0;
+    }
+
+    location @proxy {
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $host;
+        proxy_pass http://127.0.0.1:6081;
+        max_ranges 0;
+    }
+
+    location = /websockify {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_pass http://127.0.0.1:6081;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+        proxy_buffering off;
+    }
+}

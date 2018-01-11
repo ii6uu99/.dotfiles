@@ -1,0 +1,5 @@
+[Default Applications]
+x-scheme-handler/http=firefox-esr.desktop
+x-scheme-handler/https=firefox-esr.desktop
+application/x-desktop=vim.desktop
+x-scheme-handler/terminal=terminology.desktop

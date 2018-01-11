@@ -1,0 +1,13 @@
+[Desktop Entry]
+Hidden=false
+X-Enlightenment-Type=Mount
+Icon=/usr/share/icons/Humanity/places/64/folder-download.svg
+Type=Link
+NoDisplay=false
+Version=1.0
+Comment=The Directory containing all your personal files
+DBusActivatable=false
+URL=file:$HOME/Downloads
+Name=Downloads
+GenericName=
+NotShowIn=GNOME;KDE;LXDE;ROX;XFCE;

@@ -1,0 +1,24 @@
+<!DOCTYPE Menu
+  PUBLIC '-//freedesktop//DTD Menu 1.0//EN'
+  'http://standards.freedesktop.org/menu-spec/menu-1.0.dtd'>
+<Menu>
+	<Name>Applications</Name>
+	<MergeFile type="parent">/etc/xdg/menus/mate-applications.menu</MergeFile>
+	<Menu>
+		<Name>Multimedia</Name>
+		<Exclude>
+			<Filename>mate-volume-control.desktop</Filename>
+		</Exclude>
+		<AppDir>/home/ubuntu/.local/share/applications</AppDir>
+	</Menu>
+	<Menu>
+		<Name>System</Name>
+		<Exclude>
+			<Filename>mate-power-statistics.desktop</Filename>
+		</Exclude>
+		<AppDir>/home/ubuntu/.local/share/applications</AppDir>
+		<Exclude>
+			<Filename>mate-panel.desktop</Filename>
+		</Exclude>
+	</Menu>
+</Menu>

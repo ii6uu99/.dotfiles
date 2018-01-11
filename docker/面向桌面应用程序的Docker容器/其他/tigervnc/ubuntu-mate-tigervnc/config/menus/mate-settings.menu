@@ -1,0 +1,35 @@
+<!DOCTYPE Menu
+  PUBLIC '-//freedesktop//DTD Menu 1.0//EN'
+  'http://standards.freedesktop.org/menu-spec/menu-1.0.dtd'>
+<Menu>
+	<Name>Desktop</Name>
+	<MergeFile type="parent">/etc/xdg/menus/mate-settings.menu</MergeFile>
+	<Menu>
+		<Name>Preferences</Name>
+		<Exclude>
+			<Filename>language-selector.desktop</Filename>
+		</Exclude>
+		<AppDir>/home/ubuntu/.local/share/applications</AppDir>
+		<Exclude>
+			<Filename>gufw.desktop</Filename>
+		</Exclude>
+		<Exclude>
+			<Filename>mate-power-preferences.desktop</Filename>
+		</Exclude>
+		<Exclude>
+			<Filename>blueman-manager.desktop</Filename>
+		</Exclude>
+		<Exclude>
+			<Filename>nm-connection-editor.desktop</Filename>
+		</Exclude>
+		<Exclude>
+			<Filename>mate-network-properties.desktop</Filename>
+		</Exclude>
+		<Exclude>
+			<Filename>mate-volume-control.desktop</Filename>
+		</Exclude>
+		<Exclude>
+			<Filename>software-properties-drivers.desktop</Filename>
+		</Exclude>
+	</Menu>
+</Menu>

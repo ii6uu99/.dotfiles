@@ -1,0 +1,21 @@
+https://github.com/lihebi/arch-desktop.git
+自述
+这是一个包含我需要的所有桌面包的容器。
+
+运行容器：
+
+docker run -d -p 5901：5901 -p 5902：5902 lihebi / arch-desktop
+然后等一下，通过连接
+
+＃为stumpwm会话
+vncviewer localhost：1
+#lxde会话
+vncviewer localhost：1
+容器可以停止并重新启动。
+
+码头停车<名称>
+docker start <name>
+你可以进入容器
+
+码头附加<名称>
+并通过分离键（Cp Cp）（C- C- C-）分离

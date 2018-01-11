@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# ENV CONF_VNC_REMOTE 146.148.76.226:5901
+# ENV CONF_VNC_HTTP_PORT 6901
+
+./utils/launch.sh --listen $CONF_VNC_HTTP_PORT --vnc $CONF_VNC_REMOTE
