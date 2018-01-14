@@ -1,5 +1,8 @@
 #deepin配置阿里云镜像源
-echo -e "deb [by-hash=force] http://mirrors.aliyun.com/deepin unstable main contrib non-free \ndeb-src http://mirrors.aliyun.com/deepin unstable main contrib non-free" | sudo tee /etc/apt/sources.list
+sudo tee /etc/apt/sources.list <<-'EOF'
+deb [by-hash=force] http://mirrors.aliyun.com/deepin unstable main contrib non-free 
+deb-src http://mirrors.aliyun.com/deepin unstable main contrib non-free
+EOF
 
 #升级
 sudo apt-get update

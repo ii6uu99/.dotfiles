@@ -1,11 +1,15 @@
 #!/bin/bash
+#Could not stat device htop
 
-#deepin更新阿里云源
-echo -e "deb [by-hash=force] http://mirrors.aliyun.com/deepin unstable main contrib non-free \ndeb-src http://mirrors.aliyun.com/deepin unstable main contrib non-free" | sudo tee /etc/apt/sources.list
+
+sudo tee /etc/apt/sources.list <<-'EOF'
+deb [by-hash=force] http://mirrors.aliyun.com/deepin unstable main contrib non-free 
+deb-src http://mirrors.aliyun.com/deepin unstable main contrib non-free
+EOF
 
 #更新系统和升级系统
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get update -y
+sudo apt-get upgrade -y
 
 #安装txt中的软件
 #sudo apt-get install -y $(grep -vE "^\s*#" $HOME/dotfiles/install-apt  | tr "\n" " ")
@@ -19,7 +23,7 @@ gparted htop pinta
 
 
 ###### 获取所需的主要包
-sudo apt-get install \
+sudo apt-get install -y \
 zsh vim vim-gtk git tig colordiff \
 texlive-full rubber tmux \
 make make-doc cmake-curses-gui \
@@ -98,6 +102,7 @@ vim +BundleInstall +qall
 #设置zsh为默认shell
 #sudo chsh -s /bin/zsh `whoami`
 chsh -s /bin/zsh $(whoami)
+#chsh -s /bin/bash $(whoami)
 
 
 
