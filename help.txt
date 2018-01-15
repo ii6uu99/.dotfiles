@@ -143,6 +143,9 @@ sudo apt-get install docker-engine
 出错
 
 
+vagrant box下载地址
+http://www.vagrantbox.es
+
 
 
 Vagrant box国内镜像及本地安装教程
