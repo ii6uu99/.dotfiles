@@ -145,7 +145,8 @@ sudo apt-get install docker-engine
 
 vagrant box下载地址
 http://www.vagrantbox.es
-
+官方搜索
+https://app.vagrantup.com/boxes/search
 
 
 Vagrant box国内镜像及本地安装教程
