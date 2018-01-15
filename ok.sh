@@ -129,6 +129,7 @@ chmod -R 750 $HOME/.dotfiles/links/.bin
 source $HOME/.bashrc
 
 #deepin安装蓝灯
+#https://github.com/getlantern/lantern
 sudo apt-get install libappindicator3-1
 
 #定时备份git，cron启动
