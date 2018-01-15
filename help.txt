@@ -145,6 +145,28 @@ sudo apt-get install docker-engine
 
 
 
+Vagrant box国内镜像及本地安装教程
+发表回复
+Vagrant是非常好的本地开发环境搭建工具。通常使用官方下载都会比较慢，而国内box下载地址较少，所以我特别下载了几个传到百度网盘。
+
+Vagrant box的百度网盘下载地址
+Vagrant box Ubuntu 16.04 百度网盘下载地址
+https://pan.baidu.com/s/1kVlAz59
+
+Vagrant box Centos 7 百度网盘下载地址
+http://pan.baidu.com/s/1gfNCud1
+
+Vagrant box Debian 8 百度网盘下载地址
+http://pan.baidu.com/s/1mhAuONu
+
+下载后的使用方法
+添加vagrant box到box list
+vagrant box add centos7 CentOS-7.box
+初始化一个虚拟机使用刚才添加的vagrant box
+vagrant init centos7
+启动vagrant box虚拟机
+vagrant up
+
 
 
 
