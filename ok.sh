@@ -128,6 +128,8 @@ echo "export PATH=$HOME/.dotfiles/links/.bin:$PATH" >> $HOME/.bashrc
 chmod -R 750 $HOME/.dotfiles/links/.bin
 source $HOME/.bashrc
 
+#deepin安装蓝灯
+sudo apt-get install libappindicator3-1
 
 #定时备份git，cron启动
 bash /home/ming/.dotfiles/script/auto-git.sh
