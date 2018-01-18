@@ -1,0 +1,12 @@
+1.Linux客户端
+安装spice
+yum install virt-viewer
+连接远程虚拟机
+#remote-viewer spice://IP:PORT
+remote-viewer spice://127.0.0.1:5902
+
+#virt-viewer Domain
+virt-viewer cos_v1
+
+
+docker run -p 8081：8080 -e "EXTENSIONS = auth-ldap，auth-duo,auth-header" oznu/guacamole
