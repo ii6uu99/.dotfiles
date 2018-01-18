@@ -1,1 +1,1 @@
-cd ~ && sudo apt-get install git && sudo git clone https://github.com/ii6uu99/.dotfiles.git && sudo bash ~/.dotfiles/ok.sh
+cd ~ && sudo apt-get install git && git clone https://github.com/ii6uu99/.dotfiles.git && bash ~/.dotfiles/ok.sh
