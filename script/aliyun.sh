@@ -13,6 +13,8 @@ sudo apt-get purge docker-engine -y
 sudo apt-get autoremove --purge docker-engine -y
 sudo rm -rf /var/lib/docker
 
+sudo apt-get install curl
+
 
 ####安装docker
 
