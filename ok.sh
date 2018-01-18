@@ -131,6 +131,7 @@ source $HOME/.bashrc
 #https://github.com/getlantern/lantern
 sudo apt-get install libappindicator3-1
 
+#安装docker
 bash $HOME/.dotfiles/script/aliyun.sh
 
 #定时备份git，cron启动
