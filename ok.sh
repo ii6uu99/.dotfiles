@@ -15,10 +15,9 @@ sudo apt-get upgrade -y
 #sudo apt-get install -y $(grep -vE "^\s*#" $HOME/dotfiles/install-apt  | tr "\n" " ")
 
 #安装dotfile必备的软件
-sudo apt-get install -y --no-install-recommends \
-curl wget tmux vim  zsh git \
-xclip \   #复制工具
-gparted htop pinta 
+#xclip复制工具
+sudo apt-get install -y --no-install-recommends curl wget tmux vim  zsh git xclip 
+
 
 
 

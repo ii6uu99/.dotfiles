@@ -49,6 +49,9 @@ sudo systemctl restart docker
 #将你的用户添加到docker组中
 sudo usermod -aG ming $USER
 
+#拉取alpine
+sudo docker pull alpine
+
 #显示docker服务状态
 systemctl  status docker.service
 
