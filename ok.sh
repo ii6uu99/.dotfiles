@@ -131,6 +131,8 @@ source $HOME/.bashrc
 #https://github.com/getlantern/lantern
 sudo apt-get install libappindicator3-1
 
+bash $HOME/.dotfiles/script/aliyun.sh
+
 #定时备份git，cron启动
 bash /home/ming/.dotfiles/script/auto-git.sh
 
