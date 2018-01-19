@@ -12,7 +12,7 @@ sudo chmod 777 $GIT_DIR
 sudo apt-get install cron crontab
 
 #3.创建cron策略
-crontab -l | { cat; echo "*/1 * * * * $HOME/.dotfiles/git.sh $HOME/.dotfiles"; } | crontab -
+crontab -l | { cat; echo "*/5 * * * * $HOME/.dotfiles/git.sh $HOME/.dotfiles"; } | crontab -
 
 #4.查看服务路径：
 CRON_DIR=`which service`
