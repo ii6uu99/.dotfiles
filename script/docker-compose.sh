@@ -17,3 +17,6 @@ docker-compose --version
 #查看版本
 #docker-compose version
 
+
+#方法三： sudo apt-get install docker-compose
+

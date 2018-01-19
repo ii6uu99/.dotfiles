@@ -143,6 +143,12 @@ sudo apt-get install libappindicator3-1
 #安装docker
 bash $HOME/.dotfiles/script/aliyun.sh
 
+#安装docker-compose
+sudo apt-get install docker-compose
+
+#安装docker-machine
+#http://blog.csdn.net/gsls200808/article/details/52732632
+
 #定时备份git，cron启动
 bash /home/ming/.dotfiles/script/auto-git.sh
 
