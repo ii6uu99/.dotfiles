@@ -65,6 +65,15 @@ fi
 ##链接
 #############################################
 
+
+#删除文件
+cd $HOME
+rm -f .bashrc
+rm -f .zshrc
+rm -f .tmux
+rm -f .vimrc
+
+
 #路径变量
 dotfiles_dir=$HOME/.dotfiles
 
@@ -94,9 +103,6 @@ done
 git submodule update --init
 git submodule foreach git pull origin master
 
-
-#vim升级插件
-vim +BundleInstall +qall
  
 #设置zsh为默认shell
 #sudo chsh -s /bin/zsh `whoami`
@@ -112,6 +118,9 @@ fi
 vim +PluginUpdate +qa
 
 vim +GoInstallBinaries +qa
+
+#vim升级插件
+vim +BundleInstall +qall
 
 ## 安装脚本docker and docker-compose
 sudo apt-get install curl
