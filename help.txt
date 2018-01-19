@@ -172,6 +172,8 @@ vagrant init centos7
 vagrant up
 
 
+git clone 下载制定仓库的github
+git clone -b 仓库名 https://github.com/tukiyo/docker-xrdp.git
 
 
 
