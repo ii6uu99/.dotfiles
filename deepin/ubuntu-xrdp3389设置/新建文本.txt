@@ -1,0 +1,10 @@
+https://github.com/moby/moby
+
+33333333ubuntu novnc
+https://github.com/mortiz/docker_ubuntu_novnc.git
+
+1111111jinchengguanli
+https://github.com/mortiz/docker-ubuntu-supervisor
+
+2222222xrdp  Ubuntu 16.04(Xenial Xerus)
+https://github.com/mortiz/docker-ubuntu-xrdp
