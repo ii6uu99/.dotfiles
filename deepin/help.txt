@@ -18,3 +18,5 @@ sudo apt-get install dde
 已经包含什么 deepin 音乐 和 deepin 影院什么的了
 
 http://www.lupaworld.com/article-228503-1.html
+
+sudo docker pull ubuntu:17.10
