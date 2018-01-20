@@ -1,20 +1,20 @@
-apt-get install sudo -y
+
 #deepin配置阿里云镜像源
-sudo tee /etc/apt/sources.list <<-'EOF'
+tee /etc/apt/sources.list <<-'EOF'
 deb [by-hash=force] http://mirrors.aliyun.com/deepin unstable main contrib non-free 
 deb-src http://mirrors.aliyun.com/deepin unstable main contrib non-free
 EOF
 
 #升级
-sudo apt-get update
+apt-get update
 
 #卸载Docker包
 
-sudo apt-get purge docker-engine -y
-sudo apt-get autoremove --purge docker-engine -y
-sudo rm -rf /var/lib/docker
+apt-get purge docker-engine -y
+apt-get autoremove --purge docker-engine -y
+rm -rf /var/lib/docker
 
-sudo apt-get install curl
+apt-get install curl
 
 ####安装docker
 
@@ -39,20 +39,20 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/mas
 
 #通过修改daemon配置文件/etc/docker/daemon.json来使用加速器：
 
-sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json <<-'EOF'
+mkdir -p /etc/docker
+tee /etc/docker/daemon.json <<-'EOF'
 {
   "registry-mirrors": ["https://r2t47usc.mirror.aliyuncs.com"]
 }
 EOF
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+systemctl daemon-reload
+systemctl restart docker
 
 #将你的用户添加到docker组中
-sudo usermod -aG ming $USER
+usermod -aG ming $USER
 
 #拉取alpine
-sudo docker pull alpine
+docker pull alpine
 
 #显示docker服务状态
 systemctl  status docker.service
