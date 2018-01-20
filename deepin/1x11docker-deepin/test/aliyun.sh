@@ -8,13 +8,7 @@ EOF
 #升级
 apt-get update
 
-#卸载Docker包
-
-apt-get purge docker-engine -y
-apt-get autoremove --purge docker-engine -y
-rm -rf /var/lib/docker
-
-apt-get install curl
+apt-get install curl -y
 
 ####安装docker
 
