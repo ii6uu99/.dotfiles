@@ -23,3 +23,50 @@ sudo docker pull ubuntu:17.10
 
 deb http://ppa.launchpad.net/leaeasy/dde/ubuntu artful main 
 deb-src http://ppa.launchpad.net/leaeasy/dde/ubuntu artful main 
+
+教程
+http://blog.csdn.net/sxs11/article/details/78594644
+
+
+安装xrdp
+        sudo apt-get install xrdp
+安装vnc4server
+         sudo apt-get install vnc4server
+安装xubuntu-desktop
+sudo apt-get install xubuntu-desktop
+向xsession中写入xfce4-session
+echo "xfce4-session" >~/.xsession
+开启xrdp服务
+sudo service xrdp restart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
