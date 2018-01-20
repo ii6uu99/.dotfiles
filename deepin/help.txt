@@ -12,11 +12,28 @@ https://launchpad.net/~leaeasy/+archive/ubuntu/dde
 我这里就复制一下~~~~ 
 执行一下命令就可以啦 
 sudo add-apt-repository ppa:leaeasy/dde 
-sudo apt-get update 
+sudo apt-get update
 sudo apt-get install dde
 
 已经包含什么 deepin 音乐 和 deepin 影院什么的了
 
+------------------------------
+FROM ubuntu:17.10
+sudo add-apt-repository ppa:leaeasy/dde 
+sudo apt-get update
+sudo apt-get install xrdp vnc4server dde
+echo "dde-session" >~/.xsession
+sudo service xrdp restart
+
+----------------------------------
+FROM ubuntu:17.10
+add-apt-repository ppa:leaeasy/dde 
+apt-get update
+apt-get install xrdp vnc4server dde
+echo "dde-session" >~/.xsession
+service xrdp restart
+
+---------------------------------
 http://www.lupaworld.com/article-228503-1.html
 
 sudo docker pull ubuntu:17.10
