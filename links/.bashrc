@@ -6,6 +6,16 @@
 alias font-refresh="fc-cache -fv"
 alias gc='git clone '
 
+#alpine-docker-compose
+docker-compose () {
+  DIRNAME=$"$(basename \"$PWD\")"
+  docker run --rm -it \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    -w "/$DIRNAME" -v "$PWD":"/$DIRNAME":ro \
+    wernight/docker-compose "$@"
+}
+
+
 ##从YouTube下载mp3，这实际上是非法的
 alias ytmp3="youtube-dl --extract-audio --audio-format mp3"
 
