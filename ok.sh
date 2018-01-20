@@ -19,6 +19,11 @@ sudo apt-get upgrade -y
 sudo apt-get install -y --no-install-recommends curl wget tmux vim  zsh git xclip 
 
 
+#安装Flash Player
+sudo apt-get install pepperflashplugin-nonfree
+
+#安装多媒体解码
+sudo apt-get install ubuntu-restricted-extras
 
 
 ###### 获取所需的主要包
