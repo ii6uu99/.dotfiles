@@ -27,7 +27,7 @@ RUN echo "Asia/Shanghai" | tee /etc/timezone \
   && dpkg-reconfigure --frontend noninteractive tzdata
 
 # 中文字体
-RUN apt-get install -y fonts-arphic-uming
+RUN apt-get install -y fonts-arphic-uming sudo
 
 # 添加具有免密码sudo权限的普通用用户,chpasswd这项是修改密码的
 RUN useradd ming --shell /bin/bash --create-home \
