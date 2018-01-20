@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# source common script to set environment
+. "$(dirname "$0")/common"
+
+# pull latest images
+"$compose_bin" -f "$project_root/docker-compose.yml" pull ${1}

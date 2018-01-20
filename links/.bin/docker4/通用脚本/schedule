@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ "$(id -u)" != "0" ]; then
+	echo "This script must be run as root" 1>&2
+	exit 1
+fi
+
+# source common script to set environment
+. "$(dirname "$0")/common"
+
+# install cron file while replacing the project root dir
+sed "s|#PROJECT_ROOT#|$project_root|g" "$project_root/$project_name.cron" > "/etc/cron.d/$project_name"
+
+# set permissions
+chmod 644 "/etc/cron.d/$project_name"
+chown root:root "/etc/cron.d/$project_name"

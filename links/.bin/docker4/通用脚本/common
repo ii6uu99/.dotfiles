@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+docker_bin="/usr/bin/docker"
+[ -x "$docker_bin" ] || docker_bin="$(which docker | head -n1)" 
+if [ ! -x "$docker_bin" ] 
+then
+	echo "docker not found in path" 1>&2
+	exit 1
+else
+	export docker_bin
+	"$docker_bin" --version
+fi
+
+compose_bin="/usr/local/bin/docker-compose"
+[ -x "$compose_bin" ] || compose_bin="$(which docker-compose | head -n1)" 
+if [ ! -x "$compose_bin" ] 
+then
+	echo "docker-compose not found in path" 1>&2
+	exit 1
+else
+	export compose_bin
+	"$compose_bin" --version
+fi
+
+abs_root() { echo "$(cd "$(dirname "${1}")" && pwd)"; }
+project_root="$(abs_root "$(abs_root "$0")")"
+project_name="$(basename "$project_root")"

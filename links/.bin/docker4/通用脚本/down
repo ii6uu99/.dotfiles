@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# source common script to set environment
+. "$(dirname "$0")/common"
+
+# compose up (recreate if required, no build, remove orphans, disconnected)
+"$compose_bin" -f "$project_root/docker-compose.yml" down ${1}
