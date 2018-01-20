@@ -1,0 +1,18 @@
+如何在 ubuntu 安装 deepin 的桌面环境
+原创 2017年02月06日 23:31:16 标签：ubuntu /deepin /桌面环境 6431
+装了一下 deepin 15.3 系统，感觉焕然一新，无奈deepin 15.3 在我的电脑上水土不服，动不动就死机，崩溃，进不了桌面。。。可能是不兼容 6代 Intel CPU 所致。。。没办法。。。只能继续用 ubuntu 了
+
+官方已经给出了 ubuntu 安装 deepin 的桌面环境的办法了，可惜太不明显了。。。 
+按照网上的老教程被折腾死了。。。
+
+官方链接： 
+https://www.deepin.org/dde/desktop-transplantation/ 
+https://launchpad.net/~leaeasy/+archive/ubuntu/dde
+
+我这里就复制一下~~~~ 
+执行一下命令就可以啦 
+sudo add-apt-repository ppa:leaeasy/dde 
+sudo apt-get update 
+sudo apt-get install dde
+
+已经包含什么 deepin 音乐 和 deepin 影院什么的了
