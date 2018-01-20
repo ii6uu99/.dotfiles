@@ -15,3 +15,10 @@ docker run -d -P -p 3489:3389 \
                  -v /home/docker/container/test/home:/home/dev \
                  --name devuan-rdp \
                  debitux/devuan-rdp
+
+
+docker run -d -P -p 3489:3389 \
+                 -v /home/docker/repo:/home/dev/repo \
+                 -v /home/docker/container/test/home:/home/dev \
+                 --name devuan \
+                 debitux/devuan-rdp
