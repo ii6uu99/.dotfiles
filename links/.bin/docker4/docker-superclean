@@ -1,0 +1,22 @@
+#!/bin/bash
+#清除任何停止的容器或陈旧的图像
+# Author: Joe Block <jpb@unixorn.net>
+# License: Apache 2 (See LICENSE file)
+
+echo "Cleaning stale containers"
+CONTAINER_LIST=$(docker ps -a -q)
+if [ -n "${CONTAINER_LIST}" ]; then
+  docker rm ${CONTAINER_LIST}
+else
+  echo "No stale containers to clean up"
+fi
+
+echo "Cleaning stale images"
+IMAGE_LIST=$(docker images -q -f dangling=true)
+if [ -n "${IMAGE_LIST}" ]; then
+  docker rmi ${IMAGE_LIST}
+else
+  echo "No stale images to clean"
+fi
+
+docker images | grep "<none>" | awk '{print $3}' | xargs docker rmi
