@@ -8,7 +8,7 @@ EOF
 #升级
 apt-get update
 
-apt-get install curl -y
+apt-get install curl bash -y
 
 ####安装docker
 
@@ -20,7 +20,7 @@ apt-get install curl -y
 #curl -L https://raw.githubusercontent.com/rancher/install-docker/master/1.10.3.sh | sh
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/17.09.0.sh)"
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/17.03.0.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/rancher/install-docker/master/17.03.0.sh)"
 
 
 ######################添加阿里云加速器###################################
