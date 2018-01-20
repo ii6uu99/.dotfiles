@@ -20,3 +20,6 @@ sudo apt-get install dde
 http://www.lupaworld.com/article-228503-1.html
 
 sudo docker pull ubuntu:17.10
+
+deb http://ppa.launchpad.net/leaeasy/dde/ubuntu artful main 
+deb-src http://ppa.launchpad.net/leaeasy/dde/ubuntu artful main 
