@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in "${@:2}"; do
+    blih -u marc.perez@epitech.eu repository setacl $1 $i@epitech.eu rw
+    echo "SetACL" $i@epitech.eu
+done

@@ -1,0 +1,11 @@
+{
+  "load_extensions": {
+    "nbextensions_configurator/config_menu/main": true,
+    "contrib_nbextensions_help_item/main": true,
+    "collapsible_headings/main": true,
+    "toc2/main": true,
+    "freeze/main": true,
+    "init_cell/main": true,
+    "python-markdown/main": true
+  }
+}

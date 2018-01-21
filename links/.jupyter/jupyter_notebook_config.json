@@ -1,0 +1,8 @@
+{
+  "NotebookApp": {
+    "server_extensions": [
+      "jupyter_nbextensions_configurator"
+    ],
+    "browser": "/usr/bin/chromium"
+  }
+}
