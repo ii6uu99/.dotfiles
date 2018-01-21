@@ -40,7 +40,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 
-
+#免sudo使用docker命令
 #添加docker组
 sudo groupadd docker
 #将用户加入该 group 内。然后退出并重新登录就生效啦。
