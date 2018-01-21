@@ -51,6 +51,42 @@ alias speedtest='wget -O /dev/null http://speedtest.wdc01.softlayer.com/download
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 
+alias emacs="emacs -nw"
+alias ne="emacs -nw"
+alias sne="sudo emacs -nw"
+alias m='make debug; make clean'
+alias clean="find -name '#*#' -delete -o -name '*~' -delete"
+alias sclean="sudo find -name '#*#' -delete -o -name '*~' -delete"
+alias gRn="grep -Rn"
+alias gdb="gdb --silent"
+alias g+="g++ -W -Wall -Werror -Wextra *.cpp"
+alias c+="clang++ -W -Wall -Werror -Wextra *.cpp"
+alias g="gcc -W -Wall -Werror -Wextra *.c"
+
+alias indent_c='find . -iname \*.c -or -iname \*.h -exec emacs -nw -q {} --eval "(progn (mark-whole-buffer) (indent-region (point-min) (point-max) nil) (save-buffer))" --kill \;'
+alias indent_cpp='find . -iname \*.cpp -or -iname \*.hpp -exec emacs -nw -q {} --eval "(progn (mark-whole-buffer) (indent-region (point-min) (point-max) nil) (save-buffer))" --kill \;'
+
+count_char()
+{
+    echo -n "$*" | wc -c
+}
+
+highlight()
+{
+    perl -pe "s/$1/\e[1;31;43m$&\e[0m/g"
+}
+
+
+
+
+
+
+
+
+
+
+
+
 # git
 alias g="git"
 alias ga="git add"
