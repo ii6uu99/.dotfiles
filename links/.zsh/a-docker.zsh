@@ -141,3 +141,35 @@ d-run-i() { docker run -ti --rm $@; }
 #执行交互容器
 d-ex-i() { docker exec -ti $@; }
 
+
+# DOCKER
+#--------------------------------------------------------------------------------
+# 用于将UID和GID传递给“docker”或“docker-compose”的变量。
+export HOST_USER_UID=`id -u`
+export HOST_USER_GID=`id -g`
+
+# 作为`root`用户在当前目录内运行一个临时容器。
+alias docker-root-here='docker run --rm -it -v "$PWD":/work -w /work'
+
+# 作为当前用户在当前目录中运行一个临时容器。
+alias docker-here='docker-root-here -u `id -u`:`id -g`'
+
+# 为了开发目的运行具有提升特权的临时容器。
+alias docker-hack-here='docker-root-here --security-opt seccomp=unconfined'
+
+# 以当前用户的身份在容器中执行命令。
+alias docker-exec='docker exec -it -u `id -u`:`id -g`'
+
+# Tails the container `STDOUT`.
+alias docker-tail='docker logs -f --tail=100'
+
+
+
+
+
+
+
+
+
+
+
