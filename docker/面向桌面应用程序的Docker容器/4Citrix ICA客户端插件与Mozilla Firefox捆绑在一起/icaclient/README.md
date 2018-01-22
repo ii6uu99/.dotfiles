@@ -26,7 +26,7 @@ https://www.citrix.com/downloads/citrix-receiver/linux/receiver-for-linux-latest
 
 
 ```
-docker start icaclient || 
+docker start icaclient---------
 
 docker run -d --name icaclient \
 -e 'WEB_URL=https://github.com' desktopcontainers/icaclient
