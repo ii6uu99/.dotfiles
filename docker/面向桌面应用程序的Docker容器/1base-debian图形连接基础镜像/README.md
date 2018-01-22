@@ -76,3 +76,13 @@ APT_PROXY
 连接到容器。在VNC连接字符串中输入：
 
 "localhost:1"
+
+
+
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no \
+        -X app@$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' 镜像名)
+
+
+
+
+
