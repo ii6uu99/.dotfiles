@@ -17,6 +17,8 @@ ENV LANG=C.UTF-8 DEBIAN_FRONTEND=noninteractive
 run	apt-get install -y x11vnc xvfb firefox
 run	mkdir /.vnc
 # Setup a password
+echo "12345678" | vncpasswd -f >$HOME/.vnc/passwd
+chmod 600 $HOME/.vnc/passwd
 run	x11vnc -storepasswd 1234 ~/.vnc/passwd
 # Autostart firefox (might not be the best way to do it, but it does the trick)
 run	bash -c 'echo "startdde" >> /.bashrc'
