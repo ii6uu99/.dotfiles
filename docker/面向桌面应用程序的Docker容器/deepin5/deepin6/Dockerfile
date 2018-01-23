@@ -8,7 +8,7 @@ RUN \
 #更新系统和升级系统
 apt-get update -y &&\
 apt-get upgrade -yy &&\
-apt-get -y install lxterminal xrdp
+apt-get -y install lxterminal xrdp vnc4server x-window-system-core gnome-panel tightvncserver
 
 
 ENV LANG=C.UTF-8 DEBIAN_FRONTEND=noninteractive
