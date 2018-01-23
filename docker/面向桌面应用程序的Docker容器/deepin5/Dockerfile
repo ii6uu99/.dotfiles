@@ -54,6 +54,8 @@ RUN apt-get -q -y update \
 
 COPY scripts /usr/local/bin
 
+RUN chmod +x /usr/local/bin/scripts/entrypoint.sh
+
 RUN useradd -ms /usr/local/bin/app-sh.sh app \
  && su -l -s /bin/sh -c "mkdir -p ~/.config/autostart ~/Desktop" app
 
@@ -61,4 +63,4 @@ VOLUME ["/config"]
 
 EXPOSE 5901 80 443 22
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/scripts/entrypoint.sh"]
