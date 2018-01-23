@@ -1,6 +1,15 @@
-FROM debian:stretch   #debian9
+FROM x11docker/deepin
 
-MAINTAINER MarvAmBass (https://github.com/DesktopContainers)
+ADD source.sh /
+
+RUN chmod +x source.sh &&\
+    sh source.sh
+RUN \
+#更新系统和升级系统
+apt-get update -y &&\
+apt-get upgrade -yy &&\
+apt-get -y install lxterminal xrdp
+
 
 ENV LANG=C.UTF-8 DEBIAN_FRONTEND=noninteractive
 
@@ -14,7 +23,7 @@ RUN apt-get -q -y update \
                           openssh-server \
                           tigervnc-standalone-server \
                           \
-                          mate-desktop-environment \
+                          #mate-desktop-environment \
                           tmux \
  && apt-get -q -y clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \

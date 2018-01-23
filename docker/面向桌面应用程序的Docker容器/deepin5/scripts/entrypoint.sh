@@ -9,21 +9,7 @@ INITIALIZED="/.initialized"
 if [ ! -f "$INITIALIZED" ]; then
 	touch "$INITIALIZED"
 
-  echo ">> adding desktop files"
-cat <<EOF > /home/app/Desktop/mate-display-properties.desktop
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=Displays
-Comment=Change resolution and position of monitors and projectors
-Exec=mate-display-properties
-Icon=mate-preferences-desktop-display
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=GTK;Settings;HardwareSettings;
-Keywords=mate-control-center;MATE;resolution;position;monitors;display;properties;
-OnlyShowIn=MATE;
-EOF
+start
 
 if echo "$VNC_SCREEN_RESOLUTION" | grep 'x' 2>/dev/null >/dev/null; then
 echo ">> set default resolution to: $VNC_SCREEN_RESOLUTION"
