@@ -52,9 +52,9 @@ RUN apt-get -q -y update \
  && sed -i 's,^.*PermitEmptyPasswords .*,PermitEmptyPasswords yes,' /etc/ssh/sshd_config \
  && sed -i '1iauth sufficient pam_permit.so' /etc/pam.d/sshd
 
-COPY scripts /usr/local/bin
+ADD scripts /opt/scripts
 
-RUN chmod +x /usr/local/bin/scripts/entrypoint.sh
+#RUN chmod +x /scripts/entrypoint.sh
 
 RUN useradd -ms /usr/local/bin/app-sh.sh app \
  && su -l -s /bin/sh -c "mkdir -p ~/.config/autostart ~/Desktop" app
@@ -63,4 +63,6 @@ VOLUME ["/config"]
 
 EXPOSE 5901 80 443 22
 
-ENTRYPOINT ["/usr/local/bin/scripts/entrypoint.sh"]
+ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
+
+#CMD bash /scripts/entrypoint.sh
