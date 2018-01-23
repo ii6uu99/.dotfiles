@@ -54,7 +54,7 @@ RUN apt-get -q -y update \
 
 ADD scripts /opt/scripts
 
-#RUN chmod +x /scripts/entrypoint.sh
+RUN chmod u+x /opt/scripts/entrypoint.sh
 
 RUN useradd -ms /usr/local/bin/app-sh.sh app \
  && su -l -s /bin/sh -c "mkdir -p ~/.config/autostart ~/Desktop" app
