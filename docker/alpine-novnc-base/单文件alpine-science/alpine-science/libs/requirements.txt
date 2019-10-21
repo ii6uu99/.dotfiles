@@ -44,7 +44,7 @@ Flask-Classy==0.6.10
 jsonschema==2.5.1
 # ENV
 click==3.3
-ecdsa==0.13
+ecdsa==0.13.3
 pycrypto==2.6.1
 paramiko==1.15.2
 Fabric==1.10.1
