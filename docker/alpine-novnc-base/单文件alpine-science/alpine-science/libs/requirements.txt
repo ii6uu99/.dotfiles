@@ -38,7 +38,7 @@ msgpack-python==0.4.6
 locustio==0.7.2
 Flask-BasicAuth==0.2.0
 Flask-Bootstrap==3.3.0.1
-PyYAML==3.11
+PyYAML==5.4
 flasgger==0.5.2
 Flask-Classy==0.6.10
 jsonschema==2.5.1
