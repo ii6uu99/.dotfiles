@@ -25,7 +25,7 @@ PyMySQL==0.6.3
 MySQL-python==1.2.5
 Unidecode==0.4.16
 #API
-Werkzeug==0.10.4
+Werkzeug==0.15.3
 MarkupSafe==0.23
 Jinja2==2.8
 itsdangerous==0.24
