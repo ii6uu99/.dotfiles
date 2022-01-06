@@ -14,7 +14,7 @@ amqp==1.4.6
 anyjson==0.3.3
 kombu==3.0.26
 billiard==3.3.0.20
-celery==3.1.17
+celery==5.2.2
 urllib3==1.10.4
 elasticsearch==1.2.0
 elasticsearch-dsl==0.0.4
